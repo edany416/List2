@@ -28,31 +28,38 @@ class BulletPointTextView: UIView, UITextViewDelegate {
         
         notesTextView = UITextView(frame: CGRect(x: 0, y: 0, width: width, height: height))
         notesTextView.delegate = self
-        
+        notesTextView.font = UIFont.systemFont(ofSize: 17)
     
         self.addSubview(notesTextView)
     }
     
     private var isInBulletMode = false
+
     func textViewDidChange(_ textView: UITextView) {
-       
+        
     }
+    
+    private func beginBulletMode(for textView: UITextView) {
+        isInBulletMode = true
+        textView.insertText("\u{2022}")
+        
+        
+    }
+    
+    
     
     var previousRect = CGRect.zero
     private func lineBreakDidHappen(for textView: UITextView) -> Bool {
-        
         let pos = textView.endOfDocument
         let currentRect = textView.caretRect(for: pos)
-        previousRect = previousRect.origin.y == 0.0 ? currentRect : previousRect
         
+        previousRect = previousRect.origin.y == 0.0 ? currentRect : previousRect
         if(currentRect.origin.y > previousRect.origin.y){
             previousRect = CGRect.zero
             return true
         }
-        
         previousRect = currentRect
         
         return false
     }
-
 }
