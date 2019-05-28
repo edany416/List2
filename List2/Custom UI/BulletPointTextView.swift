@@ -27,28 +27,30 @@ class BulletPointTextView: UIView, UITextViewDelegate {
         let height = self.bounds.height
         
         notesTextView = UITextView(frame: CGRect(x: 0, y: 0, width: width, height: height))
-        notesTextView.delegate = self
+        notesTextView.layer.borderWidth = 1
+        notesTextView.layer.cornerRadius = 3
+        notesTextView.layer.borderColor = UIColor.lightGray.cgColor
         notesTextView.font = UIFont.systemFont(ofSize: 17)
-    
+        notesTextView.delegate = self
+        
         self.addSubview(notesTextView)
+        self.becomeFirstResponder()
     }
     
     private var isInBulletMode = false
-
+    
     func textViewDidChange(_ textView: UITextView) {
         
     }
     
+    
     private func beginBulletMode(for textView: UITextView) {
         isInBulletMode = true
         textView.insertText("\u{2022}")
-        
-        
     }
     
-    
-    
     var previousRect = CGRect.zero
+    
     private func lineBreakDidHappen(for textView: UITextView) -> Bool {
         let pos = textView.endOfDocument
         let currentRect = textView.caretRect(for: pos)

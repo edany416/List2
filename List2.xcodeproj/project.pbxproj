@@ -26,6 +26,9 @@
 		8C27E05A229B922800A27AF7 /* AddSubtaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C27E059229B922800A27AF7 /* AddSubtaskCell.swift */; };
 		8C27E05C229BBA8900A27AF7 /* NotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C27E05B229BBA8900A27AF7 /* NotesViewController.swift */; };
 		8C27E061229C613C00A27AF7 /* BulletPointTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C27E060229C613C00A27AF7 /* BulletPointTextView.swift */; };
+		8C27E068229CFD5500A27AF7 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C27E067229CFD5500A27AF7 /* UIViewExtension.swift */; };
+		8C27E06A229D03DF00A27AF7 /* NotesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C27E069229D03DF00A27AF7 /* NotesCell.swift */; };
+		8C27E06D229D20D400A27AF7 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C27E06C229D20D400A27AF7 /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +74,9 @@
 		8C27E059229B922800A27AF7 /* AddSubtaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSubtaskCell.swift; sourceTree = "<group>"; };
 		8C27E05B229BBA8900A27AF7 /* NotesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesViewController.swift; sourceTree = "<group>"; };
 		8C27E060229C613C00A27AF7 /* BulletPointTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BulletPointTextView.swift; sourceTree = "<group>"; };
+		8C27E067229CFD5500A27AF7 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
+		8C27E069229D03DF00A27AF7 /* NotesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesCell.swift; sourceTree = "<group>"; };
+		8C27E06C229D20D400A27AF7 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +127,8 @@
 		8C27E014229B710600A27AF7 /* List2 */ = {
 			isa = PBXGroup;
 			children = (
+				8C27E06B229D20A100A27AF7 /* Model */,
+				8C27E066229CFD0F00A27AF7 /* Extensions */,
 				8C27E05D229C5E4C00A27AF7 /* Custom UI */,
 				8C27E04C229B753000A27AF7 /* View Controllers */,
 				8C27E04B229B729500A27AF7 /* Custom Views */,
@@ -168,6 +176,7 @@
 				8C27E055229B91FD00A27AF7 /* TodoNameCell.swift */,
 				8C27E057229B921200A27AF7 /* DueDateCell.swift */,
 				8C27E059229B922800A27AF7 /* AddSubtaskCell.swift */,
+				8C27E069229D03DF00A27AF7 /* NotesCell.swift */,
 			);
 			path = "Custom Views";
 			sourceTree = "<group>";
@@ -191,6 +200,22 @@
 				8C27E060229C613C00A27AF7 /* BulletPointTextView.swift */,
 			);
 			path = "Custom UI";
+			sourceTree = "<group>";
+		};
+		8C27E066229CFD0F00A27AF7 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				8C27E067229CFD5500A27AF7 /* UIViewExtension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		8C27E06B229D20A100A27AF7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8C27E06C229D20D400A27AF7 /* Constants.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -325,11 +350,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C27E06A229D03DF00A27AF7 /* NotesCell.swift in Sources */,
 				8C27E050229B795D00A27AF7 /* LoginViewController.swift in Sources */,
 				8C27E054229B8ED900A27AF7 /* TodoDetailViewController.swift in Sources */,
 				8C27E052229B799000A27AF7 /* SignUpViewController.swift in Sources */,
 				8C27E056229B91FD00A27AF7 /* TodoNameCell.swift in Sources */,
+				8C27E068229CFD5500A27AF7 /* UIViewExtension.swift in Sources */,
 				8C27E05A229B922800A27AF7 /* AddSubtaskCell.swift in Sources */,
+				8C27E06D229D20D400A27AF7 /* Constants.swift in Sources */,
 				8C27E01E229B710600A27AF7 /* List2.xcdatamodeld in Sources */,
 				8C27E04E229B757800A27AF7 /* LogoScreenViewController.swift in Sources */,
 				8C27E058229B921200A27AF7 /* DueDateCell.swift in Sources */,

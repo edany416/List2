@@ -8,31 +8,41 @@
 
 import UIKit
 
-struct Constants {
-    static let INITIAL_NUM_ROWS = 4
-    static let NAME_ROW = 0
-    static let DATE_ROW = 1
-    static let ADD_SUBTASK_ROW = 2
-    static let BULLET_TRIGGER = "*"
-}
-
-class TodoDetailViewController: UIViewController {
+class TodoDetailViewController: UIViewController, NotesViewControllerDelegate {
     
     @IBOutlet weak var tableView: UITableView!
+    
+    private var notesRow = Constants.INITIAL_NOTES_ROW
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tapGesture)
     }
     
-    @IBAction func notesFieldTapped(_ sender: Any) {
-        self.performSegue(withIdentifier: "NotesVC Segue", sender: nil)
+    @IBAction func cancelTapped(_ sender: UIButton) {
+        self.dismiss(animated: true, completion: nil)
+    }
+   
+    @IBAction func saveTapped(_ sender: UIButton) {
+        
+    }
+    
+    func userDidSaveNote(note: String) {
+        let cell = tableView.cellForRow(at: IndexPath(row: notesRow, section: 0)) as! NotesCell
+        cell.notesTextView.text = note
+    }
+    
+    @objc private func dismissKeyboard() {
+        view.endEditing(true)
     }
 }
 
 extension TodoDetailViewController: UITableViewDataSource, UITableViewDelegate {
-    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return Constants.INITIAL_NUM_ROWS
@@ -40,7 +50,7 @@ extension TodoDetailViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        var cell: UITableViewCell!
+        var cell = UITableViewCell()
         
         switch indexPath.row {
         case Constants.NAME_ROW:
@@ -48,13 +58,29 @@ extension TodoDetailViewController: UITableViewDataSource, UITableViewDelegate {
         case Constants.DATE_ROW:
             cell = tableView.dequeueReusableCell(withIdentifier: "Date Cell", for: indexPath)
         case Constants.ADD_SUBTASK_ROW:
-            cell = tableView.dequeueReusableCell(withIdentifier: "Add Subtask Cell", for: indexPath)
-        case 3:
-            cell = tableView.dequeueReusableCell(withIdentifier: "Notes Cell", for: indexPath)
+            if let addSubTaskCell = tableView.dequeueReusableCell(withIdentifier: "Add Subtask Cell", for: indexPath) as? AddSubtaskCell {
+                addSubTaskCell.onReturnKeyTapped { (subTaskName) in
+                    print("Add subtask: \(subTaskName)")
+                    self.view.endEditing(true)
+                }
+                cell = addSubTaskCell
+            }
+        case notesRow:
+            if let noteCell = tableView.dequeueReusableCell(withIdentifier: "Notes Cell", for: indexPath) as? NotesCell {
+                noteCell.onTextViewTapped {
+                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                    let notesVC = storyboard.instantiateViewController(withIdentifier: "Notes VC") as! NotesViewController
+                    notesVC.note = noteCell.notesTextView.text
+                    notesVC.delegate = self
+                    self.present(notesVC, animated: true, completion: nil)
+                }
+                cell = noteCell
+            }
         default:
             print("default for row \(indexPath.row)")
-            cell = UITableViewCell()
         }
         return cell
     }
 }
+
+
