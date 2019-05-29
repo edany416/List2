@@ -13,7 +13,8 @@ class TodoDetailViewController: UIViewController, NotesViewControllerDelegate {
     @IBOutlet weak var tableView: UITableView!
     
     private var notesRow = Constants.INITIAL_NOTES_ROW
-    
+    private var subTaskRow = Constants.ADD_SUBTASK_ROW
+    private var numSubtasks = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,7 +46,7 @@ class TodoDetailViewController: UIViewController, NotesViewControllerDelegate {
 extension TodoDetailViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Constants.INITIAL_NUM_ROWS
+        return Constants.INITIAL_NUM_ROWS + numSubtasks
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -61,6 +62,7 @@ extension TodoDetailViewController: UITableViewDataSource, UITableViewDelegate {
             if let addSubTaskCell = tableView.dequeueReusableCell(withIdentifier: "Add Subtask Cell", for: indexPath) as? AddSubtaskCell {
                 addSubTaskCell.onReturnKeyTapped { (subTaskName) in
                     print("Add subtask: \(subTaskName)")
+                    self.inserSubtaskCell()
                     self.view.endEditing(true)
                 }
                 cell = addSubTaskCell
@@ -68,18 +70,39 @@ extension TodoDetailViewController: UITableViewDataSource, UITableViewDelegate {
         case notesRow:
             if let noteCell = tableView.dequeueReusableCell(withIdentifier: "Notes Cell", for: indexPath) as? NotesCell {
                 noteCell.onTextViewTapped {
-                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                    let notesVC = storyboard.instantiateViewController(withIdentifier: "Notes VC") as! NotesViewController
-                    notesVC.note = noteCell.notesTextView.text
-                    notesVC.delegate = self
-                    self.present(notesVC, animated: true, completion: nil)
+                    let currentNote = noteCell.notesTextView.text
+                    self.presentNotesViewController(note: currentNote)
                 }
                 cell = noteCell
             }
         default:
-            print("default for row \(indexPath.row)")
+            print("Subtask cell stuff goes here")
+            let subtaskCell = tableView.dequeueReusableCell(withIdentifier: "Subtask Cell", for: indexPath)
+            cell = subtaskCell
+            
         }
         return cell
+    }
+    
+    private func presentNotesViewController(note: String?) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let notesVC = storyboard.instantiateViewController(withIdentifier: "Notes VC") as! NotesViewController
+        notesVC.note = note
+        notesVC.delegate = self
+        self.present(notesVC, animated: true, completion: nil)
+    }
+    
+    private func inserSubtaskCell() {
+        tableView.beginUpdates()
+        
+        numSubtasks += 1
+        subTaskRow += 1
+        notesRow += 1
+        let subtaskIndexPath = IndexPath(row: subTaskRow, section: 0)
+        tableView.insertRows(at: [subtaskIndexPath], with: .left)
+        
+        tableView.endUpdates()
+        
     }
 }
 
