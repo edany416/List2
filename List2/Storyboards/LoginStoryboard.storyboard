@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -38,7 +37,7 @@
                                     <constraint firstAttribute="height" constant="50" id="3jv-ID-q9d"/>
                                 </constraints>
                                 <state key="normal" title="Sign up">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
                                     <segue destination="FHx-1l-mHp" kind="presentation" id="xhi-6w-OLM"/>
@@ -77,10 +76,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Jeb-AW-55m"/>
                     </view>
+                    <connections>
+                        <outlet property="signUpButton" destination="Fon-xi-9pb" id="TtM-B4-XCz"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Miu-Ur-4B1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="17" y="194"/>
+            <point key="canvasLocation" x="16.800000000000001" y="193.85307346326837"/>
         </scene>
         <!--Sign Up View Controller-->
         <scene sceneID="S4X-ag-g5p">
@@ -129,6 +131,9 @@
                                 <state key="normal" title="Continue">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="continueTapped:" destination="FHx-1l-mHp" eventType="touchUpInside" id="TJ2-Wf-Gqf"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4eR-Mw-QCc">
                                 <rect key="frame" x="15" y="20" width="48" height="30"/>
@@ -168,6 +173,11 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="pVC-1P-Nfl"/>
                     </view>
+                    <connections>
+                        <outlet property="emailTextField" destination="MnG-OU-eqi" id="Wbr-f3-mb7"/>
+                        <outlet property="passwordTextField" destination="Nzg-Jq-gsb" id="2co-YA-U70"/>
+                        <segue destination="p0X-r4-dED" kind="presentation" identifier="SignUpSuccessful" id="9f9-iS-tbq"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vAL-YX-5gZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -244,10 +254,13 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d3Z-Af-9e5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="862" y="194"/>
+            <point key="canvasLocation" x="1479" y="592"/>
         </scene>
     </scenes>
     <resources>
         <image name="List2Icon" width="577" height="360"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="9f9-iS-tbq"/>
+    </inferredMetricsTieBreakers>
 </document>

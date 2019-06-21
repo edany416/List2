@@ -12,9 +12,9 @@ class TodoDetailViewController: UIViewController, NotesViewControllerDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     
-    private var notesRow = Constants.INITIAL_NOTES_ROW
-    private var subTaskRow = Constants.ADD_SUBTASK_ROW
-    private var numSubtasks = 0
+    private var subtaskInsertionRow = Constants.ADD_SUBTASK_ROW
+    private var notesInsertionRow = Constants.INITIAL_NOTES_ROW
+    private var subtasks = [Subtask]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,7 +34,7 @@ class TodoDetailViewController: UIViewController, NotesViewControllerDelegate {
     }
     
     func userDidSaveNote(note: String) {
-        let cell = tableView.cellForRow(at: IndexPath(row: notesRow, section: 0)) as! NotesCell
+        let cell = tableView.cellForRow(at: IndexPath(row: notesInsertionRow, section: 0)) as! NotesCell
         cell.notesTextView.text = note
     }
     
@@ -46,13 +46,11 @@ class TodoDetailViewController: UIViewController, NotesViewControllerDelegate {
 extension TodoDetailViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Constants.INITIAL_NUM_ROWS + numSubtasks
+        return Constants.INITIAL_NUM_ROWS + subtasks.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         var cell = UITableViewCell()
-        
         switch indexPath.row {
         case Constants.NAME_ROW:
             cell = tableView.dequeueReusableCell(withIdentifier: "Name Cell", for: indexPath)
@@ -61,13 +59,14 @@ extension TodoDetailViewController: UITableViewDataSource, UITableViewDelegate {
         case Constants.ADD_SUBTASK_ROW:
             if let addSubTaskCell = tableView.dequeueReusableCell(withIdentifier: "Add Subtask Cell", for: indexPath) as? AddSubtaskCell {
                 addSubTaskCell.onReturnKeyTapped { (subTaskName) in
-                    print("Add subtask: \(subTaskName)")
-                    self.inserSubtaskCell()
+                    let newSubtask = Subtask(name: subTaskName)
+                    self.subtasks.append(newSubtask)
+                    self.insertSubtaskCell()
                     self.view.endEditing(true)
                 }
                 cell = addSubTaskCell
             }
-        case notesRow:
+        case notesInsertionRow:
             if let noteCell = tableView.dequeueReusableCell(withIdentifier: "Notes Cell", for: indexPath) as? NotesCell {
                 noteCell.onTextViewTapped {
                     let currentNote = noteCell.notesTextView.text
@@ -76,10 +75,11 @@ extension TodoDetailViewController: UITableViewDataSource, UITableViewDelegate {
                 cell = noteCell
             }
         default:
-            print("Subtask cell stuff goes here")
-            let subtaskCell = tableView.dequeueReusableCell(withIdentifier: "Subtask Cell", for: indexPath)
-            cell = subtaskCell
-            
+            if let subtaskCell = tableView.dequeueReusableCell(withIdentifier: "Subtask Cell", for: indexPath) as? SubtaskCell {
+                let subtask = subtasks[indexPath.row - 3]
+                subtaskCell.subtaskName.text = subtask.name
+                cell = subtaskCell
+            }
         }
         return cell
     }
@@ -92,17 +92,29 @@ extension TodoDetailViewController: UITableViewDataSource, UITableViewDelegate {
         self.present(notesVC, animated: true, completion: nil)
     }
     
-    private func inserSubtaskCell() {
+    private func insertSubtaskCell() {
         tableView.beginUpdates()
         
-        numSubtasks += 1
-        subTaskRow += 1
-        notesRow += 1
-        let subtaskIndexPath = IndexPath(row: subTaskRow, section: 0)
-        tableView.insertRows(at: [subtaskIndexPath], with: .left)
+        subtaskInsertionRow += 1
+        notesInsertionRow += 1
+        let subtaskIndexPath = IndexPath(row: subtaskInsertionRow, section: 0)
+        tableView.insertRows(at: [subtaskIndexPath], with: .right)
         
         tableView.endUpdates()
-        
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == UITableViewCell.EditingStyle.delete {
+                subtaskInsertionRow -= 1
+                notesInsertionRow -= 1
+                subtasks.remove(at: indexPath.row - 3)
+                tableView.deleteRows(at: [indexPath], with: .left)
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        let cell = tableView.cellForRow(at: indexPath)
+        return (cell is SubtaskCell)
     }
 }
 

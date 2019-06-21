@@ -9,11 +9,13 @@
 import UIKit
 
 class LogoScreenViewController: UIViewController {
+    
+    @IBOutlet weak var signUpButton: RoundedButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        signUpButton.backgroundColor = UIColor.white
+        signUpButton.outlineColor = UIColor.black
     }
     
 
