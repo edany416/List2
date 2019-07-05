@@ -43,6 +43,7 @@ class TodoDetailViewController: UIViewController, NotesViewControllerDelegate {
     }
 }
 
+//Tableview implementation
 extension TodoDetailViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

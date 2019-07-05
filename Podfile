@@ -8,6 +8,7 @@ target 'List2' do
   # Pods for List2
     pod 'Firebase/Core'
     pod 'Firebase/Auth'
+    pod 'Firebase/Database'
   
   target 'List2Tests' do
     inherit! :search_paths

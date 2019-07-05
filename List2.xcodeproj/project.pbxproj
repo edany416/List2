@@ -32,6 +32,8 @@
 		8C27E06D229D20D400A27AF7 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C27E06C229D20D400A27AF7 /* Constants.swift */; };
 		8C398E7522B1D8820092EE03 /* ExpandingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C398E7422B1D8820092EE03 /* ExpandingTableViewCell.swift */; };
 		8C398E7722B1D96E0092EE03 /* TodoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C398E7622B1D96E0092EE03 /* TodoListViewController.swift */; };
+		8C4EDADD22CEB89E00F00248 /* DBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4EDADC22CEB89E00F00248 /* DBManager.swift */; };
+		8C4EDADF22CECD7000F00248 /* ErrorAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4EDADE22CECD7000F00248 /* ErrorAlertController.swift */; };
 		8CAAFE9E229F716F000E2CC5 /* Subtask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CAAFE9D229F716F000E2CC5 /* Subtask.swift */; };
 		8CAAFEA2229F7349000E2CC5 /* SubtaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CAAFEA1229F7349000E2CC5 /* SubtaskCell.swift */; };
 		8CE3FFBB22B9BF3600E1C7C6 /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CE3FFBA22B9BF3600E1C7C6 /* DatePickerView.swift */; };
@@ -91,6 +93,8 @@
 		8C27E06C229D20D400A27AF7 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		8C398E7422B1D8820092EE03 /* ExpandingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandingTableViewCell.swift; sourceTree = "<group>"; };
 		8C398E7622B1D96E0092EE03 /* TodoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListViewController.swift; sourceTree = "<group>"; };
+		8C4EDADC22CEB89E00F00248 /* DBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBManager.swift; sourceTree = "<group>"; };
+		8C4EDADE22CECD7000F00248 /* ErrorAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorAlertController.swift; sourceTree = "<group>"; };
 		8CAAFE9D229F716F000E2CC5 /* Subtask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Subtask.swift; sourceTree = "<group>"; };
 		8CAAFEA1229F7349000E2CC5 /* SubtaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubtaskCell.swift; sourceTree = "<group>"; };
 		8CE3FFBA22B9BF3600E1C7C6 /* DatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
@@ -213,6 +217,7 @@
 		8C27E04B229B729500A27AF7 /* Custom Views */ = {
 			isa = PBXGroup;
 			children = (
+				8C4EDADE22CECD7000F00248 /* ErrorAlertController.swift */,
 			);
 			path = "Custom Views";
 			sourceTree = "<group>";
@@ -221,8 +226,8 @@
 			isa = PBXGroup;
 			children = (
 				8C27E04D229B757800A27AF7 /* LogoScreenViewController.swift */,
-				8C27E04F229B795D00A27AF7 /* LoginViewController.swift */,
 				8C27E051229B799000A27AF7 /* SignUpViewController.swift */,
+				8C27E04F229B795D00A27AF7 /* LoginViewController.swift */,
 				8C27E053229B8ED900A27AF7 /* TodoDetailViewController.swift */,
 				8C27E05B229BBA8900A27AF7 /* NotesViewController.swift */,
 				8C398E7622B1D96E0092EE03 /* TodoListViewController.swift */,
@@ -254,6 +259,7 @@
 				8C27E06C229D20D400A27AF7 /* Constants.swift */,
 				8CAAFE9D229F716F000E2CC5 /* Subtask.swift */,
 				8CEF476222B8449F00310963 /* UserServices.swift */,
+				8C4EDADC22CEB89E00F00248 /* DBManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -494,6 +500,7 @@
 				"${PODS_ROOT}/Target Support Files/Pods-List2/Pods-List2-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -502,6 +509,7 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -516,6 +524,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C4EDADF22CECD7000F00248 /* ErrorAlertController.swift in Sources */,
 				8C27E06A229D03DF00A27AF7 /* NotesCell.swift in Sources */,
 				8C27E050229B795D00A27AF7 /* LoginViewController.swift in Sources */,
 				8C27E054229B8ED900A27AF7 /* TodoDetailViewController.swift in Sources */,
@@ -537,6 +546,7 @@
 				8CE3FFBB22B9BF3600E1C7C6 /* DatePickerView.swift in Sources */,
 				8C27E04A229B728C00A27AF7 /* RoundedButton.swift in Sources */,
 				8C27E061229C613C00A27AF7 /* BulletPointTextView.swift in Sources */,
+				8C4EDADD22CEB89E00F00248 /* DBManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

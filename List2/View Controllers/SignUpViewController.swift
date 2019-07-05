@@ -12,26 +12,56 @@ class SignUpViewController: UIViewController {
     
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var signUpButton: RoundedButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        signUpButton.isHidden = true
     }
     
-    //Make continue button not tappable is either email or password fields are empty
-    //Then this action will be called iff fields are non empty and we can force unwrap the optionals
     @IBAction func continueTapped(_ sender: UIButton) {
         let email = emailTextField.text!
         let password = passwordTextField.text!
         UserServices.sharedInstance.signUp(withEmail: email, password: password) { (success) in
             if success {
-                //Perform appropriate segue
+                self.performSegue(withIdentifier: "SignUpSuccessful", sender: nil)
             } else {
-                //Error handling stuff
+                let errorAlert = ErrorAlertController(errorMessage: "Error logging in")
+                self.present(errorAlert.errorAlertControler, animated: true, completion: {
+                    self.resetSceenState()
+                })
             }
         }
     }
     
     @IBAction func cancelTapped(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
+    }
+    
+   
+    
+    
+    @IBAction func emailTextChanged(_ sender: UITextField) {
+        setSignupButtonState()
+    }
+    
+    @IBAction func passwordTextChanged(_ sender: UITextField) {
+        setSignupButtonState()
+    }
+    
+    private func setSignupButtonState() {
+        if let email = emailTextField.text, let password = passwordTextField.text {
+            if !email.isEmpty && (password.count >= 6) {
+                signUpButton.isHidden = false
+            } else {
+                signUpButton.isHidden = true
+            }
+        }
+    }
+    
+    private func resetSceenState() {
+        emailTextField.text = ""
+        passwordTextField.text = ""
+        signUpButton.isHidden = true
     }
 }

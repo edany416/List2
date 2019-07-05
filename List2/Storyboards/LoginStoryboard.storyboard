@@ -98,29 +98,23 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="First Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vBc-lg-iOH">
-                                <rect key="frame" x="50" y="147" width="275" height="30"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Last Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="q8z-oD-MCd">
-                                <rect key="frame" x="50" y="185" width="275" height="30"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MnG-OU-eqi">
-                                <rect key="frame" x="50" y="223" width="275" height="30"/>
+                                <rect key="frame" x="50" y="177" width="275" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="emailTextChanged:" destination="FHx-1l-mHp" eventType="editingChanged" id="zSy-FK-mt2"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Nzg-Jq-gsb">
-                                <rect key="frame" x="50" y="261" width="275" height="30"/>
+                                <rect key="frame" x="50" y="215" width="275" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="passwordTextChanged:" destination="FHx-1l-mHp" eventType="editingChanged" id="uZc-6j-bh9"/>
+                                </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tPf-Bj-ZcQ" customClass="RoundedButton" customModule="List2" customModuleProvider="target">
                                 <rect key="frame" x="50" y="542" width="275" height="50"/>
@@ -128,7 +122,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="Siq-iO-DyG"/>
                                 </constraints>
-                                <state key="normal" title="Continue">
+                                <state key="normal" title="Sign Up">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
@@ -153,22 +147,16 @@
                             <constraint firstItem="Nzg-Jq-gsb" firstAttribute="leading" secondItem="pVC-1P-Nfl" secondAttribute="leading" constant="50" id="0Hn-Uy-fsi"/>
                             <constraint firstItem="pVC-1P-Nfl" firstAttribute="trailing" secondItem="UUU-8H-9Ga" secondAttribute="trailing" constant="50" id="0hD-sq-QOd"/>
                             <constraint firstItem="4eR-Mw-QCc" firstAttribute="top" secondItem="pVC-1P-Nfl" secondAttribute="top" id="1nC-DR-Hjx"/>
-                            <constraint firstItem="pVC-1P-Nfl" firstAttribute="trailing" secondItem="vBc-lg-iOH" secondAttribute="trailing" constant="50" id="4K4-CA-xNH"/>
                             <constraint firstItem="pVC-1P-Nfl" firstAttribute="bottom" secondItem="tPf-Bj-ZcQ" secondAttribute="bottom" constant="75" id="D2T-i3-4Tn"/>
                             <constraint firstItem="Nzg-Jq-gsb" firstAttribute="top" secondItem="MnG-OU-eqi" secondAttribute="bottom" constant="8" id="Gvc-lI-Gjc"/>
                             <constraint firstItem="UUU-8H-9Ga" firstAttribute="leading" secondItem="pVC-1P-Nfl" secondAttribute="leading" constant="50" id="JVr-8d-ssX"/>
                             <constraint firstItem="tPf-Bj-ZcQ" firstAttribute="leading" secondItem="pVC-1P-Nfl" secondAttribute="leading" constant="50" id="Kj4-uy-BMh"/>
                             <constraint firstItem="UUU-8H-9Ga" firstAttribute="top" secondItem="pVC-1P-Nfl" secondAttribute="top" constant="75" id="Mhp-hQ-C0H"/>
                             <constraint firstItem="pVC-1P-Nfl" firstAttribute="trailing" secondItem="Nzg-Jq-gsb" secondAttribute="trailing" constant="50" id="YwA-r5-SAk"/>
-                            <constraint firstItem="pVC-1P-Nfl" firstAttribute="trailing" secondItem="q8z-oD-MCd" secondAttribute="trailing" constant="50" id="cdS-dQ-gbA"/>
                             <constraint firstItem="pVC-1P-Nfl" firstAttribute="trailing" secondItem="MnG-OU-eqi" secondAttribute="trailing" constant="50" id="dmG-2P-qch"/>
-                            <constraint firstItem="vBc-lg-iOH" firstAttribute="top" secondItem="UUU-8H-9Ga" secondAttribute="bottom" constant="20" id="faO-KD-XPn"/>
-                            <constraint firstItem="MnG-OU-eqi" firstAttribute="top" secondItem="q8z-oD-MCd" secondAttribute="bottom" constant="8" id="kgA-b1-Xi8"/>
-                            <constraint firstItem="q8z-oD-MCd" firstAttribute="top" secondItem="vBc-lg-iOH" secondAttribute="bottom" constant="8" id="lOP-Jx-c7b"/>
                             <constraint firstItem="4eR-Mw-QCc" firstAttribute="leading" secondItem="pVC-1P-Nfl" secondAttribute="leading" constant="15" id="nLh-vp-AvS"/>
-                            <constraint firstItem="vBc-lg-iOH" firstAttribute="leading" secondItem="pVC-1P-Nfl" secondAttribute="leading" constant="50" id="oEr-li-5e8"/>
                             <constraint firstItem="pVC-1P-Nfl" firstAttribute="trailing" secondItem="tPf-Bj-ZcQ" secondAttribute="trailing" constant="50" id="row-7D-v38"/>
-                            <constraint firstItem="q8z-oD-MCd" firstAttribute="leading" secondItem="pVC-1P-Nfl" secondAttribute="leading" constant="50" id="sHc-Vw-2IF"/>
+                            <constraint firstItem="MnG-OU-eqi" firstAttribute="top" secondItem="UUU-8H-9Ga" secondAttribute="bottom" constant="50" id="tKf-di-gOw"/>
                             <constraint firstItem="MnG-OU-eqi" firstAttribute="leading" secondItem="pVC-1P-Nfl" secondAttribute="leading" constant="50" id="xO3-Wx-dZX"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="pVC-1P-Nfl"/>
@@ -176,6 +164,7 @@
                     <connections>
                         <outlet property="emailTextField" destination="MnG-OU-eqi" id="Wbr-f3-mb7"/>
                         <outlet property="passwordTextField" destination="Nzg-Jq-gsb" id="2co-YA-U70"/>
+                        <outlet property="signUpButton" destination="tPf-Bj-ZcQ" id="Oc1-TN-YNG"/>
                         <segue destination="p0X-r4-dED" kind="presentation" identifier="SignUpSuccessful" id="9f9-iS-tbq"/>
                     </connections>
                 </viewController>

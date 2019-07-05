@@ -13,14 +13,22 @@ class UserServices {
     
     static let sharedInstance = UserServices()
     
-    func signUp(withEmail email: String, password: String, signUpReturned: @escaping (Bool) -> ()) {
+    var userID: String {
+        get {
+            return Auth.auth().currentUser!.uid
+        }
+    }
+    
+    func signUp(withEmail email: String, password: String, signUpSuccessful: @escaping (Bool) -> ()) {
         Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
             if error != nil {
+                signUpSuccessful(false)
                 print("Sign up error has occured \(error!.localizedDescription)")
-                return
             } else {
                 print("User was successfully signed up")
-                signUpReturned(true)
+                let userLoginInfo = ["email": email, "password": password]
+                DBManager.instance.createUser(uid: self.userID, loginInfo: userLoginInfo)
+                signUpSuccessful(true)
             }
         }
     }
