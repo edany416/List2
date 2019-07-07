@@ -19,6 +19,18 @@ class UserServices {
         }
     }
     
+    var emailAddress: String? {
+        get {
+            return Auth.auth().currentUser?.email
+        }
+    }
+    
+    var userIsLoggedIn: Bool {
+        get {
+            return Auth.auth().currentUser != nil
+        }
+    }
+    
     func signUp(withEmail email: String, password: String, signUpSuccessful: @escaping (Bool) -> ()) {
         Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
             if error != nil {

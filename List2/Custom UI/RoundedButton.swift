@@ -8,9 +8,16 @@
 
 import UIKit
 
+enum InteractiveState {
+    case enabled
+    case disabled
+}
+
 class RoundedButton: UIButton {
     
-    var outlineColor: UIColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+   
+    var outlineColor = UIColor.black
+    
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -28,12 +35,25 @@ class RoundedButton: UIButton {
         self.clipsToBounds = true
     }
     
-    
+    func setInteractiveState(to state: InteractiveState) {
+        switch state {
+        case .enabled:
+            self.isEnabled = true
+            self.backgroundColor = Constants.ENABLED_BUTTON_COLOR
+            self.outlineColor = Constants.ENABLED_BUTTON_COLOR
+        case .disabled:
+            self.isEnabled = false
+            self.backgroundColor = Constants.DISABLED_BUTTON_COLOR
+            self.outlineColor = Constants.DISABLED_BUTTON_COLOR
+        }
+        setNeedsDisplay()
+    }
 
     
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
     override func draw(_ rect: CGRect) {
+        
         outlineColor.setStroke()
 
         let straightBorderPath = UIBezierPath()
@@ -67,12 +87,5 @@ class RoundedButton: UIButton {
                               endAngle: 3*CGFloat.pi/2,
                               clockwise: true)
         semiCirclePath.stroke()
-        
-        
-        
-        
-        
     }
-    
-
 }

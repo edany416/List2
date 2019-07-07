@@ -191,12 +191,18 @@
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="emailTextChanged:" destination="p0X-r4-dED" eventType="editingChanged" id="0Z8-rp-glO"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yTu-LM-C1n">
                                 <rect key="frame" x="50" y="185" width="275" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="passwordTextChanged:" destination="p0X-r4-dED" eventType="editingChanged" id="xbN-QW-H3f"/>
+                                </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RHj-Eu-354" customClass="RoundedButton" customModule="List2" customModuleProvider="target">
                                 <rect key="frame" x="50" y="542" width="275" height="50"/>
@@ -240,6 +246,11 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="T3D-a8-tuB"/>
                     </view>
+                    <connections>
+                        <outlet property="emailTextField" destination="dq6-UI-7HP" id="XDD-rc-jCH"/>
+                        <outlet property="loginButton" destination="RHj-Eu-354" id="uDf-jX-bfc"/>
+                        <outlet property="passwordTextField" destination="yTu-LM-C1n" id="oKx-WA-vtu"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d3Z-Af-9e5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

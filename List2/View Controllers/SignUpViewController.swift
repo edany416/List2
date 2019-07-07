@@ -16,7 +16,13 @@ class SignUpViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        signUpButton.isHidden = true
+        signUpButton.setInteractiveState(to: .disabled)
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        self.view.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc func dismissKeyboard() {
+        self.view.endEditing(true)
     }
     
     @IBAction func continueTapped(_ sender: UIButton) {
@@ -38,9 +44,6 @@ class SignUpViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
-   
-    
-    
     @IBAction func emailTextChanged(_ sender: UITextField) {
         setSignupButtonState()
     }
@@ -52,9 +55,9 @@ class SignUpViewController: UIViewController {
     private func setSignupButtonState() {
         if let email = emailTextField.text, let password = passwordTextField.text {
             if !email.isEmpty && (password.count >= 6) {
-                signUpButton.isHidden = false
+                signUpButton.setInteractiveState(to: .enabled)
             } else {
-                signUpButton.isHidden = true
+                signUpButton.setInteractiveState(to: .disabled)
             }
         }
     }
