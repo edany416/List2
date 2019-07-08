@@ -44,6 +44,17 @@ class UserServices {
             }
         }
     }
+    
+    func logIn(withEmail email: String, password: String, completion: @escaping (Bool)->()) {
+        Auth.auth().signIn(withEmail: email, password: password) { (authDataResult, error) in
+            if error == nil {
+                completion(true)
+            } else {
+                print("Error logging in \(error!.localizedDescription)")
+                completion(false)
+            }
+        }
+    }
 }
 
 

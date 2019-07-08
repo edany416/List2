@@ -19,7 +19,9 @@ class LoginViewController: UIViewController {
         if UserServices.sharedInstance.userIsLoggedIn {
             emailTextField.text = UserServices.sharedInstance.emailAddress
         }
-        loginButton.setInteractiveState(to: .disabled)
+        loginButton.backgroundColor = Constants.DISABLED_BUTTON_COLOR
+        loginButton.outlineColor = Constants.DISABLED_BUTTON_COLOR
+        loginButton.isEnabled = false
     }
     
     @IBAction func emailTextChanged(_ sender: UITextField) {
@@ -33,13 +35,31 @@ class LoginViewController: UIViewController {
     private func setLoginButtonState() {
         if let emailText = emailTextField.text, let passwordText = passwordTextField.text {
             if emailText.count > 0 && passwordText.count > 0 {
-                loginButton.setInteractiveState(to: .enabled)
+                loginButton.backgroundColor = .black
+                loginButton.outlineColor = .black
+                loginButton.isEnabled = true
             } else {
-                loginButton.setInteractiveState(to: .disabled)
+                loginButton.backgroundColor = Constants.DISABLED_BUTTON_COLOR
+                loginButton.outlineColor = Constants.DISABLED_BUTTON_COLOR
+                loginButton.isEnabled = false
             }
         }
     }
     
+    @IBAction func loginTapped(_ sender: RoundedButton) {
+        let email = emailTextField.text
+        let password = passwordTextField.text
+        UserServices.sharedInstance.logIn(withEmail: email!, password: password!) { (success) in
+            if success {
+                let main = UIStoryboard(name: "Main", bundle: nil)
+                let mainNavVC = main.instantiateViewController(withIdentifier: "MainNavigationController")
+                self.present(mainNavVC, animated: true, completion: nil)
+            } else {
+                let invalidLoginCredentials = ErrorAlertController(errorMessage: "Incorrect email or password")
+                self.present(invalidLoginCredentials.errorAlertControler, animated: true, completion: nil)
+            }
+        }
+    }
     @IBAction func cancelTapped(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }

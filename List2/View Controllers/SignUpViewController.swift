@@ -16,7 +16,11 @@ class SignUpViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        signUpButton.setInteractiveState(to: .disabled)
+        
+        signUpButton.backgroundColor = Constants.DISABLED_BUTTON_COLOR
+        signUpButton.outlineColor = Constants.DISABLED_BUTTON_COLOR
+        signUpButton.isEnabled = false
+        
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         self.view.addGestureRecognizer(tapGesture)
     }
@@ -55,9 +59,13 @@ class SignUpViewController: UIViewController {
     private func setSignupButtonState() {
         if let email = emailTextField.text, let password = passwordTextField.text {
             if !email.isEmpty && (password.count >= 6) {
-                signUpButton.setInteractiveState(to: .enabled)
+                signUpButton.backgroundColor = .black
+                signUpButton.outlineColor = .black
+                signUpButton.isEnabled = true
             } else {
-                signUpButton.setInteractiveState(to: .disabled)
+                signUpButton.backgroundColor = Constants.DISABLED_BUTTON_COLOR
+                signUpButton.outlineColor = Constants.DISABLED_BUTTON_COLOR
+                signUpButton.isEnabled = false
             }
         }
     }

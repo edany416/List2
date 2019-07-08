@@ -16,6 +16,6 @@ struct Constants {
     static let ADD_SUBTASK_ROW = 2
     static let BULLET_TRIGGER = "*"
     static let INITIAL_NOTES_ROW = 3
-    static let DISABLED_BUTTON_COLOR = UIColor(displayP3Red: 0, green: 0, blue: 0, alpha: 0.4)
+    static let DISABLED_BUTTON_COLOR = UIColor.gray
     static let ENABLED_BUTTON_COLOR = UIColor(displayP3Red: 0, green: 0, blue: 0, alpha: 1.0)
 }
