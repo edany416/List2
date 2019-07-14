@@ -12,15 +12,17 @@ import os
 
 class PersistanceService {
     
-    // MARK: - Core Data stack
+    static let instance = PersistanceService()
     
     private init() { }
     
-    static var context: NSManagedObjectContext {
+    
+    
+    var context: NSManagedObjectContext {
         return persistentContainer.viewContext
     }
     
-    static var persistentContainer: NSPersistentContainer = {
+    var persistentContainer: NSPersistentContainer = {
         /*
          The persistent container for the application. This implementation
          creates and returns a container, having loaded the store for the
@@ -49,8 +51,8 @@ class PersistanceService {
     
     // MARK: - Core Data Saving support
     
-    static func saveContext () {
-        let context = persistentContainer.viewContext
+    func saveContext () {
+        let context = PersistanceService.instance.persistentContainer.viewContext
         if context.hasChanges {
             do {
                 try context.save()
@@ -63,29 +65,24 @@ class PersistanceService {
         }
     }
     
-    static func saveTask(taskName name: String, dueDate date: Date?, notes: String?, completion:(() -> ())?) {
+    func saveTask(taskName name: String, dueDate date: Date?, notes: String?) {
         let newTask = Task(context: self.context)
         newTask.name = name
         if let dueDate = date {
             newTask.dueDate = dueDate as NSDate
         }
         newTask.notes = notes
-        PersistanceService.saveContext()
+        PersistanceService.instance.saveContext()
         os_log("Task successfully saved", log: OSLog.default, type: .info)
-        if completion != nil { completion!() }
     }
     
-    static func fetchTasks(given fetchRequest: NSFetchRequest<Task>) -> [Task]? {
-        
+    func fetchTasks(given fetchRequest: NSFetchRequest<Task>) -> [Task]? {
         var tasks: [Task]?
-        
         do {
-            tasks = try PersistanceService.context.fetch(fetchRequest)
+            tasks = try PersistanceService.instance.context.fetch(fetchRequest)
         } catch {
             os_log("Could not fetch task", log: .default, type: .error)
         }
-        
         return tasks ?? nil
     }
-    
 }

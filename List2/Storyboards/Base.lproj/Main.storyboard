@@ -104,7 +104,6 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="hYB-mQ-RHf">
-                        <barButtonItem key="leftBarButtonItem" title="Logout" id="L7M-Vy-dFT"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="SeD-Rb-7tO">
                             <connections>
                                 <segue destination="MLN-4B-IaA" kind="presentation" id="Sv4-Pq-olg"/>

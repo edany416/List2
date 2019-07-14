@@ -10,8 +10,8 @@ import UIKit
 
 class TodoDetailViewController: UIViewController, NotesViewControllerDelegate {
     
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var saveButton: UIButton!
+    @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet private weak var saveButton: UIButton!
     
     private var subtaskInsertionRow = Constants.ADD_SUBTASK_ROW
     private var notesInsertionRow = Constants.INITIAL_NOTES_ROW
@@ -29,6 +29,11 @@ class TodoDetailViewController: UIViewController, NotesViewControllerDelegate {
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tapGesture)
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(contentDidSave(_:)),
+                                               name: Notification.Name.NSManagedObjectContextDidSave,
+                                               object: nil)
     }
     
     @IBAction func cancelTapped(_ sender: UIButton) {
@@ -49,15 +54,16 @@ class TodoDetailViewController: UIViewController, NotesViewControllerDelegate {
             notes = notesCell.notesTextView.text
         }
         
-        PersistanceService.saveTask(taskName: taskName, dueDate: dueDate, notes: notes) {
-            self.dismiss(animated: true, completion: nil)
-        }
-        
+        PersistanceService.instance.saveTask(taskName: taskName, dueDate: dueDate, notes: notes)
     }
     
     func userDidSaveNote(note: String) {
         let cell = tableView.cellForRow(at: IndexPath(row: notesInsertionRow, section: 0)) as! NotesCell
         cell.notesTextView.text = note
+    }
+    
+    @objc func contentDidSave(_ notification: Notification) {
+        self.dismiss(animated: true, completion: nil)
     }
     
     @objc private func dismissKeyboard() {

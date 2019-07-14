@@ -21,7 +21,7 @@ class TodoListViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
-        let tasks = PersistanceService.fetchTasks(given: Task.fetchRequest())
+        let tasks = PersistanceService.instance.fetchTasks(given: Task.fetchRequest())
         if tasks != nil {
             for task in tasks! {
                 print("Name \(task.name)")
