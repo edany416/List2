@@ -2,6 +2,12 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:/Users/edanyachdav/Documents/List2/List2/Model/Task+CoreDataClass.swift">
+   </FileRef>
+   <FileRef
+      location = "group:/Users/edanyachdav/Documents/List2/List2/Model/Task+CoreDataProperties.swift">
+   </FileRef>
+   <FileRef
       location = "group:List2.xcodeproj">
    </FileRef>
    <FileRef

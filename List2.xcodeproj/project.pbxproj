@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		5E1410AE261D3BA4B89CBBEE /* Pods_List2Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC28FE479B0950345DF15A87 /* Pods_List2Tests.framework */; };
 		71B99F140EAE75D728D983B8 /* Pods_List2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E9E991A6FC0B692C4B198B5 /* Pods_List2.framework */; };
+		8C0BBB6A22D8EE5C0065AEE4 /* PersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C0BBB6922D8EE5C0065AEE4 /* PersistenceService.swift */; };
+		8C0BBB7122D8F14C0065AEE4 /* Task+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C0BBB7022D8F14C0065AEE4 /* Task+CoreDataProperties.swift */; };
+		8C0BBB7222D8F14C0065AEE4 /* Task+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C0BBB6F22D8F14C0065AEE4 /* Task+CoreDataClass.swift */; };
 		8C27E016229B710600A27AF7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C27E015229B710600A27AF7 /* AppDelegate.swift */; };
 		8C27E01B229B710600A27AF7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C27E019229B710600A27AF7 /* Main.storyboard */; };
 		8C27E01E229B710600A27AF7 /* List2.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8C27E01C229B710600A27AF7 /* List2.xcdatamodeld */; };
@@ -64,6 +67,9 @@
 		58FB8B4389E7154F6DF1A222 /* Pods_List2UITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_List2UITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EF396E3D06C43C49BA45A1F /* Pods-List2Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-List2Tests.release.xcconfig"; path = "Target Support Files/Pods-List2Tests/Pods-List2Tests.release.xcconfig"; sourceTree = "<group>"; };
 		7F7D40B8D8AA024576F61FF5 /* Pods-List2UITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-List2UITests.debug.xcconfig"; path = "Target Support Files/Pods-List2UITests/Pods-List2UITests.debug.xcconfig"; sourceTree = "<group>"; };
+		8C0BBB6922D8EE5C0065AEE4 /* PersistenceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceService.swift; sourceTree = "<group>"; };
+		8C0BBB6F22D8F14C0065AEE4 /* Task+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Task+CoreDataClass.swift"; path = "/Users/edanyachdav/Documents/List2/List2/Model/Task+CoreDataClass.swift"; sourceTree = "<absolute>"; };
+		8C0BBB7022D8F14C0065AEE4 /* Task+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Task+CoreDataProperties.swift"; path = "/Users/edanyachdav/Documents/List2/List2/Model/Task+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
 		8C27E012229B710600A27AF7 /* List2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = List2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C27E015229B710600A27AF7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8C27E01A229B710600A27AF7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -260,6 +266,9 @@
 				8CAAFE9D229F716F000E2CC5 /* Subtask.swift */,
 				8CEF476222B8449F00310963 /* UserServices.swift */,
 				8C4EDADC22CEB89E00F00248 /* DBManager.swift */,
+				8C0BBB6922D8EE5C0065AEE4 /* PersistenceService.swift */,
+				8C0BBB6F22D8F14C0065AEE4 /* Task+CoreDataClass.swift */,
+				8C0BBB7022D8F14C0065AEE4 /* Task+CoreDataProperties.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -525,6 +534,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				8C4EDADF22CECD7000F00248 /* ErrorAlertController.swift in Sources */,
+				8C0BBB6A22D8EE5C0065AEE4 /* PersistenceService.swift in Sources */,
+				8C0BBB7222D8F14C0065AEE4 /* Task+CoreDataClass.swift in Sources */,
 				8C27E06A229D03DF00A27AF7 /* NotesCell.swift in Sources */,
 				8C27E050229B795D00A27AF7 /* LoginViewController.swift in Sources */,
 				8C27E054229B8ED900A27AF7 /* TodoDetailViewController.swift in Sources */,
@@ -536,6 +547,7 @@
 				8C27E05A229B922800A27AF7 /* AddSubtaskCell.swift in Sources */,
 				8C27E06D229D20D400A27AF7 /* Constants.swift in Sources */,
 				8C27E01E229B710600A27AF7 /* List2.xcdatamodeld in Sources */,
+				8C0BBB7122D8F14C0065AEE4 /* Task+CoreDataProperties.swift in Sources */,
 				8C27E04E229B757800A27AF7 /* LogoScreenViewController.swift in Sources */,
 				8C398E7522B1D8820092EE03 /* ExpandingTableViewCell.swift in Sources */,
 				8C27E058229B921200A27AF7 /* DueDateCell.swift in Sources */,

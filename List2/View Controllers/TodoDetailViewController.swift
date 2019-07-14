@@ -11,15 +11,21 @@ import UIKit
 class TodoDetailViewController: UIViewController, NotesViewControllerDelegate {
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var saveButton: UIButton!
     
     private var subtaskInsertionRow = Constants.ADD_SUBTASK_ROW
     private var notesInsertionRow = Constants.INITIAL_NOTES_ROW
     private var subtasks = [Subtask]()
+    private var taskDueDate: Date?
+    
+    var isInEditState: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         tableView.dataSource = self
         tableView.delegate = self
+        saveButton.isEnabled = isInEditState
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tapGesture)
@@ -31,6 +37,22 @@ class TodoDetailViewController: UIViewController, NotesViewControllerDelegate {
    
     @IBAction func saveTapped(_ sender: UIButton) {
         
+        let nameCell = tableView.cellForRow(at: IndexPath(row: Constants.NAME_ROW, section: 0)) as! TodoNameCell
+        let taskName = nameCell.taskNameTextField.text!
+        
+        let dueDateCell = tableView.cellForRow(at: IndexPath(row: Constants.DATE_ROW, section: 0)) as! DueDateCell
+        let dueDate = dueDateCell.dueDate
+        
+        let notesCell = tableView.cellForRow(at: IndexPath(row: notesInsertionRow, section: 0)) as! NotesCell
+        var notes: String?
+        if !notesCell.notesTextView.text.isEmpty {
+            notes = notesCell.notesTextView.text
+        }
+        
+        PersistanceService.saveTask(taskName: taskName, dueDate: dueDate, notes: notes) {
+            self.dismiss(animated: true, completion: nil)
+        }
+        
     }
     
     func userDidSaveNote(note: String) {
@@ -40,6 +62,15 @@ class TodoDetailViewController: UIViewController, NotesViewControllerDelegate {
     
     @objc private func dismissKeyboard() {
         view.endEditing(true)
+    }
+}
+
+//TaskNameCellDelegate
+extension TodoDetailViewController: TaskNameCellDelegate {
+    func taskNameTextFieldTextChanged(_ text: String?) {
+        if text != nil {
+            saveButton.isEnabled = !text!.isEmpty
+        }
     }
 }
 
@@ -54,9 +85,15 @@ extension TodoDetailViewController: UITableViewDataSource, UITableViewDelegate {
         var cell = UITableViewCell()
         switch indexPath.row {
         case Constants.NAME_ROW:
-            cell = tableView.dequeueReusableCell(withIdentifier: "Name Cell", for: indexPath)
+            if let taskNameCell = tableView.dequeueReusableCell(withIdentifier: "Name Cell", for: indexPath) as? TodoNameCell {
+                taskNameCell.delegate = self
+                cell = taskNameCell
+            }
+            
         case Constants.DATE_ROW:
-            cell = tableView.dequeueReusableCell(withIdentifier: "Date Cell", for: indexPath)
+            if let dueDateCell = tableView.dequeueReusableCell(withIdentifier: "Date Cell", for: indexPath) as? DueDateCell {
+                cell = dueDateCell
+            }
         case Constants.ADD_SUBTASK_ROW:
             if let addSubTaskCell = tableView.dequeueReusableCell(withIdentifier: "Add Subtask Cell", for: indexPath) as? AddSubtaskCell {
                 addSubTaskCell.onReturnKeyTapped { (subTaskName) in

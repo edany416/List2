@@ -17,6 +17,19 @@ class TodoListViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+        let tasks = PersistanceService.fetchTasks(given: Task.fetchRequest())
+        if tasks != nil {
+            for task in tasks! {
+                print("Name \(task.name)")
+                print("Due date \(task.dueDate)")
+                print("Notes: \(task.notes)\n\n")
+            }
+        }
+    }
 }
 
 extension TodoListViewController: UITableViewDelegate, UITableViewDataSource {

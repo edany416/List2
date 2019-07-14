@@ -8,8 +8,15 @@
 
 import UIKit
 
-class TodoNameCell: UITableViewCell {
+protocol TaskNameCellDelegate {
+    func taskNameTextFieldTextChanged(_ text: String?)
+}
 
+class TodoNameCell: UITableViewCell {
+    
+    @IBOutlet weak var taskNameTextField: UITextField!
+    var delegate: TaskNameCellDelegate?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -21,4 +28,9 @@ class TodoNameCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
+    @IBAction private func taskNameTextfieldTextChanged(_ sender: UITextField) {
+        if delegate != nil {
+            delegate?.taskNameTextFieldTextChanged(sender.text)
+        }
+    }
 }
