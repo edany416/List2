@@ -65,13 +65,26 @@ class PersistanceService {
         }
     }
     
-    func saveTask(taskName name: String, dueDate date: Date?, notes: String?) {
+    func saveTask(taskName name: String, dueDate date: Date?, notes: String?, tags: [String]?) {
         let newTask = Task(context: self.context)
         newTask.name = name
         if let dueDate = date {
             newTask.dueDate = dueDate as NSDate
         }
         newTask.notes = notes
+        if tags != nil {
+            for tag_string in tags! {
+                //If tag already exists add the task to the tag
+                    //This should creat the necessary inverse relationship
+                if let existingTag = fetchTag(for: Tag.fetchRequest(), named: tag_string) {
+                    existingTag.addToTasks(newTask)
+                } else { //Else add the tag to the task
+                    let newTag = Tag(context: PersistanceService.instance.context)
+                    newTag.name = tag_string
+                    newTask.addToTags(newTag)
+                }
+            }
+        }
         PersistanceService.instance.saveContext()
         os_log("Task successfully saved", log: OSLog.default, type: .info)
     }
@@ -84,5 +97,30 @@ class PersistanceService {
             os_log("Could not fetch task", log: .default, type: .error)
         }
         return tasks ?? nil
+    }
+    
+    func fetchTags(given fetchRequest: NSFetchRequest<Tag>) -> [Tag]? {
+        var tags: [Tag]?
+        do {
+            tags = try PersistanceService.instance.context.fetch(fetchRequest)
+        } catch {
+            os_log("Could not fetch task", log: .default, type: .error)
+        }
+        return tags ?? nil
+    }
+    
+    private func fetchTag(for fetchRequest: NSFetchRequest<Tag>, named name: String) -> Tag? {
+        fetchRequest.predicate = NSPredicate(format: "name == %@", name)
+        var tag: [Tag]?
+        do {
+            tag = try PersistanceService.instance.context.fetch(fetchRequest)
+        } catch {
+            os_log("Could not fetch tag", log: .default, type: .error)
+        }
+        
+        if tag!.count == 0 {
+            return nil
+        }
+        return tag![0]
     }
 }

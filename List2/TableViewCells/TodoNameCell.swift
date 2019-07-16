@@ -15,7 +15,12 @@ protocol TaskNameCellDelegate {
 class TodoNameCell: UITableViewCell {
     
     @IBOutlet weak var taskNameTextField: UITextField!
+    @IBOutlet private weak var tagsTextField: UITextField!
+    
     var delegate: TaskNameCellDelegate?
+    var tags: [String]? {
+        return parseTags()
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -32,5 +37,15 @@ class TodoNameCell: UITableViewCell {
         if delegate != nil {
             delegate?.taskNameTextFieldTextChanged(sender.text)
         }
+    }
+    
+    private func parseTags() -> [String]? {
+        if !tagsTextField.text!.isEmpty {
+            let tagsString = tagsTextField.text!
+            let tagsArray = tagsString.components(separatedBy: " ")
+            return tagsArray
+        }
+        
+        return nil
     }
 }

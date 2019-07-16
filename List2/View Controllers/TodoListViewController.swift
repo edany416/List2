@@ -20,15 +20,7 @@ class TodoListViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        
-        let tasks = PersistanceService.instance.fetchTasks(given: Task.fetchRequest())
-        if tasks != nil {
-            for task in tasks! {
-                print("Name \(task.name)")
-                print("Due date \(task.dueDate)")
-                print("Notes: \(task.notes)\n\n")
-            }
-        }
+        CoreDataTester.printData()
     }
 }
 
@@ -51,6 +43,37 @@ extension TodoListViewController: UITableViewDelegate, UITableViewDataSource {
             }
             tableView.beginUpdates()
             tableView.endUpdates()
+        }
+    }
+}
+
+private class CoreDataTester {
+    
+    static func printData() {
+        let tasks = PersistanceService.instance.fetchTasks(given: Task.fetchRequest())
+        if tasks != nil {
+            for task in tasks! {
+                print("Name \(task.name!) - Due date \(task.dueDate) - Notes: \(task.notes)")
+                for tag in task.tags! {
+                    if let tag = tag as? Tag {
+                        print("Tag - \(tag.name!)")
+                    }
+                }
+            }
+        }
+        
+        print("----------------------------")
+        
+        let tags = PersistanceService.instance.fetchTags(given: Tag.fetchRequest())
+        if tags != nil {
+            for tag in tags! {
+                print("Tag name - \(tag.name!)")
+                for task in tag.tasks! {
+                    if let task =  task as? Task {
+                        print("Task - \(task.name!)")
+                    }
+                }
+            }
         }
     }
 }

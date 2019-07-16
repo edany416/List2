@@ -44,6 +44,7 @@ class TodoDetailViewController: UIViewController, NotesViewControllerDelegate {
         
         let nameCell = tableView.cellForRow(at: IndexPath(row: Constants.NAME_ROW, section: 0)) as! TodoNameCell
         let taskName = nameCell.taskNameTextField.text!
+        let tags = nameCell.tags
         
         let dueDateCell = tableView.cellForRow(at: IndexPath(row: Constants.DATE_ROW, section: 0)) as! DueDateCell
         let dueDate = dueDateCell.dueDate
@@ -54,7 +55,8 @@ class TodoDetailViewController: UIViewController, NotesViewControllerDelegate {
             notes = notesCell.notesTextView.text
         }
         
-        PersistanceService.instance.saveTask(taskName: taskName, dueDate: dueDate, notes: notes)
+        
+        PersistanceService.instance.saveTask(taskName: taskName, dueDate: dueDate, notes: notes, tags: tags)
     }
     
     func userDidSaveNote(note: String) {
