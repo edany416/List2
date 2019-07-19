@@ -74,11 +74,9 @@ class PersistanceService {
         newTask.notes = notes
         if tags != nil {
             for tag_string in tags! {
-                //If tag already exists add the task to the tag
-                    //This should creat the necessary inverse relationship
                 if let existingTag = fetchTag(for: Tag.fetchRequest(), named: tag_string) {
                     existingTag.addToTasks(newTask)
-                } else { //Else add the tag to the task
+                } else {
                     let newTag = Tag(context: PersistanceService.instance.context)
                     newTag.name = tag_string
                     newTask.addToTags(newTag)
@@ -109,7 +107,7 @@ class PersistanceService {
         return tags ?? nil
     }
     
-    private func fetchTag(for fetchRequest: NSFetchRequest<Tag>, named name: String) -> Tag? {
+    func fetchTag(for fetchRequest: NSFetchRequest<Tag>, named name: String) -> Tag? {
         fetchRequest.predicate = NSPredicate(format: "name == %@", name)
         var tag: [Tag]?
         do {

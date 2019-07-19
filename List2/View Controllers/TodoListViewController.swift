@@ -11,26 +11,48 @@ import UIKit
 class TodoListViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var tagPicker: UICollectionView!
+    
+    private var tasks:[Task]? = [Task]() {
+        didSet {
+            if tableView != nil {
+                self.tableView.reloadData()
+            }
+        }
+    }
+    
+    private var tags:[Tag]? = [Tag]() {
+        didSet {
+            if tagPicker != nil {
+                self.tagPicker.reloadData()
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
+        tagPicker.delegate = self
+        tagPicker.dataSource = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        CoreDataTester.printData()
+        tasks = PersistanceService.instance.fetchTasks(given: Task.fetchRequest())
+        tags = PersistanceService.instance.fetchTags(given: Tag.fetchRequest())
     }
 }
 
 extension TodoListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return tasks!.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Todo Cell", for: indexPath) as! ExpandingTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TaskCell
+        let task = tasks![indexPath.row]
+        cell.taskName.text = task.name
         return cell
     }
     
@@ -47,33 +69,50 @@ extension TodoListViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-private class CoreDataTester {
+extension TodoListViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if tags!.count == 0 {
+            return 0
+        }
+        return tags!.count + 1
+    }
     
-    static func printData() {
-        let tasks = PersistanceService.instance.fetchTasks(given: Task.fetchRequest())
-        if tasks != nil {
-            for task in tasks! {
-                print("Name \(task.name!) - Due date \(task.dueDate) - Notes: \(task.notes)")
-                for tag in task.tags! {
-                    if let tag = tag as? Tag {
-                        print("Tag - \(tag.name!)")
-                    }
-                }
-            }
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = tagPicker.dequeueReusableCell(withReuseIdentifier: "TagCell", for: indexPath) as! TagCell
+        
+        if indexPath.row == 0 {
+            cell.tagLabel.text = "All"
+        } else {
+            let tag = tags![indexPath.row - 1]
+            cell.tagLabel.text = tag.name
         }
         
-        print("----------------------------")
-        
-        let tags = PersistanceService.instance.fetchTags(given: Tag.fetchRequest())
-        if tags != nil {
-            for tag in tags! {
-                print("Tag name - \(tag.name!)")
-                for task in tag.tasks! {
-                    if let task =  task as? Task {
-                        print("Task - \(task.name!)")
-                    }
-                }
-            }
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        //Filter stating point here
+        let tagCell = tagPicker.cellForItem(at: indexPath) as! TagCell
+        var tag: Tag?
+        if tagCell.tagLabel.text == "All" {
+            tasks = PersistanceService.instance.fetchTasks(given: Task.fetchRequest())
+        } else {
+            tag = PersistanceService.instance.fetchTag(for: Tag.fetchRequest(), named: tagCell.tagLabel.text!)
+            tasks = tag?.tasks!.allObjects as! [Task]
         }
+        tableView.reloadData()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let tagName: String?
+        
+        if indexPath.row == 0 {
+            tagName = "all"
+        } else {
+            tagName = tags![indexPath.row-1].name
+        }
+        
+        var size: CGSize = tagName!.size(withAttributes: [.font: UIFont.systemFont(ofSize: 17)])
+        return size
     }
 }
