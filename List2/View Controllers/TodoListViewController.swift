@@ -29,6 +29,8 @@ class TodoListViewController: UIViewController {
         }
     }
     
+    private var tagFilterManager = TagFilterManager()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
@@ -93,13 +95,13 @@ extension TodoListViewController: UICollectionViewDelegate, UICollectionViewData
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         //Filter stating point here
         let tagCell = tagPicker.cellForItem(at: indexPath) as! TagCell
-        var tag: Tag?
         if tagCell.tagLabel.text == "All" {
             tasks = PersistanceService.instance.fetchTasks(given: Task.fetchRequest())
         } else {
-            tag = PersistanceService.instance.fetchTag(for: Tag.fetchRequest(), named: tagCell.tagLabel.text!)
-            tasks = tag?.tasks!.allObjects as! [Task]
+            let filteredTasks = tagFilterManager.filter(tagCell.tagLabel.text!)
+            tasks = Array(filteredTasks)
         }
+        
         tableView.reloadData()
     }
     

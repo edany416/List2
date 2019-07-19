@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:/Users/edanyachdav/Documents/List2/List2/Model/TagFilterManager.swift">
+   </FileRef>
+   <FileRef
       location = "group:Task+CoreDataClass.swift">
    </FileRef>
    <FileRef

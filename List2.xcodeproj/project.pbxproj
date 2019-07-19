@@ -47,6 +47,7 @@
 		8C4EDADF22CECD7000F00248 /* ErrorAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4EDADE22CECD7000F00248 /* ErrorAlertController.swift */; };
 		8CAAFE9E229F716F000E2CC5 /* Subtask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CAAFE9D229F716F000E2CC5 /* Subtask.swift */; };
 		8CAAFEA2229F7349000E2CC5 /* SubtaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CAAFEA1229F7349000E2CC5 /* SubtaskCell.swift */; };
+		8CDD9C5822E1985F009D2E64 /* TagFilterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CDD9C5722E1985F009D2E64 /* TagFilterManager.swift */; };
 		8CE3FFBB22B9BF3600E1C7C6 /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CE3FFBA22B9BF3600E1C7C6 /* DatePickerView.swift */; };
 		8CEF476122B6C67E00310963 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8CEF476022B6C67E00310963 /* GoogleService-Info.plist */; };
 		8CEF476322B8449F00310963 /* UserServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CEF476222B8449F00310963 /* UserServices.swift */; };
@@ -119,6 +120,7 @@
 		8C4EDADE22CECD7000F00248 /* ErrorAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorAlertController.swift; sourceTree = "<group>"; };
 		8CAAFE9D229F716F000E2CC5 /* Subtask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Subtask.swift; sourceTree = "<group>"; };
 		8CAAFEA1229F7349000E2CC5 /* SubtaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubtaskCell.swift; sourceTree = "<group>"; };
+		8CDD9C5722E1985F009D2E64 /* TagFilterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TagFilterManager.swift; path = /Users/edanyachdav/Documents/List2/List2/Model/TagFilterManager.swift; sourceTree = "<absolute>"; };
 		8CE3FFBA22B9BF3600E1C7C6 /* DatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
 		8CEF476022B6C67E00310963 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8CEF476222B8449F00310963 /* UserServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserServices.swift; sourceTree = "<group>"; };
@@ -291,6 +293,7 @@
 				8C0BBB7922DDA3930065AEE4 /* Task+CoreDataProperties.swift */,
 				8C0BBB7A22DDA3930065AEE4 /* Tag+CoreDataClass.swift */,
 				8C0BBB7722DDA3930065AEE4 /* Tag+CoreDataProperties.swift */,
+				8CDD9C5722E1985F009D2E64 /* TagFilterManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -579,6 +582,7 @@
 				8C398E7722B1D96E0092EE03 /* TodoListViewController.swift in Sources */,
 				8C0BBB7D22DDA3930065AEE4 /* Tag+CoreDataProperties.swift in Sources */,
 				8C08BE8322E55354007422F2 /* TaskDetailViewController.swift in Sources */,
+				8CDD9C5822E1985F009D2E64 /* TagFilterManager.swift in Sources */,
 				8C0BBB8822DF96020065AEE4 /* TaskCell.swift in Sources */,
 				8C27E056229B91FD00A27AF7 /* TodoNameCell.swift in Sources */,
 				8CAAFEA2229F7349000E2CC5 /* SubtaskCell.swift in Sources */,
