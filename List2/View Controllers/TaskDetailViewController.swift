@@ -54,11 +54,9 @@ class TaskDetailViewController: UIViewController {
             var tagsArray = tagsString.components(separatedBy: " ")
             return tagsArray
         }
-        
         return nil
     }
     
-
     @IBAction func taskNameEditingDidChange(_ sender: UITextField) {
         if sender.text != nil {
             saveButton.isEnabled = !sender.text!.isEmpty

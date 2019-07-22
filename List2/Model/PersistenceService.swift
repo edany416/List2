@@ -109,6 +109,7 @@ class PersistanceService {
     
     func fetchTag(for fetchRequest: NSFetchRequest<Tag>, named name: String) -> Tag? {
         fetchRequest.predicate = NSPredicate(format: "name == %@", name)
+        
         var tag: [Tag]?
         do {
             tag = try PersistanceService.instance.context.fetch(fetchRequest)

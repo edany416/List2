@@ -8,6 +8,10 @@
 
 import UIKit
 
+enum TapStyle {
+    case toggle
+}
+
 class ShadowView: UIView {
     
     override init(frame: CGRect) {
@@ -20,21 +24,36 @@ class ShadowView: UIView {
         viewSetup()
     }
     
-    private var tapped = false
-    @objc private func viewTapped(gesture: UILongPressGestureRecognizer) {
-        let feedbackGen = UIImpactFeedbackGenerator(style: .light)
-        if gesture.state == .began {
-            feedbackGen.impactOccurred()
-            UIView.animate(withDuration: 0.05) {
-                self.transform = CGAffineTransform(scaleX: 0.99, y: 0.99)
-                self.layer.shadowRadius = 1
-            }
+    func makeTappable(forTapStyle style: TapStyle) {
+        switch style {
+        case .toggle:
+            setToggleStyleTap()
         }
-        if gesture.state == .ended {
-            UIView.animate(withDuration: 0.05) {
-                self.transform = CGAffineTransform(scaleX: 1, y: 1)
-                self.layer.shadowRadius = 3
-            }
+    }
+    
+    private func setToggleStyleTap() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(viewTapped(gesture:)))
+        addGestureRecognizer(tapGesture)
+    }
+    
+    private var tapped: Bool = false
+    @objc private func viewTapped(gesture: UITapGestureRecognizer) {
+        let feedbackGen = UIImpactFeedbackGenerator(style: .light)
+        if !tapped {
+            feedbackGen.impactOccurred()
+            self.backgroundColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
+//            UIView.animate(withDuration: 0.05) {
+//                self.transform = CGAffineTransform(scaleX: 0.99, y: 0.99)
+//                self.layer.shadowRadius = 1
+//            }
+            tapped = true
+        } else {
+            self.backgroundColor = .white
+//            UIView.animate(withDuration: 0.05) {
+//                self.transform = CGAffineTransform(scaleX: 1, y: 1)
+//                self.layer.shadowRadius = 3
+//            }
+            tapped = false
         }
     }
     
@@ -45,10 +64,5 @@ class ShadowView: UIView {
         self.layer.shadowRadius = 3
         self.layer.cornerRadius = 3
         self.layer.shadowOpacity = 0.5
-        
-//        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(viewTapped(gesture:)))
-//        longPressGesture.minimumPressDuration = 0
-//        longPressGesture.allowableMovement = 0.0
-//        self.addGestureRecognizer(longPressGesture)
     }
 }

@@ -18,18 +18,20 @@ class TodoListViewController: UIViewController {
             if tableView != nil {
                 self.tableView.reloadData()
             }
+            tasks!.sort()
         }
     }
     
-    private var tags:[Tag]? = [Tag]() {
+    private var allTags:[Tag]? = [Tag]() {
         didSet {
             if tagPicker != nil {
                 self.tagPicker.reloadData()
             }
+            allTags!.sort()
         }
     }
     
-    private var tagFilterManager = TagFilterManager()
+    private var filter: TaskFilter?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,11 +43,14 @@ class TodoListViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        //Only do this shit if some changes where made to the database
         tasks = PersistanceService.instance.fetchTasks(given: Task.fetchRequest())
-        tags = PersistanceService.instance.fetchTags(given: Tag.fetchRequest())
+        allTags = PersistanceService.instance.fetchTags(given: Tag.fetchRequest())
+        filter = TaskFilter(defaultTags: Set(allTags!))
     }
 }
 
+//MARK: - TABLEVIEW DELEGATE
 extension TodoListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tasks!.count
@@ -71,50 +76,27 @@ extension TodoListViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-extension TodoListViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+//MARK: - COLLECTION VIEW DELEGATE
+extension TodoListViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if tags!.count == 0 {
+        if allTags!.count == 0 {
             return 0
         }
-        return tags!.count + 1
+        return allTags!.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = tagPicker.dequeueReusableCell(withReuseIdentifier: "TagCell", for: indexPath) as! TagCell
-        
-        if indexPath.row == 0 {
-            cell.tagLabel.text = "All"
-        } else {
-            let tag = tags![indexPath.row - 1]
-            cell.tagLabel.text = tag.name
-        }
-        
+        let tag = allTags![indexPath.row]
+        cell.tagLabel.text = tag.name
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        //Filter stating point here
-        let tagCell = tagPicker.cellForItem(at: indexPath) as! TagCell
-        if tagCell.tagLabel.text == "All" {
-            tasks = PersistanceService.instance.fetchTasks(given: Task.fetchRequest())
-        } else {
-            let filteredTasks = tagFilterManager.filter(tagCell.tagLabel.text!)
-            tasks = Array(filteredTasks)
+        if let cell = collectionView.cellForItem(at: indexPath) as? TagCell{
+            let tag = allTags![indexPath.row]
+            tasks = filter?.filterTasksForTag(tag: tag)
+            cell.tapped = !cell.tapped
         }
-        
-        tableView.reloadData()
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let tagName: String?
-        
-        if indexPath.row == 0 {
-            tagName = "all"
-        } else {
-            tagName = tags![indexPath.row-1].name
-        }
-        
-        var size: CGSize = tagName!.size(withAttributes: [.font: UIFont.systemFont(ofSize: 17)])
-        return size
     }
 }

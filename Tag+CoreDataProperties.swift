@@ -10,8 +10,7 @@ import Foundation
 import CoreData
 
 
-extension Tag {
-
+extension Tag: Comparable {
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Tag> {
         return NSFetchRequest<Tag>(entityName: "Tag")
     }
@@ -35,5 +34,10 @@ extension Tag {
 
     @objc(removeTasks:)
     @NSManaged public func removeFromTasks(_ values: NSSet)
+    
+    public static func < (lhs: Tag, rhs: Tag) -> Bool {
+        return lhs.name! < rhs.name!
+    }
+    
 
 }
