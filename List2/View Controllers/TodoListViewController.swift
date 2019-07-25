@@ -39,6 +39,7 @@ class TodoListViewController: UIViewController {
         tableView.delegate = self
         tagPicker.delegate = self
         tagPicker.dataSource = self
+        tagPicker.register(UINib.init(nibName: "TagFilterCell", bundle: nil), forCellWithReuseIdentifier: "TagFilterCell")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -77,7 +78,7 @@ extension TodoListViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 //MARK: - COLLECTION VIEW DELEGATE
-extension TodoListViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension TodoListViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if allTags!.count == 0 {
             return 0
@@ -86,17 +87,25 @@ extension TodoListViewController: UICollectionViewDelegate, UICollectionViewData
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = tagPicker.dequeueReusableCell(withReuseIdentifier: "TagCell", for: indexPath) as! TagCell
+        let cell = tagPicker.dequeueReusableCell(withReuseIdentifier: "TagFilterCell", for: indexPath) as! TagFilterCell
         let tag = allTags![indexPath.row]
-        cell.tagLabel.text = tag.name
+        cell.title.text = tag.name
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let cell = collectionView.cellForItem(at: indexPath) as? TagCell{
+        if let cell = collectionView.cellForItem(at: indexPath) as? TagFilterCell{
             let tag = allTags![indexPath.row]
             tasks = filter?.filterTasksForTag(tag: tag)
             cell.tapped = !cell.tapped
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let tag = allTags![indexPath.row]
+        let tagName = tag.name! as NSString
+        let sizeOfTagName = tagName.size(withAttributes: [.font: UIFont.systemFont(ofSize: 17)])
+        let size = CGSize(width: sizeOfTagName.width + 10, height: tagPicker.frame.height)
+        return size
     }
 }

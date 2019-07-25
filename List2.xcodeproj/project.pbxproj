@@ -48,6 +48,8 @@
 		8CAAFE9E229F716F000E2CC5 /* Subtask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CAAFE9D229F716F000E2CC5 /* Subtask.swift */; };
 		8CAAFEA2229F7349000E2CC5 /* SubtaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CAAFEA1229F7349000E2CC5 /* SubtaskCell.swift */; };
 		8CBFB27422E3A2D00065E9AA /* TaskFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CBFB27322E3A2D00065E9AA /* TaskFilter.swift */; };
+		8CBFB27D22E98CAA0065E9AA /* TagFilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CBFB27B22E98CAA0065E9AA /* TagFilterCell.swift */; };
+		8CBFB27E22E98CAA0065E9AA /* TagFilterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CBFB27C22E98CAA0065E9AA /* TagFilterCell.xib */; };
 		8CE3FFBB22B9BF3600E1C7C6 /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CE3FFBA22B9BF3600E1C7C6 /* DatePickerView.swift */; };
 		8CEF476122B6C67E00310963 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8CEF476022B6C67E00310963 /* GoogleService-Info.plist */; };
 		8CEF476322B8449F00310963 /* UserServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CEF476222B8449F00310963 /* UserServices.swift */; };
@@ -121,6 +123,8 @@
 		8CAAFE9D229F716F000E2CC5 /* Subtask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Subtask.swift; sourceTree = "<group>"; };
 		8CAAFEA1229F7349000E2CC5 /* SubtaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubtaskCell.swift; sourceTree = "<group>"; };
 		8CBFB27322E3A2D00065E9AA /* TaskFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskFilter.swift; sourceTree = "<group>"; };
+		8CBFB27B22E98CAA0065E9AA /* TagFilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagFilterCell.swift; sourceTree = "<group>"; };
+		8CBFB27C22E98CAA0065E9AA /* TagFilterCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TagFilterCell.xib; sourceTree = "<group>"; };
 		8CE3FFBA22B9BF3600E1C7C6 /* DatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
 		8CEF476022B6C67E00310963 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8CEF476222B8449F00310963 /* UserServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserServices.swift; sourceTree = "<group>"; };
@@ -317,6 +321,8 @@
 			isa = PBXGroup;
 			children = (
 				8C03607C22DFFFE400B6BE9C /* TagCell.swift */,
+				8CBFB27B22E98CAA0065E9AA /* TagFilterCell.swift */,
+				8CBFB27C22E98CAA0065E9AA /* TagFilterCell.xib */,
 			);
 			path = CollectionViewCells;
 			sourceTree = "<group>";
@@ -444,6 +450,7 @@
 			files = (
 				8C27E023229B710800A27AF7 /* LaunchScreen.storyboard in Resources */,
 				8C27E020229B710800A27AF7 /* Assets.xcassets in Resources */,
+				8CBFB27E22E98CAA0065E9AA /* TagFilterCell.xib in Resources */,
 				8CEF476122B6C67E00310963 /* GoogleService-Info.plist in Resources */,
 				8C27E01B229B710600A27AF7 /* Main.storyboard in Resources */,
 				8C27E048229B71AA00A27AF7 /* LoginStoryboard.storyboard in Resources */,
@@ -600,6 +607,7 @@
 				8C27E016229B710600A27AF7 /* AppDelegate.swift in Sources */,
 				8CAAFE9E229F716F000E2CC5 /* Subtask.swift in Sources */,
 				8CE3FFBB22B9BF3600E1C7C6 /* DatePickerView.swift in Sources */,
+				8CBFB27D22E98CAA0065E9AA /* TagFilterCell.swift in Sources */,
 				8C27E04A229B728C00A27AF7 /* RoundedButton.swift in Sources */,
 				8C27E061229C613C00A27AF7 /* BulletPointTextView.swift in Sources */,
 				8C4EDADD22CEB89E00F00248 /* DBManager.swift in Sources */,
