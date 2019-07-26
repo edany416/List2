@@ -15,18 +15,18 @@ class TagFilterCell: UICollectionViewCell {
     var tapped: Bool = false {
         willSet {
             if newValue == true {
-                self.underBar.backgroundColor = #colorLiteral(red: 0, green: 0.8754195553, blue: 0.5208082601, alpha: 1)
+                self.underBar.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
                 self.title.textColor = .black
             } else {
                 self.underBar.backgroundColor = .clear
-                self.title.textColor = .darkGray
+                self.title.textColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
             }
         }
     }
     override func awakeFromNib() {
         super.awakeFromNib()
         self.underBar.backgroundColor = .clear
-        self.title.textColor = .darkGray
+        self.title.textColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
     }
 
 }
