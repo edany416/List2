@@ -52,28 +52,35 @@ class TodoListViewController: UIViewController {
 }
 
 //MARK: - TABLEVIEW DELEGATE
-extension TodoListViewController: UITableViewDelegate, UITableViewDataSource {
+extension TodoListViewController: UITableViewDelegate, UITableViewDataSource, ExpandingCellDelegate {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tasks!.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TaskCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Todo Cell", for: indexPath) as! ExpandingTableViewCell
         let task = tasks![indexPath.row]
         cell.taskName.text = task.name
+        cell.delegate = self
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let cell = tableView.cellForRow(at: indexPath) as? ExpandingTableViewCell {
-            if cell.isExpanded {
-                cell.contract()
-            } else {
-                cell.expand()
-            }
-            tableView.beginUpdates()
-            tableView.endUpdates()
-        }
+//        if let cell = tableView.cellForRow(at: indexPath) as? ExpandingTableViewCell {
+//            if cell.isExpanded {
+//                cell.contract()
+//            } else {
+//                cell.expand()
+//            }
+//            tableView.beginUpdates()
+//            tableView.endUpdates()
+//        }
+    }
+    
+    func didTapCell() {
+        tableView.beginUpdates()
+        tableView.endUpdates()
     }
 }
 

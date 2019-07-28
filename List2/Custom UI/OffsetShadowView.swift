@@ -22,7 +22,7 @@ class OffsetShadowView: UIView {
     
     private func viewSetup() {
         self.layer.shadowPath = UIBezierPath(rect: self.bounds).cgPath
-        self.layer.shadowOffset = CGSize(width: 0, height: 3)
+        self.layer.shadowOffset = CGSize(width: 0, height: -3)
         self.layer.shadowColor = UIColor.lightGray.cgColor
         self.layer.shadowRadius = 3
         self.layer.cornerRadius = 3
