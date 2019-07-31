@@ -15,11 +15,13 @@
 		8C0BBB6A22D8EE5C0065AEE4 /* PersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C0BBB6922D8EE5C0065AEE4 /* PersistenceService.swift */; };
 		8C0BBB7B22DDA3930065AEE4 /* Task+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C0BBB7922DDA3930065AEE4 /* Task+CoreDataProperties.swift */; };
 		8C0BBB7C22DDA3930065AEE4 /* Task+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C0BBB7822DDA3930065AEE4 /* Task+CoreDataClass.swift */; };
-		8C0BBB7D22DDA3930065AEE4 /* Tag+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C0BBB7722DDA3930065AEE4 /* Tag+CoreDataProperties.swift */; };
-		8C0BBB7E22DDA3930065AEE4 /* Tag+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C0BBB7A22DDA3930065AEE4 /* Tag+CoreDataClass.swift */; };
 		8C0BBB8422DF81840065AEE4 /* ShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C0BBB8322DF81840065AEE4 /* ShadowView.swift */; };
 		8C0BBB8622DF85D90065AEE4 /* TestShadowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C0BBB8522DF85D90065AEE4 /* TestShadowCell.swift */; };
 		8C0BBB8822DF96020065AEE4 /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C0BBB8722DF96020065AEE4 /* TaskCell.swift */; };
+		8C193A0C22EE4EE1009D6E23 /* AutoComplete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C193A0B22EE4EE1009D6E23 /* AutoComplete.swift */; };
+		8C193A0F22EFFD35009D6E23 /* Tag+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C193A0D22EFFD35009D6E23 /* Tag+CoreDataClass.swift */; };
+		8C193A1022EFFD35009D6E23 /* Tag+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C193A0E22EFFD35009D6E23 /* Tag+CoreDataProperties.swift */; };
+		8C193A1222F143EC009D6E23 /* TagFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C193A1122F143EC009D6E23 /* TagFilter.swift */; };
 		8C27E016229B710600A27AF7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C27E015229B710600A27AF7 /* AppDelegate.swift */; };
 		8C27E01B229B710600A27AF7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C27E019229B710600A27AF7 /* Main.storyboard */; };
 		8C27E01E229B710600A27AF7 /* List2.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8C27E01C229B710600A27AF7 /* List2.xcdatamodeld */; };
@@ -83,13 +85,15 @@
 		8C03607E22E0089700B6BE9C /* RoundedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedView.swift; sourceTree = "<group>"; };
 		8C08BE8222E55354007422F2 /* TaskDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailViewController.swift; sourceTree = "<group>"; };
 		8C0BBB6922D8EE5C0065AEE4 /* PersistenceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceService.swift; sourceTree = "<group>"; };
-		8C0BBB7722DDA3930065AEE4 /* Tag+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Tag+CoreDataProperties.swift"; path = "../../Tag+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		8C0BBB7822DDA3930065AEE4 /* Task+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Task+CoreDataClass.swift"; path = "../../Task+CoreDataClass.swift"; sourceTree = "<group>"; };
 		8C0BBB7922DDA3930065AEE4 /* Task+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Task+CoreDataProperties.swift"; path = "../../Task+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		8C0BBB7A22DDA3930065AEE4 /* Tag+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Tag+CoreDataClass.swift"; path = "../../Tag+CoreDataClass.swift"; sourceTree = "<group>"; };
 		8C0BBB8322DF81840065AEE4 /* ShadowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowView.swift; sourceTree = "<group>"; };
 		8C0BBB8522DF85D90065AEE4 /* TestShadowCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestShadowCell.swift; sourceTree = "<group>"; };
 		8C0BBB8722DF96020065AEE4 /* TaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
+		8C193A0B22EE4EE1009D6E23 /* AutoComplete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoComplete.swift; sourceTree = "<group>"; };
+		8C193A0D22EFFD35009D6E23 /* Tag+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Tag+CoreDataClass.swift"; sourceTree = "<group>"; };
+		8C193A0E22EFFD35009D6E23 /* Tag+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Tag+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		8C193A1122F143EC009D6E23 /* TagFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagFilter.swift; sourceTree = "<group>"; };
 		8C27E012229B710600A27AF7 /* List2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = List2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C27E015229B710600A27AF7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8C27E01A229B710600A27AF7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -298,9 +302,11 @@
 				8C0BBB6922D8EE5C0065AEE4 /* PersistenceService.swift */,
 				8C0BBB7822DDA3930065AEE4 /* Task+CoreDataClass.swift */,
 				8C0BBB7922DDA3930065AEE4 /* Task+CoreDataProperties.swift */,
-				8C0BBB7A22DDA3930065AEE4 /* Tag+CoreDataClass.swift */,
-				8C0BBB7722DDA3930065AEE4 /* Tag+CoreDataProperties.swift */,
+				8C193A0D22EFFD35009D6E23 /* Tag+CoreDataClass.swift */,
+				8C193A0E22EFFD35009D6E23 /* Tag+CoreDataProperties.swift */,
 				8CBFB27322E3A2D00065E9AA /* TaskFilter.swift */,
+				8C193A0B22EE4EE1009D6E23 /* AutoComplete.swift */,
+				8C193A1122F143EC009D6E23 /* TagFilter.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -584,13 +590,13 @@
 				8C27E06A229D03DF00A27AF7 /* NotesCell.swift in Sources */,
 				8C03607D22DFFFE400B6BE9C /* TagCell.swift in Sources */,
 				8C0BBB8422DF81840065AEE4 /* ShadowView.swift in Sources */,
+				8C193A1022EFFD35009D6E23 /* Tag+CoreDataProperties.swift in Sources */,
 				8C27E050229B795D00A27AF7 /* LoginViewController.swift in Sources */,
+				8C193A0C22EE4EE1009D6E23 /* AutoComplete.swift in Sources */,
 				8C27E054229B8ED900A27AF7 /* TodoDetailViewController.swift in Sources */,
-				8C0BBB7E22DDA3930065AEE4 /* Tag+CoreDataClass.swift in Sources */,
 				8C27E052229B799000A27AF7 /* SignUpViewController.swift in Sources */,
 				8C0BBB8622DF85D90065AEE4 /* TestShadowCell.swift in Sources */,
 				8C398E7722B1D96E0092EE03 /* TodoListViewController.swift in Sources */,
-				8C0BBB7D22DDA3930065AEE4 /* Tag+CoreDataProperties.swift in Sources */,
 				8C08BE8322E55354007422F2 /* TaskDetailViewController.swift in Sources */,
 				8C0BBB8822DF96020065AEE4 /* TaskCell.swift in Sources */,
 				8C27E056229B91FD00A27AF7 /* TodoNameCell.swift in Sources */,
@@ -605,12 +611,14 @@
 				8C27E04E229B757800A27AF7 /* LogoScreenViewController.swift in Sources */,
 				8CBFB28022EAE6990065E9AA /* OffsetShadowView.swift in Sources */,
 				8C398E7522B1D8820092EE03 /* ExpandingTableViewCell.swift in Sources */,
+				8C193A1222F143EC009D6E23 /* TagFilter.swift in Sources */,
 				8C27E058229B921200A27AF7 /* DueDateCell.swift in Sources */,
 				8C27E05C229BBA8900A27AF7 /* NotesViewController.swift in Sources */,
 				8CEF476322B8449F00310963 /* UserServices.swift in Sources */,
 				8C27E016229B710600A27AF7 /* AppDelegate.swift in Sources */,
 				8CAAFE9E229F716F000E2CC5 /* Subtask.swift in Sources */,
 				8CE3FFBB22B9BF3600E1C7C6 /* DatePickerView.swift in Sources */,
+				8C193A0F22EFFD35009D6E23 /* Tag+CoreDataClass.swift in Sources */,
 				8CBFB27D22E98CAA0065E9AA /* TagFilterCell.swift in Sources */,
 				8C27E04A229B728C00A27AF7 /* RoundedButton.swift in Sources */,
 				8C27E061229C613C00A27AF7 /* BulletPointTextView.swift in Sources */,

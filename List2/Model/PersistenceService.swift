@@ -73,6 +73,7 @@ class PersistanceService {
         }
         newTask.notes = notes
         if tags != nil {
+            //Associate tags with tasks
             for tag_string in tags! {
                 if let existingTag = fetchTag(for: Tag.fetchRequest(), named: tag_string) {
                     existingTag.addToTasks(newTask)
@@ -80,6 +81,15 @@ class PersistanceService {
                     let newTag = Tag(context: PersistanceService.instance.context)
                     newTag.name = tag_string
                     newTask.addToTags(newTag)
+                }
+            }
+            
+            //Associate tags with tags
+            for i in 0..<tags!.count - 1 {
+                let currentTag = fetchTag(for: Tag.fetchRequest(), named: tags![i])
+                for j in i+1..<tags!.count {
+                    let nextTag = fetchTag(for: Tag.fetchRequest(), named: tags![j])
+                    currentTag!.addToAssociatedTags(nextTag!)
                 }
             }
         }

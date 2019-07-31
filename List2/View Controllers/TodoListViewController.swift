@@ -22,15 +22,16 @@ class TodoListViewController: UIViewController {
         }
     }
     
+    private var isTagEdited = false
     private var allTags:[Tag]? = [Tag]() {
         didSet {
             if tagPicker != nil {
                 self.tagPicker.reloadData()
             }
-            allTags!.sort()
+            //allTags!.sort()
         }
     }
-    
+    private var tapTracker: [Tag:Bool]?
     private var filter: TaskFilter?
     
     override func viewDidLoad() {
@@ -47,6 +48,7 @@ class TodoListViewController: UIViewController {
         //Only do this shit if some changes where made to the database
         tasks = PersistanceService.instance.fetchTasks(given: Task.fetchRequest())
         allTags = PersistanceService.instance.fetchTags(given: Tag.fetchRequest())
+        tapTracker = Dictionary(uniqueKeysWithValues: allTags!.map { ($0 , false) })
         filter = TaskFilter(defaultTags: Set(allTags!))
     }
 }
@@ -64,18 +66,6 @@ extension TodoListViewController: UITableViewDelegate, UITableViewDataSource, Ex
         cell.taskName.text = task.name
         cell.delegate = self
         return cell
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        if let cell = tableView.cellForRow(at: indexPath) as? ExpandingTableViewCell {
-//            if cell.isExpanded {
-//                cell.contract()
-//            } else {
-//                cell.expand()
-//            }
-//            tableView.beginUpdates()
-//            tableView.endUpdates()
-//        }
     }
     
     func didTapCell() {
@@ -96,15 +86,25 @@ extension TodoListViewController: UICollectionViewDelegate, UICollectionViewData
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = tagPicker.dequeueReusableCell(withReuseIdentifier: "TagFilterCell", for: indexPath) as! TagFilterCell
         let tag = allTags![indexPath.row]
+        let isCellTapped = tapTracker![tag]
         cell.title.text = tag.name
+        if isCellTapped! {
+            cell.tapped = true
+        } else {
+            cell.tapped = false
+        }
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let cell = collectionView.cellForItem(at: indexPath) as? TagFilterCell{
             let tag = allTags![indexPath.row]
+            
+            let isTapped = tapTracker![tag]
+            tapTracker![tag] = !isTapped!
+            
+            allTags = filter?.tagList(for: tag)
             tasks = filter?.filterTasksForTag(tag: tag)
-            cell.tapped = !cell.tapped
         }
     }
     
@@ -112,7 +112,7 @@ extension TodoListViewController: UICollectionViewDelegate, UICollectionViewData
         let tag = allTags![indexPath.row]
         let tagName = tag.name! as NSString
         let sizeOfTagName = tagName.size(withAttributes: [.font: UIFont.systemFont(ofSize: 17)])
-        let size = CGSize(width: sizeOfTagName.width + 10, height: tagPicker.frame.height)
+        let size = CGSize(width: sizeOfTagName.width + 5, height: tagPicker.frame.height)
         return size
     }
 }

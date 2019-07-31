@@ -11,12 +11,6 @@
       location = "group:Task+CoreDataProperties.swift">
    </FileRef>
    <FileRef
-      location = "group:Tag+CoreDataClass.swift">
-   </FileRef>
-   <FileRef
-      location = "group:Tag+CoreDataProperties.swift">
-   </FileRef>
-   <FileRef
       location = "group:List2.xcodeproj">
    </FileRef>
    <FileRef

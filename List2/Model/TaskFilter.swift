@@ -17,6 +17,8 @@ struct TaskFilter {
     private var defaultTags: Set<Tag>!
     private var defaultTasks: [Task]!
     
+    private var tagFilter: TagFilter!
+    
     init(defaultTags: Set<Tag>) {
         self.defaultTags = defaultTags
         var taskSet = Set<Task>()
@@ -25,7 +27,9 @@ struct TaskFilter {
             taskSet = taskSet.union(tasksForTag!)
         }
         defaultTasks = Array(taskSet)
+        tagFilter = TagFilter(defaultTags)
     }
+    
     
     mutating func filterTasksForTag(tag: Tag) -> [Task] {
         if !selectedTags.contains(tag) {
@@ -33,6 +37,10 @@ struct TaskFilter {
         } else {
             return removeTagFromFilter(tag: tag)
         }
+    }
+    
+    mutating func tagList(for tag: Tag) -> [Tag] {
+        return tagFilter.associatedTags(for: tag)
     }
     
     private mutating func addTagToFilter(tag: Tag) -> [Task] {
