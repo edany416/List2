@@ -15,7 +15,10 @@ protocol ExpandingCellDelegate {
 class ExpandingTableViewCell: UITableViewCell, ShadowViewDelegate {
     @IBOutlet weak private var expandingView: UIView!
     @IBOutlet weak private var shadowView: ShadowView!
+    @IBOutlet weak private var hitZone: UIView!
+    
     @IBOutlet weak var taskName: UILabel!
+    var row: Int = -1
 
     
     var isExpanded: Bool {
@@ -30,6 +33,12 @@ class ExpandingTableViewCell: UITableViewCell, ShadowViewDelegate {
         super.awakeFromNib()
         expandingView.isHidden = true
         shadowView.delegate = self
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hitZoneTapped))
+        hitZone.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc private func hitZoneTapped() {
+        NotificationCenter.default.post(name: .didCompleteTodo, object: nil, userInfo: ["rowForCell":row])
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -63,6 +72,9 @@ class ExpandingTableViewCell: UITableViewCell, ShadowViewDelegate {
         delegate?.didTapCell()
     }
   
+//    @IBAction func completeTodoTapped(_ sender: UIButton) {
+//        NotificationCenter.default.post(name: .didCompleteTodo, object: nil, userInfo: ["tagName":taskName.text])
+//    }
 }
 
 extension UIView {

@@ -22,6 +22,7 @@
 		8C193A0F22EFFD35009D6E23 /* Tag+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C193A0D22EFFD35009D6E23 /* Tag+CoreDataClass.swift */; };
 		8C193A1022EFFD35009D6E23 /* Tag+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C193A0E22EFFD35009D6E23 /* Tag+CoreDataProperties.swift */; };
 		8C193A1222F143EC009D6E23 /* TagFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C193A1122F143EC009D6E23 /* TagFilter.swift */; };
+		8C193A1422F28376009D6E23 /* NotificationNameExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C193A1322F28376009D6E23 /* NotificationNameExtension.swift */; };
 		8C27E016229B710600A27AF7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C27E015229B710600A27AF7 /* AppDelegate.swift */; };
 		8C27E01B229B710600A27AF7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C27E019229B710600A27AF7 /* Main.storyboard */; };
 		8C27E01E229B710600A27AF7 /* List2.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8C27E01C229B710600A27AF7 /* List2.xcdatamodeld */; };
@@ -94,6 +95,7 @@
 		8C193A0D22EFFD35009D6E23 /* Tag+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Tag+CoreDataClass.swift"; sourceTree = "<group>"; };
 		8C193A0E22EFFD35009D6E23 /* Tag+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Tag+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		8C193A1122F143EC009D6E23 /* TagFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagFilter.swift; sourceTree = "<group>"; };
+		8C193A1322F28376009D6E23 /* NotificationNameExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationNameExtension.swift; sourceTree = "<group>"; };
 		8C27E012229B710600A27AF7 /* List2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = List2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C27E015229B710600A27AF7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8C27E01A229B710600A27AF7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -288,6 +290,7 @@
 			isa = PBXGroup;
 			children = (
 				8C27E067229CFD5500A27AF7 /* UIViewExtension.swift */,
+				8C193A1322F28376009D6E23 /* NotificationNameExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -623,6 +626,7 @@
 				8C27E04A229B728C00A27AF7 /* RoundedButton.swift in Sources */,
 				8C27E061229C613C00A27AF7 /* BulletPointTextView.swift in Sources */,
 				8C4EDADD22CEB89E00F00248 /* DBManager.swift in Sources */,
+				8C193A1422F28376009D6E23 /* NotificationNameExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

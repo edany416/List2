@@ -28,7 +28,6 @@ class TodoListViewController: UIViewController {
             if tagPicker != nil {
                 self.tagPicker.reloadData()
             }
-            //allTags!.sort()
         }
     }
     private var tapTracker: [Tag:Bool]?
@@ -41,15 +40,30 @@ class TodoListViewController: UIViewController {
         tagPicker.delegate = self
         tagPicker.dataSource = self
         tagPicker.register(UINib.init(nibName: "TagFilterCell", bundle: nil), forCellWithReuseIdentifier: "TagFilterCell")
+        
+        retrieveData()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(didCompleteTodo(_:)), name: .didCompleteTodo, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(contextDidSave(_:)), name: Notification.Name.NSManagedObjectContextDidSave, object: nil)
+
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        //Only do this shit if some changes where made to the database
+    @objc func contextDidSave(_ notification: Notification) {
+        print("Did Save")
+        retrieveData()
+    }
+    
+    private func retrieveData() {
         tasks = PersistanceService.instance.fetchTasks(given: Task.fetchRequest())
         allTags = PersistanceService.instance.fetchTags(given: Tag.fetchRequest())
         tapTracker = Dictionary(uniqueKeysWithValues: allTags!.map { ($0 , false) })
         filter = TaskFilter(defaultTags: Set(allTags!))
+    }
+    
+    @objc func didCompleteTodo(_ notification: Notification) {
+        let cellRow = notification.userInfo!["rowForCell"] as! Int
+        let task = tasks![cellRow]
+        PersistanceService.instance.completeTask(task)
     }
 }
 
@@ -64,6 +78,7 @@ extension TodoListViewController: UITableViewDelegate, UITableViewDataSource, Ex
         let cell = tableView.dequeueReusableCell(withIdentifier: "Todo Cell", for: indexPath) as! ExpandingTableViewCell
         let task = tasks![indexPath.row]
         cell.taskName.text = task.name
+        cell.row = indexPath.row
         cell.delegate = self
         return cell
     }

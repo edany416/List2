@@ -16,8 +16,10 @@ struct TaskFilter {
     private var filteredTasks = Set<Task>()
     private var defaultTags: Set<Tag>!
     private var defaultTasks: [Task]!
-    
     private var tagFilter: TagFilter!
+    var  isInFilterMode: Bool {
+        return selectedTags.count != 0
+    }
     
     init(defaultTags: Set<Tag>) {
         self.defaultTags = defaultTags

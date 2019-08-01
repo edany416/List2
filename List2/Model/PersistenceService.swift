@@ -17,7 +17,7 @@ class PersistanceService {
     private init() { }
     
     
-    
+    //Manage context
     var context: NSManagedObjectContext {
         return persistentContainer.viewContext
     }
@@ -131,5 +131,17 @@ class PersistanceService {
             return nil
         }
         return tag![0]
+    }
+    
+    func completeTask(_ task: Task) {
+        let tagsForTask = (task.tags as! NSSet).allObjects as! [Tag]
+        for tag in tagsForTask {
+            tag.removeFromTasks(task)
+            if tag.tasks!.count == 0 {
+                context.delete(tag)
+            }
+        }
+        context.delete(task)
+        PersistanceService.instance.saveContext()
     }
 }

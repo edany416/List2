@@ -16,6 +16,12 @@ class ShadowView: UIView {
     
     var delegate: ShadowViewDelegate?
     
+    private var animationDuration: TimeInterval = 0.05
+    private var scaleTapped: CGFloat = 0.99
+    private var scaleReleased: CGFloat = 1
+    private var shadowReleased: CGFloat = 4
+    
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         viewSetup()
@@ -27,38 +33,19 @@ class ShadowView: UIView {
     }
     
     private var tapped: Bool = false
-    @objc private func viewTapped(gesture: UITapGestureRecognizer) {
-        let feedbackGen = UIImpactFeedbackGenerator(style: .light)
-        if !tapped {
-            feedbackGen.impactOccurred()
-            UIView.animate(withDuration: 0.05) {
-                self.transform = CGAffineTransform(scaleX: 0.99, y: 0.99)
-                self.layer.shadowRadius = 1
-            }
-            tapped = true
-        } else {
-            self.backgroundColor = .white
-            UIView.animate(withDuration: 0.05) {
-                self.transform = CGAffineTransform(scaleX: 1, y: 1)
-                self.layer.shadowRadius = 3
-            }
-            tapped = false
-        }
-    }
-    
     @objc private func longPressHandler(gesture: UILongPressGestureRecognizer){
         let state = gesture.state
         switch state {
         case .began:
-            UIView.animate(withDuration: 0.05) {
-                self.transform = CGAffineTransform(scaleX: 0.99, y: 0.99)
+            UIView.animate(withDuration: animationDuration) {
+                self.transform = CGAffineTransform(scaleX: self.scaleTapped, y: self.scaleTapped)
                 self.layer.shadowRadius = 1
             }
         case .ended:
             self.delegate!.didTapView()
-            UIView.animate(withDuration: 0.05) {
-                self.transform = CGAffineTransform(scaleX: 1, y: 1)
-                self.layer.shadowRadius = 3
+            UIView.animate(withDuration: animationDuration) {
+                self.transform = CGAffineTransform(scaleX: self.scaleReleased, y:self.scaleReleased)
+                self.layer.shadowRadius = self.shadowReleased
             }
         default:
             break
@@ -69,11 +56,9 @@ class ShadowView: UIView {
         self.layer.shadowPath = UIBezierPath(rect: self.bounds).cgPath
         self.layer.shadowOffset = CGSize(width: 0, height: 0)
         self.layer.shadowColor = UIColor.lightGray.cgColor
-        self.layer.shadowRadius = 3
-        //self.layer.cornerRadius = 3
+        self.layer.shadowRadius = shadowReleased
         self.layer.shadowOpacity = 0.5
         
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(viewTapped(gesture:)))
         let longTapGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressHandler(gesture:)))
         longTapGesture.minimumPressDuration = 0.035
         addGestureRecognizer(longTapGesture)
