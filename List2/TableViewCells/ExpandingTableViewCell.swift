@@ -14,7 +14,7 @@ protocol ExpandingCellDelegate {
 
 class ExpandingTableViewCell: UITableViewCell, ShadowViewDelegate {
     @IBOutlet weak private var expandingView: UIView!
-    @IBOutlet weak private var shadowView: ShadowView!
+    @IBOutlet weak var shadowView: TappableShadowView!
     @IBOutlet weak private var hitZone: UIView!
     
     @IBOutlet weak var taskName: UILabel!

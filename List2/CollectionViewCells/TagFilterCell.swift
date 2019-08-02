@@ -15,11 +15,11 @@ class TagFilterCell: UICollectionViewCell {
     var tapped: Bool = false {
         willSet {
             if newValue == true {
-                self.underBar.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+                self.underBar.backgroundColor = .clear
                 self.title.textColor = .black
             } else {
                 self.underBar.backgroundColor = .clear
-                self.title.textColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+                self.title.textColor = #colorLiteral(red: 0.75, green: 0.75, blue: 0.75, alpha: 0.6952857449)
             }
         }
     }

@@ -8,19 +8,9 @@
 
 import UIKit
 
-protocol ShadowViewDelegate {
-    func didTapView()
-}
-
 class ShadowView: UIView {
     
-    var delegate: ShadowViewDelegate?
-    
-    private var animationDuration: TimeInterval = 0.05
-    private var scaleTapped: CGFloat = 0.99
-    private var scaleReleased: CGFloat = 1
     private var shadowReleased: CGFloat = 4
-    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -32,35 +22,11 @@ class ShadowView: UIView {
         viewSetup()
     }
     
-    private var tapped: Bool = false
-    @objc private func longPressHandler(gesture: UILongPressGestureRecognizer){
-        let state = gesture.state
-        switch state {
-        case .began:
-            UIView.animate(withDuration: animationDuration) {
-                self.transform = CGAffineTransform(scaleX: self.scaleTapped, y: self.scaleTapped)
-                self.layer.shadowRadius = 1
-            }
-        case .ended:
-            self.delegate!.didTapView()
-            UIView.animate(withDuration: animationDuration) {
-                self.transform = CGAffineTransform(scaleX: self.scaleReleased, y:self.scaleReleased)
-                self.layer.shadowRadius = self.shadowReleased
-            }
-        default:
-            break
-        }
-    }
-    
     private func viewSetup() {
         self.layer.shadowPath = UIBezierPath(rect: self.bounds).cgPath
         self.layer.shadowOffset = CGSize(width: 0, height: 0)
         self.layer.shadowColor = UIColor.lightGray.cgColor
         self.layer.shadowRadius = shadowReleased
         self.layer.shadowOpacity = 0.5
-        
-        let longTapGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressHandler(gesture:)))
-        longTapGesture.minimumPressDuration = 0.035
-        addGestureRecognizer(longTapGesture)
     }
 }

@@ -18,4 +18,7 @@ struct Constants {
     static let INITIAL_NOTES_ROW = 3
     static let DISABLED_BUTTON_COLOR = UIColor.gray
     static let ENABLED_BUTTON_COLOR = UIColor(displayP3Red: 0, green: 0, blue: 0, alpha: 1.0)
+    
+    static let APP_COLOR_MAIN = #colorLiteral(red: 0.3283973634, green: 0.6906218529, blue: 0.953943193, alpha: 1)
+    static let APP_COLOR_GREY = #colorLiteral(red: 0.8596041203, green: 0.8732971549, blue: 0.9169877172, alpha: 1)
 }

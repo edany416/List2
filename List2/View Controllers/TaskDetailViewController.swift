@@ -13,6 +13,7 @@ class TaskDetailViewController: UIViewController {
     @IBOutlet private weak var taskNameTextField: UITextField!
     @IBOutlet private weak var tagsTextField: UITextField!
     @IBOutlet private weak var saveButton: UIButton!
+    @IBOutlet weak var shadowView: ShadowView!
     
     var isInEditState: Bool = false
 
@@ -20,7 +21,6 @@ class TaskDetailViewController: UIViewController {
         super.viewDidLoad()
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tapGesture)
-        
         NotificationCenter.default.addObserver(self, selector: #selector(contentDidSave(_:)), name: Notification.Name.NSManagedObjectContextDidSave, object: nil)
     }
     

@@ -126,8 +126,8 @@ extension TodoListViewController: UICollectionViewDelegate, UICollectionViewData
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let tag = allTags![indexPath.row]
         let tagName = tag.name! as NSString
-        let sizeOfTagName = tagName.size(withAttributes: [.font: UIFont.systemFont(ofSize: 17)])
-        let size = CGSize(width: sizeOfTagName.width + 5, height: tagPicker.frame.height)
+        let sizeOfTagName = tagName.size(withAttributes: [.font: UIFont.systemFont(ofSize: 20)])
+        let size = CGSize(width: sizeOfTagName.width + 15, height: tagPicker.frame.height)
         return size
     }
 }
