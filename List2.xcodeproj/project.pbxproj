@@ -51,10 +51,16 @@
 		8CAAFE9E229F716F000E2CC5 /* Subtask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CAAFE9D229F716F000E2CC5 /* Subtask.swift */; };
 		8CAAFEA2229F7349000E2CC5 /* SubtaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CAAFEA1229F7349000E2CC5 /* SubtaskCell.swift */; };
 		8CBFB27422E3A2D00065E9AA /* TaskFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CBFB27322E3A2D00065E9AA /* TaskFilter.swift */; };
-		8CBFB27D22E98CAA0065E9AA /* TagFilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CBFB27B22E98CAA0065E9AA /* TagFilterCell.swift */; };
+		8CBFB27D22E98CAA0065E9AA /* TagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CBFB27B22E98CAA0065E9AA /* TagCell.swift */; };
 		8CBFB27E22E98CAA0065E9AA /* TagFilterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CBFB27C22E98CAA0065E9AA /* TagFilterCell.xib */; };
 		8CBFB28022EAE6990065E9AA /* OffsetShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CBFB27F22EAE6990065E9AA /* OffsetShadowView.swift */; };
+		8CD062D02300C099002F01DD /* TapTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD062CF2300C099002F01DD /* TapTracker.swift */; };
 		8CE3FFBB22B9BF3600E1C7C6 /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CE3FFBA22B9BF3600E1C7C6 /* DatePickerView.swift */; };
+		8CE7E82822FBC30000A14E7C /* RunningTagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CE7E82722FBC30000A14E7C /* RunningTagCell.swift */; };
+		8CE7E82E22FF6BDE00A14E7C /* SuggestionsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CE7E82D22FF6BDE00A14E7C /* SuggestionsView.xib */; };
+		8CE7E83022FF6F1600A14E7C /* SuggestionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CE7E82F22FF6F1600A14E7C /* SuggestionsView.swift */; };
+		8CE7E83322FF8A4300A14E7C /* SuggestionsTrie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CE7E83222FF8A4300A14E7C /* SuggestionsTrie.swift */; };
+		8CE7E8352300AA9200A14E7C /* KeyboardBarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CE7E8342300AA9200A14E7C /* KeyboardBarCell.swift */; };
 		8CEF476122B6C67E00310963 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8CEF476022B6C67E00310963 /* GoogleService-Info.plist */; };
 		8CEF476322B8449F00310963 /* UserServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CEF476222B8449F00310963 /* UserServices.swift */; };
 		EFD12C9B0239C5118FF34F34 /* Pods_List2UITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58FB8B4389E7154F6DF1A222 /* Pods_List2UITests.framework */; };
@@ -130,10 +136,16 @@
 		8CAAFE9D229F716F000E2CC5 /* Subtask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Subtask.swift; sourceTree = "<group>"; };
 		8CAAFEA1229F7349000E2CC5 /* SubtaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubtaskCell.swift; sourceTree = "<group>"; };
 		8CBFB27322E3A2D00065E9AA /* TaskFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskFilter.swift; sourceTree = "<group>"; };
-		8CBFB27B22E98CAA0065E9AA /* TagFilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagFilterCell.swift; sourceTree = "<group>"; };
+		8CBFB27B22E98CAA0065E9AA /* TagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCell.swift; sourceTree = "<group>"; };
 		8CBFB27C22E98CAA0065E9AA /* TagFilterCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TagFilterCell.xib; sourceTree = "<group>"; };
 		8CBFB27F22EAE6990065E9AA /* OffsetShadowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffsetShadowView.swift; sourceTree = "<group>"; };
+		8CD062CF2300C099002F01DD /* TapTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapTracker.swift; sourceTree = "<group>"; };
 		8CE3FFBA22B9BF3600E1C7C6 /* DatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
+		8CE7E82722FBC30000A14E7C /* RunningTagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunningTagCell.swift; sourceTree = "<group>"; };
+		8CE7E82D22FF6BDE00A14E7C /* SuggestionsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SuggestionsView.xib; sourceTree = "<group>"; };
+		8CE7E82F22FF6F1600A14E7C /* SuggestionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionsView.swift; sourceTree = "<group>"; };
+		8CE7E83222FF8A4300A14E7C /* SuggestionsTrie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SuggestionsTrie.swift; path = "New Group/SuggestionsTrie.swift"; sourceTree = "<group>"; };
+		8CE7E8342300AA9200A14E7C /* KeyboardBarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardBarCell.swift; sourceTree = "<group>"; };
 		8CEF476022B6C67E00310963 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8CEF476222B8449F00310963 /* UserServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserServices.swift; sourceTree = "<group>"; };
 		99CE32A1FF76D7BDF57BE84A /* Pods-List2UITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-List2UITests.release.xcconfig"; path = "Target Support Files/Pods-List2UITests/Pods-List2UITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -283,6 +295,8 @@
 				8CBFB27F22EAE6990065E9AA /* OffsetShadowView.swift */,
 				8C0BBB8322DF81840065AEE4 /* ShadowView.swift */,
 				8C193A1522F41CD2009D6E23 /* TappableShadowView.swift */,
+				8CE7E82D22FF6BDE00A14E7C /* SuggestionsView.xib */,
+				8CE7E82F22FF6F1600A14E7C /* SuggestionsView.swift */,
 			);
 			path = "Custom UI";
 			sourceTree = "<group>";
@@ -299,6 +313,7 @@
 		8C27E06B229D20A100A27AF7 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				8CE7E83222FF8A4300A14E7C /* SuggestionsTrie.swift */,
 				8C27E06C229D20D400A27AF7 /* Constants.swift */,
 				8CAAFE9D229F716F000E2CC5 /* Subtask.swift */,
 				8CEF476222B8449F00310963 /* UserServices.swift */,
@@ -311,6 +326,7 @@
 				8CBFB27322E3A2D00065E9AA /* TaskFilter.swift */,
 				8C193A0B22EE4EE1009D6E23 /* AutoComplete.swift */,
 				8C193A1122F143EC009D6E23 /* TagFilter.swift */,
+				8CD062CF2300C099002F01DD /* TapTracker.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -333,8 +349,10 @@
 		8CDD9C5422E17E7B009D2E64 /* CollectionViewCells */ = {
 			isa = PBXGroup;
 			children = (
-				8CBFB27B22E98CAA0065E9AA /* TagFilterCell.swift */,
+				8CBFB27B22E98CAA0065E9AA /* TagCell.swift */,
 				8CBFB27C22E98CAA0065E9AA /* TagFilterCell.xib */,
+				8CE7E82722FBC30000A14E7C /* RunningTagCell.swift */,
+				8CE7E8342300AA9200A14E7C /* KeyboardBarCell.swift */,
 			);
 			path = CollectionViewCells;
 			sourceTree = "<group>";
@@ -464,6 +482,7 @@
 				8C27E020229B710800A27AF7 /* Assets.xcassets in Resources */,
 				8CBFB27E22E98CAA0065E9AA /* TagFilterCell.xib in Resources */,
 				8CEF476122B6C67E00310963 /* GoogleService-Info.plist in Resources */,
+				8CE7E82E22FF6BDE00A14E7C /* SuggestionsView.xib in Resources */,
 				8C27E01B229B710600A27AF7 /* Main.storyboard in Resources */,
 				8C27E048229B71AA00A27AF7 /* LoginStoryboard.storyboard in Resources */,
 			);
@@ -593,6 +612,8 @@
 				8C27E06A229D03DF00A27AF7 /* NotesCell.swift in Sources */,
 				8C0BBB8422DF81840065AEE4 /* ShadowView.swift in Sources */,
 				8C193A1022EFFD35009D6E23 /* Tag+CoreDataProperties.swift in Sources */,
+				8CD062D02300C099002F01DD /* TapTracker.swift in Sources */,
+				8CE7E8352300AA9200A14E7C /* KeyboardBarCell.swift in Sources */,
 				8C27E050229B795D00A27AF7 /* LoginViewController.swift in Sources */,
 				8C193A0C22EE4EE1009D6E23 /* AutoComplete.swift in Sources */,
 				8C27E054229B8ED900A27AF7 /* TodoDetailViewController.swift in Sources */,
@@ -617,16 +638,19 @@
 				8C27E058229B921200A27AF7 /* DueDateCell.swift in Sources */,
 				8C27E05C229BBA8900A27AF7 /* NotesViewController.swift in Sources */,
 				8CEF476322B8449F00310963 /* UserServices.swift in Sources */,
+				8CE7E83022FF6F1600A14E7C /* SuggestionsView.swift in Sources */,
 				8C27E016229B710600A27AF7 /* AppDelegate.swift in Sources */,
 				8CAAFE9E229F716F000E2CC5 /* Subtask.swift in Sources */,
 				8CE3FFBB22B9BF3600E1C7C6 /* DatePickerView.swift in Sources */,
 				8C193A0F22EFFD35009D6E23 /* Tag+CoreDataClass.swift in Sources */,
-				8CBFB27D22E98CAA0065E9AA /* TagFilterCell.swift in Sources */,
+				8CBFB27D22E98CAA0065E9AA /* TagCell.swift in Sources */,
 				8C27E04A229B728C00A27AF7 /* RoundedButton.swift in Sources */,
 				8C27E061229C613C00A27AF7 /* BulletPointTextView.swift in Sources */,
 				8C193A1622F41CD2009D6E23 /* TappableShadowView.swift in Sources */,
 				8C4EDADD22CEB89E00F00248 /* DBManager.swift in Sources */,
+				8CE7E83322FF8A4300A14E7C /* SuggestionsTrie.swift in Sources */,
 				8C193A1422F28376009D6E23 /* NotificationNameExtension.swift in Sources */,
+				8CE7E82822FBC30000A14E7C /* RunningTagCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

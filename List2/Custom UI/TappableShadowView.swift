@@ -43,7 +43,7 @@ class TappableShadowView: UIView {
                 self.layer.shadowRadius = 1
             }
         case .ended:
-            self.delegate!.didTapView()
+            self.delegate?.didTapView()
             UIView.animate(withDuration: animationDuration) {
                 self.transform = CGAffineTransform(scaleX: self.scaleReleased, y:self.scaleReleased)
                 self.layer.shadowRadius = self.shadowReleased
@@ -51,6 +51,16 @@ class TappableShadowView: UIView {
         default:
             break
         }
+    }
+    
+    func setShadowOffset(value: CGSize) {
+        self.layer.shadowOffset = value
+        self.setNeedsDisplay()
+    }
+    
+    func setOpacity(value: Float) {
+        self.layer.shadowOpacity = value
+        self.setNeedsDisplay()
     }
     
     private func viewSetup() {
@@ -63,7 +73,5 @@ class TappableShadowView: UIView {
         longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressHandler(gesture:)))
         longPressGesture.minimumPressDuration = 0.035
         addGestureRecognizer(longPressGesture)
-        
     }
-
 }

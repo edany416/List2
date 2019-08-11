@@ -30,7 +30,8 @@ class TodoListViewController: UIViewController {
             }
         }
     }
-    private var tapTracker: [Tag:Bool]?
+    //private var tapTracker: [Tag:Bool]?
+    private var tapTracker: TapTracker!
     private var filter: TaskFilter?
     
     override func viewDidLoad() {
@@ -40,6 +41,7 @@ class TodoListViewController: UIViewController {
         tagPicker.delegate = self
         tagPicker.dataSource = self
         tagPicker.register(UINib.init(nibName: "TagFilterCell", bundle: nil), forCellWithReuseIdentifier: "TagFilterCell")
+        
         
         retrieveData()
         
@@ -56,7 +58,7 @@ class TodoListViewController: UIViewController {
     private func retrieveData() {
         tasks = PersistanceService.instance.fetchTasks(given: Task.fetchRequest())
         allTags = PersistanceService.instance.fetchTags(given: Tag.fetchRequest())
-        tapTracker = Dictionary(uniqueKeysWithValues: allTags!.map { ($0 , false) })
+        tapTracker = TapTracker(tags: allTags!)
         filter = TaskFilter(defaultTags: Set(allTags!))
     }
     
@@ -99,11 +101,11 @@ extension TodoListViewController: UICollectionViewDelegate, UICollectionViewData
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = tagPicker.dequeueReusableCell(withReuseIdentifier: "TagFilterCell", for: indexPath) as! TagFilterCell
+        let cell = tagPicker.dequeueReusableCell(withReuseIdentifier: "TagFilterCell", for: indexPath) as! TagCell
         let tag = allTags![indexPath.row]
-        let isCellTapped = tapTracker![tag]
+        let isCellTapped = tapTracker.tapStatus(for: tag)
         cell.title.text = tag.name
-        if isCellTapped! {
+        if isCellTapped {
             cell.tapped = true
         } else {
             cell.tapped = false
@@ -112,11 +114,10 @@ extension TodoListViewController: UICollectionViewDelegate, UICollectionViewData
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let cell = collectionView.cellForItem(at: indexPath) as? TagFilterCell{
+        if let _ = collectionView.cellForItem(at: indexPath) as? TagCell{
             let tag = allTags![indexPath.row]
             
-            let isTapped = tapTracker![tag]
-            tapTracker![tag] = !isTapped!
+            tapTracker.setTappedStatus(for: tag)
             
             allTags = filter?.tagList(for: tag)
             tasks = filter?.filterTasksForTag(tag: tag)
