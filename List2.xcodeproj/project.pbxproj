@@ -63,6 +63,8 @@
 		8CE7E8352300AA9200A14E7C /* KeyboardBarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CE7E8342300AA9200A14E7C /* KeyboardBarCell.swift */; };
 		8CEF476122B6C67E00310963 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8CEF476022B6C67E00310963 /* GoogleService-Info.plist */; };
 		8CEF476322B8449F00310963 /* UserServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CEF476222B8449F00310963 /* UserServices.swift */; };
+		8CFD30612302547900D14DB8 /* AddPopUpView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CFD30602302547900D14DB8 /* AddPopUpView.xib */; };
+		8CFD30632302556800D14DB8 /* AddPopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CFD30622302556800D14DB8 /* AddPopUpView.swift */; };
 		EFD12C9B0239C5118FF34F34 /* Pods_List2UITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58FB8B4389E7154F6DF1A222 /* Pods_List2UITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -148,6 +150,8 @@
 		8CE7E8342300AA9200A14E7C /* KeyboardBarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardBarCell.swift; sourceTree = "<group>"; };
 		8CEF476022B6C67E00310963 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8CEF476222B8449F00310963 /* UserServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserServices.swift; sourceTree = "<group>"; };
+		8CFD30602302547900D14DB8 /* AddPopUpView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddPopUpView.xib; sourceTree = "<group>"; };
+		8CFD30622302556800D14DB8 /* AddPopUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPopUpView.swift; sourceTree = "<group>"; };
 		99CE32A1FF76D7BDF57BE84A /* Pods-List2UITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-List2UITests.release.xcconfig"; path = "Target Support Files/Pods-List2UITests/Pods-List2UITests.release.xcconfig"; sourceTree = "<group>"; };
 		AB7819DE8472D662293EE4B3 /* Pods-List2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-List2.release.xcconfig"; path = "Target Support Files/Pods-List2/Pods-List2.release.xcconfig"; sourceTree = "<group>"; };
 		B36E4EB74495B0F1D1331CE4 /* Pods-List2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-List2.debug.xcconfig"; path = "Target Support Files/Pods-List2/Pods-List2.debug.xcconfig"; sourceTree = "<group>"; };
@@ -297,6 +301,8 @@
 				8C193A1522F41CD2009D6E23 /* TappableShadowView.swift */,
 				8CE7E82D22FF6BDE00A14E7C /* SuggestionsView.xib */,
 				8CE7E82F22FF6F1600A14E7C /* SuggestionsView.swift */,
+				8CFD30602302547900D14DB8 /* AddPopUpView.xib */,
+				8CFD30622302556800D14DB8 /* AddPopUpView.swift */,
 			);
 			path = "Custom UI";
 			sourceTree = "<group>";
@@ -479,6 +485,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8C27E023229B710800A27AF7 /* LaunchScreen.storyboard in Resources */,
+				8CFD30612302547900D14DB8 /* AddPopUpView.xib in Resources */,
 				8C27E020229B710800A27AF7 /* Assets.xcassets in Resources */,
 				8CBFB27E22E98CAA0065E9AA /* TagFilterCell.xib in Resources */,
 				8CEF476122B6C67E00310963 /* GoogleService-Info.plist in Resources */,
@@ -647,6 +654,7 @@
 				8C27E04A229B728C00A27AF7 /* RoundedButton.swift in Sources */,
 				8C27E061229C613C00A27AF7 /* BulletPointTextView.swift in Sources */,
 				8C193A1622F41CD2009D6E23 /* TappableShadowView.swift in Sources */,
+				8CFD30632302556800D14DB8 /* AddPopUpView.swift in Sources */,
 				8C4EDADD22CEB89E00F00248 /* DBManager.swift in Sources */,
 				8CE7E83322FF8A4300A14E7C /* SuggestionsTrie.swift in Sources */,
 				8C193A1422F28376009D6E23 /* NotificationNameExtension.swift in Sources */,

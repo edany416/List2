@@ -12,6 +12,7 @@ class TodoListViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tagPicker: UICollectionView!
+    @IBOutlet weak var addButton: RoundedButton!
     
     private var tasks:[Task]? = [Task]() {
         didSet {
@@ -47,7 +48,13 @@ class TodoListViewController: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(didCompleteTodo(_:)), name: .didCompleteTodo, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(contextDidSave(_:)), name: Notification.Name.NSManagedObjectContextDidSave, object: nil)
+        addButton.outlineColor = .clear
 
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        popUpBackground.removeFromSuperview()
     }
     
     @objc func contextDidSave(_ notification: Notification) {
@@ -67,6 +74,38 @@ class TodoListViewController: UIViewController {
         let task = tasks![cellRow]
         PersistanceService.instance.completeTask(task)
     }
+    
+    private var popUpBackground: UIView!
+    @IBAction func onTapAdd(_ sender: RoundedButton) {
+        
+        popUpBackground = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height))
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissAddPopUp))
+        popUpBackground.addGestureRecognizer(tapGesture)
+        
+        let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = popUpBackground.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        popUpBackground.addSubview(blurEffectView)
+        
+        let popUpView = AddPopUpView(frame: CGRect(x: 0, y: 0, width: popUpBackground.bounds.width * 0.60, height: 100))
+        popUpView.center = popUpBackground.center
+        popUpView.delegate = self
+        
+        popUpBackground.addSubview(popUpView)
+        popUpBackground.alpha = 0
+        
+        self.view.addSubview(popUpBackground)
+        
+        UIView.animate(withDuration: 0.1) {
+            self.popUpBackground.alpha = 1
+        }
+    }
+    
+    @objc private func dismissAddPopUp() {
+        popUpBackground.removeFromSuperview()
+    }
+    
 }
 
 //MARK: - TABLEVIEW DELEGATE
@@ -128,7 +167,18 @@ extension TodoListViewController: UICollectionViewDelegate, UICollectionViewData
         let tag = allTags![indexPath.row]
         let tagName = tag.name! as NSString
         let sizeOfTagName = tagName.size(withAttributes: [.font: UIFont.systemFont(ofSize: 20)])
-        let size = CGSize(width: sizeOfTagName.width + 15, height: tagPicker.frame.height)
+        let size = CGSize(width: sizeOfTagName.width, height: tagPicker.frame.height)
         return size
+    }
+}
+
+extension TodoListViewController: AddPopUpDelegate {
+    func didTapNewTask(_ popUpView: AddPopUpView) {
+        popUpView.delegate = nil
+        performSegue(withIdentifier: "TaskDetailModal", sender: nil)
+    }
+    
+    func didTapNewTag(_ popUpView: AddPopUpView) {
+        
     }
 }

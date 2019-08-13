@@ -14,7 +14,7 @@ class KeyboardBarCell: UICollectionViewCell {
         if selected {
             title.textColor = .black
         } else {
-            title.textColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+            title.textColor = .white
         }
     }
 }

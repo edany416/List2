@@ -19,14 +19,14 @@ class TagCell: UICollectionViewCell {
                 self.title.textColor = .black
             } else {
                 self.underBar.backgroundColor = .clear
-                self.title.textColor = #colorLiteral(red: 0.75, green: 0.75, blue: 0.75, alpha: 0.6952857449)
+                self.title.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
             }
         }
     }
     override func awakeFromNib() {
         super.awakeFromNib()
         self.underBar.backgroundColor = .clear
-        self.title.textColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+        self.title.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
     }
 
 }

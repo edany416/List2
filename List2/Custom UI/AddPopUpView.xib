@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AddPopUpView" customModule="List2" customModuleProvider="target">
+            <connections>
+                <outlet property="contentView" destination="iN0-l3-epB" id="6IU-jP-NGS"/>
+                <outlet property="newTagButton" destination="7un-eH-9XS" id="c8R-si-isP"/>
+                <outlet property="newTaskButton" destination="XV3-pb-1HH" id="RoH-L7-ozo"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" userLabel="Content View">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="202"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qMH-Y1-NNt">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="202"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="0.75" translatesAutoresizingMaskIntoConstraints="NO" id="KBs-Fx-GdV">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="202"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XV3-pb-1HH">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="100.5"/>
+                                    <color key="backgroundColor" red="0.15686274510000001" green="0.73333333329999995" blue="0.58039215690000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                    <state key="normal" title="New Task">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="onTapNewTask:" destination="-1" eventType="touchUpInside" id="hUW-Sx-sGu"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7un-eH-9XS">
+                                    <rect key="frame" x="0.0" y="101.5" width="375" height="100.5"/>
+                                    <color key="backgroundColor" red="0.15686274510000001" green="0.73333333329999995" blue="0.58039215690000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                    <state key="normal" title="New Tag">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="onTapNewTag:" destination="-1" eventType="touchUpInside" id="CjA-xu-z25"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="KBs-Fx-GdV" firstAttribute="leading" secondItem="qMH-Y1-NNt" secondAttribute="leading" id="AyC-ic-V3b"/>
+                        <constraint firstAttribute="bottom" secondItem="KBs-Fx-GdV" secondAttribute="bottom" id="fF0-MS-8Vk"/>
+                        <constraint firstAttribute="trailing" secondItem="KBs-Fx-GdV" secondAttribute="trailing" id="gAc-5p-FLa"/>
+                        <constraint firstItem="KBs-Fx-GdV" firstAttribute="top" secondItem="qMH-Y1-NNt" secondAttribute="top" id="mUU-Te-Qdy"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="qMH-Y1-NNt" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="6Zp-z2-uvY"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="qMH-Y1-NNt" secondAttribute="trailing" id="YKx-Ac-mYr"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="qMH-Y1-NNt" secondAttribute="bottom" id="oaq-XY-5MO"/>
+                <constraint firstItem="qMH-Y1-NNt" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="ohs-wh-buV"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="138.40000000000001" y="-102.54872563718142"/>
+        </view>
+    </objects>
+</document>

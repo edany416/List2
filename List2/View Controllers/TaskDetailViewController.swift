@@ -22,6 +22,7 @@ class TaskDetailViewController: UIViewController {
     @IBOutlet weak var keyboardBarHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var keyboardBarCollectionView: UICollectionView!
     private var tags: [Tag]?
+    private var tagSet = Set<String>()
     private var tagsToPresent: [Tag]! {
         didSet {
             keyboardBarCollectionView.reloadData()
@@ -41,6 +42,9 @@ class TaskDetailViewController: UIViewController {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         //view.addGestureRecognizer(tapGesture)
         
+        taskNameTextField.delegate = self
+        tagsTextField.delegate = self
+        
         keyboardBarCollectionView.dataSource = self
         keyboardBarCollectionView.delegate = self
         keyboardBar.isHidden = true
@@ -50,9 +54,14 @@ class TaskDetailViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         tags = PersistanceService.instance.fetchTags(given: Tag.fetchRequest())
+        for tag in tags! {
+            tagSet.insert(tag.name!)
+        }
         tapTracker = TapTracker(tags: tags!)
-        testFavs.append(tags![0])
-        testSmartTags.append(tags![1])
+        if tags!.count > 1 {
+            testFavs.append(tags![0])
+            testSmartTags.append(tags![1])
+        }
         tagsToPresent = tags
         keyboardBarCollectionView.reloadData()
         
@@ -101,6 +110,7 @@ class TaskDetailViewController: UIViewController {
     }
     
     @IBAction func cancelTapped(_ sender: UIButton) {
+        self.view.endEditing(true)
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -124,20 +134,31 @@ class TaskDetailViewController: UIViewController {
             saveButton.isEnabled = !sender.text!.isEmpty
         }
     }
+    
     @IBAction func tagsTextFieldEditingDidChange(_ sender: UITextField) {
-        //THIS ONLY ACCOUNTS FOR TYPING TAGS, NOT DELETEING FROM TEXTFIELD
-        if !sender.text!.isEmpty || sender.text!.last != " " {
-            if let typedTags = parseTags() {
-                let lastTag = typedTags.last!
-                if (tags!.filter {$0.name! == lastTag}).count != 0 {
-                    let isTapped = tapTracker.tapStatus(forTagNamed: lastTag)
-                    if !isTapped {
-                        tapTracker.setTappedStatus(forTagNamed: lastTag)
-                        keyboardBarCollectionView.reloadData()
-                    }
-                }
+        guard let parsedTags = parseTags() else {
+            return
+        }
+        
+        let enteredTags = Set(parsedTags)
+        let intersection = enteredTags.intersection(tagSet)
+        
+        for name in intersection {
+            let tagSelected = tapTracker.tapStatus(forTagNamed: name)
+            if !tagSelected {
+                tapTracker.setTappedStatus(forTagNamed: name)
             }
         }
+        
+        let union = enteredTags.union(tagSet)
+        let complementIntersection = union.subtracting(intersection)
+        for name in complementIntersection.intersection(tagSet) {
+            let tagSelected = tapTracker.tapStatus(forTagNamed: name)
+            if tagSelected {
+                tapTracker.setTappedStatus(forTagNamed: name)
+            }
+        }
+        keyboardBarCollectionView.reloadData()
     }
     
     private func updateKeyboardBar() {
@@ -212,7 +233,28 @@ extension TaskDetailViewController: UICollectionViewDataSource, UICollectionView
         let tag = tagsToPresent[indexPath.row]
         tapTracker.setTappedStatus(for: tag)
         setTapStateFor(cell: cell, fromTag: tag)
+        if tapTracker.tapStatus(for: tag) == true {
+            appendToTextField(tagName: tag.name!)
+        } else {
+            removeFromTextField(tagName: tag.name!)
+        }
         keyboardBarCollectionView.reloadItems(at: [indexPath])
+    }
+    
+    private func appendToTextField(tagName: String) {
+        let appendedText: String
+        if  tagsTextField.text!.isEmpty || tagsTextField.text!.last == " " {
+            appendedText = tagName + " "
+        } else {
+            appendedText = " " + tagName + " "
+        }
+        tagsTextField.text! += appendedText
+    }
+    
+    private func removeFromTextField(tagName: String) {
+        let enteredTags = parseTags()!
+        let reducedTags = enteredTags.filter {$0 != tagName}
+        tagsTextField.text = reducedTags.joined(separator: " ")
     }
     
     private func setTapStateFor(cell: KeyboardBarCell, fromTag tag: Tag) {
@@ -226,6 +268,13 @@ extension TaskDetailViewController: UICollectionViewDataSource, UICollectionView
         let sizeOfTagName = tagName.size(withAttributes: [.font: UIFont.systemFont(ofSize: 17)])
         let size = CGSize(width: sizeOfTagName.width + 10, height: keyboardBarCollectionView.frame.height)
         return size
+    }
+}
+
+extension TaskDetailViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return true
     }
 }
 
