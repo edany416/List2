@@ -65,6 +65,8 @@
 		8CEF476322B8449F00310963 /* UserServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CEF476222B8449F00310963 /* UserServices.swift */; };
 		8CFD30612302547900D14DB8 /* AddPopUpView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CFD30602302547900D14DB8 /* AddPopUpView.xib */; };
 		8CFD30632302556800D14DB8 /* AddPopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CFD30622302556800D14DB8 /* AddPopUpView.swift */; };
+		8CFD30692302717B00D14DB8 /* TagsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CFD30682302717B00D14DB8 /* TagsViewController.swift */; };
+		8CFD306B2302743900D14DB8 /* TagTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CFD306A2302743900D14DB8 /* TagTableViewCell.swift */; };
 		EFD12C9B0239C5118FF34F34 /* Pods_List2UITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58FB8B4389E7154F6DF1A222 /* Pods_List2UITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -152,6 +154,8 @@
 		8CEF476222B8449F00310963 /* UserServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserServices.swift; sourceTree = "<group>"; };
 		8CFD30602302547900D14DB8 /* AddPopUpView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddPopUpView.xib; sourceTree = "<group>"; };
 		8CFD30622302556800D14DB8 /* AddPopUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPopUpView.swift; sourceTree = "<group>"; };
+		8CFD30682302717B00D14DB8 /* TagsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsViewController.swift; sourceTree = "<group>"; };
+		8CFD306A2302743900D14DB8 /* TagTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagTableViewCell.swift; sourceTree = "<group>"; };
 		99CE32A1FF76D7BDF57BE84A /* Pods-List2UITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-List2UITests.release.xcconfig"; path = "Target Support Files/Pods-List2UITests/Pods-List2UITests.release.xcconfig"; sourceTree = "<group>"; };
 		AB7819DE8472D662293EE4B3 /* Pods-List2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-List2.release.xcconfig"; path = "Target Support Files/Pods-List2/Pods-List2.release.xcconfig"; sourceTree = "<group>"; };
 		B36E4EB74495B0F1D1331CE4 /* Pods-List2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-List2.debug.xcconfig"; path = "Target Support Files/Pods-List2/Pods-List2.debug.xcconfig"; sourceTree = "<group>"; };
@@ -285,6 +289,7 @@
 				8C27E05B229BBA8900A27AF7 /* NotesViewController.swift */,
 				8C398E7622B1D96E0092EE03 /* TodoListViewController.swift */,
 				8C08BE8222E55354007422F2 /* TaskDetailViewController.swift */,
+				8CFD30682302717B00D14DB8 /* TagsViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -348,6 +353,7 @@
 				8C398E7422B1D8820092EE03 /* ExpandingTableViewCell.swift */,
 				8C0BBB8522DF85D90065AEE4 /* TestShadowCell.swift */,
 				8C0BBB8722DF96020065AEE4 /* TaskCell.swift */,
+				8CFD306A2302743900D14DB8 /* TagTableViewCell.swift */,
 			);
 			path = TableViewCells;
 			sourceTree = "<group>";
@@ -631,6 +637,7 @@
 				8C0BBB8822DF96020065AEE4 /* TaskCell.swift in Sources */,
 				8C27E056229B91FD00A27AF7 /* TodoNameCell.swift in Sources */,
 				8CAAFEA2229F7349000E2CC5 /* SubtaskCell.swift in Sources */,
+				8CFD30692302717B00D14DB8 /* TagsViewController.swift in Sources */,
 				8CBFB27422E3A2D00065E9AA /* TaskFilter.swift in Sources */,
 				8C27E068229CFD5500A27AF7 /* UIViewExtension.swift in Sources */,
 				8C27E05A229B922800A27AF7 /* AddSubtaskCell.swift in Sources */,
@@ -644,6 +651,7 @@
 				8C193A1222F143EC009D6E23 /* TagFilter.swift in Sources */,
 				8C27E058229B921200A27AF7 /* DueDateCell.swift in Sources */,
 				8C27E05C229BBA8900A27AF7 /* NotesViewController.swift in Sources */,
+				8CFD306B2302743900D14DB8 /* TagTableViewCell.swift in Sources */,
 				8CEF476322B8449F00310963 /* UserServices.swift in Sources */,
 				8CE7E83022FF6F1600A14E7C /* SuggestionsView.swift in Sources */,
 				8C27E016229B710600A27AF7 /* AppDelegate.swift in Sources */,

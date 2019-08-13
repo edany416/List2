@@ -79,6 +79,7 @@ class PersistanceService {
                     existingTag.addToTasks(newTask)
                 } else {
                     let newTag = Tag(context: PersistanceService.instance.context)
+                    print("Saved \(newTag.isSaved)")
                     newTag.name = tag_string
                     newTask.addToTags(newTag)
                 }

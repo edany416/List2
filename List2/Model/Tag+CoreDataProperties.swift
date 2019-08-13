@@ -19,7 +19,9 @@ extension Tag {
 
     @NSManaged public var name: String?
     @NSManaged public var tasks: NSSet?
+    @NSManaged public var isSaved: Bool
     @NSManaged public var associatedTags: NSSet?
+    
 
 }
 
@@ -37,7 +39,6 @@ extension Tag: Comparable {
 
     @objc(removeTasks:)
     @NSManaged public func removeFromTasks(_ values: NSSet)
-
 }
 
 // MARK: Generated accessors for associatedTags

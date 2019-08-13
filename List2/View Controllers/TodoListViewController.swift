@@ -179,6 +179,7 @@ extension TodoListViewController: AddPopUpDelegate {
     }
     
     func didTapNewTag(_ popUpView: AddPopUpView) {
-        
+        popUpView.delegate = nil
+        performSegue(withIdentifier: "AddTagModal", sender: nil)
     }
 }

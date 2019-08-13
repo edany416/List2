@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14492.1" systemVersion="18F132" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Tag" representedClassName="Tag" syncable="YES">
+        <attribute name="isSaved" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="associatedTags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Tag" inverseName="associatedTags" inverseEntity="Tag" syncable="YES"/>
         <relationship name="tasks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Task" inverseName="tags" inverseEntity="Task" syncable="YES"/>
@@ -12,7 +13,7 @@
         <relationship name="tags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Tag" inverseName="tasks" inverseEntity="Tag" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Tag" positionX="-45" positionY="27" width="128" height="90"/>
+        <element name="Tag" positionX="-45" positionY="27" width="128" height="105"/>
         <element name="Task" positionX="-63" positionY="-18" width="128" height="105"/>
     </elements>
 </model>
