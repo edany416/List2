@@ -10,7 +10,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "List2/Model/PersistenceService.swift"
-            timestampString = "587363875.902593"
+            timestampString = "587366110.066988"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "139"
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "List2/View Controllers/TaskDetailViewController.swift"
-            timestampString = "587287939.4982539"
+            timestampString = "587622762.572414"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "143"
-            endingLineNumber = "143"
+            startingLineNumber = "142"
+            endingLineNumber = "142"
             landmarkName = "tagsTextFieldEditingDidChange(_:)"
             landmarkType = "7">
          </BreakpointContent>

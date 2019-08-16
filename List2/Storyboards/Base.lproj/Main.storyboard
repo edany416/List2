@@ -538,9 +538,34 @@
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cjx-WQ-hTn" customClass="ShadowView" customModule="List2" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="50" width="375" height="100"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Tag name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Bpo-me-Sr4">
+                                        <rect key="frame" x="15" y="29" width="262.5" height="42"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="35"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VSh-c3-P6k">
+                                        <rect key="frame" x="315" y="60" width="60" height="40"/>
+                                        <color key="backgroundColor" red="0.15686274510000001" green="0.73333333329999995" blue="0.58039215690000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="EFj-1O-jHo"/>
+                                            <constraint firstAttribute="width" constant="60" id="aaQ-HU-KoG"/>
+                                        </constraints>
+                                        <state key="normal" image="right_arrow"/>
+                                        <connections>
+                                            <action selector="onTapAddButton:" destination="jXy-Eb-hpI" eventType="touchUpInside" id="rW9-bR-8ue"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstItem="Bpo-me-Sr4" firstAttribute="width" secondItem="Cjx-WQ-hTn" secondAttribute="width" multiplier="0.7" id="LAS-se-CeV"/>
+                                    <constraint firstAttribute="bottom" secondItem="VSh-c3-P6k" secondAttribute="bottom" id="aNm-IV-3o1"/>
+                                    <constraint firstItem="Bpo-me-Sr4" firstAttribute="leading" secondItem="Cjx-WQ-hTn" secondAttribute="leading" constant="15" id="c4b-st-ayC"/>
+                                    <constraint firstAttribute="trailing" secondItem="VSh-c3-P6k" secondAttribute="trailing" id="gEj-oS-2EU"/>
                                     <constraint firstAttribute="height" constant="100" id="xJH-1G-sxA"/>
+                                    <constraint firstItem="Bpo-me-Sr4" firstAttribute="centerY" secondItem="Cjx-WQ-hTn" secondAttribute="centerY" id="xij-kx-LHm"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hMM-rW-ow6">
@@ -577,6 +602,7 @@
                         <viewLayoutGuide key="safeArea" id="5WN-PU-fNy"/>
                     </view>
                     <connections>
+                        <outlet property="tagTextField" destination="Bpo-me-Sr4" id="rk5-yr-b94"/>
                         <outlet property="tagsTableView" destination="Hfm-Pg-tRR" id="gIg-xA-sAq"/>
                     </connections>
                 </viewController>
@@ -587,5 +613,6 @@
     </scenes>
     <resources>
         <image name="Add_Button_Green" width="75" height="75"/>
+        <image name="right_arrow" width="30" height="30"/>
     </resources>
 </document>

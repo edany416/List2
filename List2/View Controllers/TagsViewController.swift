@@ -11,6 +11,7 @@ import UIKit
 class TagsViewController: UIViewController {
     
     @IBOutlet weak var tagsTableView: UITableView!
+    @IBOutlet weak var tagTextField: UITextField!
     
     private var savedTags = [Tag]() {
         didSet {
@@ -21,11 +22,22 @@ class TagsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tagsTableView.dataSource = self
-        savedTags = PersistanceService.instance.fetchTags(given: Tag.fetchRequest())!
+        let tags = PersistanceService.instance.fetchTags(given: Tag.fetchRequest())!
+        savedTags = tags.filter{$0.isSaved == true}
     }
     
     @IBAction func onTapDone(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    
+    @IBAction func onTapAddButton(_ sender: Any) {
+        let tagName = tagTextField.text
+        let newTag = Tag(context: PersistanceService.instance.context)
+        newTag.name = tagName
+        newTag.isSaved = true
+        savedTags.append(newTag)
+        PersistanceService.instance.saveContext()
     }
 }
 

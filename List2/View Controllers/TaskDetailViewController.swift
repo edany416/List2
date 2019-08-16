@@ -28,7 +28,8 @@ class TaskDetailViewController: UIViewController {
             keyboardBarCollectionView.reloadData()
         }
     }
-    private var testFavs = [Tag]()
+    private var savedTags = [Tag]()
+    private var runningTags = [Tag]()
     private var testSmartTags = [Tag]()
     
     private var keyboardIsShowing = false
@@ -58,11 +59,9 @@ class TaskDetailViewController: UIViewController {
             tagSet.insert(tag.name!)
         }
         tapTracker = TapTracker(tags: tags!)
-        if tags!.count > 1 {
-            testFavs.append(tags![0])
-            testSmartTags.append(tags![1])
-        }
-        tagsToPresent = tags
+        savedTags = tags!.filter{$0.isSaved == true}
+        runningTags = tags!.filter{$0.isSaved == false}
+        tagsToPresent = runningTags
         keyboardBarCollectionView.reloadData()
         
         smartTagsButton.titleLabel?.textAlignment = .center
@@ -163,13 +162,13 @@ class TaskDetailViewController: UIViewController {
     
     private func updateKeyboardBar() {
         if isFavoritesSelected {
-            tagsToPresent = Array(testFavs)
+            tagsToPresent = Array(savedTags)
             set(favoritesButtonColor: #colorLiteral(red: 0.1568627451, green: 0.7333333333, blue: 0.5803921569, alpha: 1), favsText: .white, stBG: .white, stText: .black)
         } else if isSmartTagsSelected {
             tagsToPresent = Array(testSmartTags)
             set(favoritesButtonColor: .white, favsText: .black, stBG: #colorLiteral(red: 0.1568627451, green: 0.7333333333, blue: 0.5803921569, alpha: 1), stText: .white)
         } else {
-            tagsToPresent = Array(tags!)
+            tagsToPresent = Array(runningTags)
             set(favoritesButtonColor: .white, favsText: .black, stBG: .white, stText: .black)
         }
         
@@ -211,6 +210,10 @@ class TaskDetailViewController: UIViewController {
         favoritesButton.setTitleColor(favsText, for: .normal)
         smartTagsButton.backgroundColor = stBG
         smartTagsButton.setTitleColor(stText, for: .normal)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 }
 

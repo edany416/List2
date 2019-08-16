@@ -43,7 +43,6 @@ class TodoListViewController: UIViewController {
         tagPicker.dataSource = self
         tagPicker.register(UINib.init(nibName: "TagFilterCell", bundle: nil), forCellWithReuseIdentifier: "TagFilterCell")
         
-        
         retrieveData()
         
         NotificationCenter.default.addObserver(self, selector: #selector(didCompleteTodo(_:)), name: .didCompleteTodo, object: nil)
@@ -65,6 +64,7 @@ class TodoListViewController: UIViewController {
     private func retrieveData() {
         tasks = PersistanceService.instance.fetchTasks(given: Task.fetchRequest())
         allTags = PersistanceService.instance.fetchTags(given: Tag.fetchRequest())
+        allTags = allTags!.filter{$0.tasks!.count != 0}
         tapTracker = TapTracker(tags: allTags!)
         filter = TaskFilter(defaultTags: Set(allTags!))
     }
@@ -77,7 +77,6 @@ class TodoListViewController: UIViewController {
     
     private var popUpBackground: UIView!
     @IBAction func onTapAdd(_ sender: RoundedButton) {
-        
         popUpBackground = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height))
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissAddPopUp))
         popUpBackground.addGestureRecognizer(tapGesture)
@@ -103,7 +102,12 @@ class TodoListViewController: UIViewController {
     }
     
     @objc private func dismissAddPopUp() {
-        popUpBackground.removeFromSuperview()
+        UIView.animate(withDuration: 0.1, animations: {
+            self.popUpBackground.alpha = 0
+        }) { (finished) in
+            self.popUpBackground.removeFromSuperview()
+        }
+        
     }
     
 }
@@ -172,6 +176,7 @@ extension TodoListViewController: UICollectionViewDelegate, UICollectionViewData
     }
 }
 
+// MARK - ADD POP UP DELEGATE
 extension TodoListViewController: AddPopUpDelegate {
     func didTapNewTask(_ popUpView: AddPopUpView) {
         popUpView.delegate = nil
