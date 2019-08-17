@@ -60,7 +60,7 @@ class TaskDetailViewController: UIViewController {
         }
         tapTracker = TapTracker(tags: tags!)
         savedTags = tags!.filter{$0.isSaved == true}
-        runningTags = tags!.filter{$0.isSaved == false}
+        runningTags = tags!.filter{$0.isSaved == false && $0.name != "Untagged"}
         tagsToPresent = runningTags
         keyboardBarCollectionView.reloadData()
         

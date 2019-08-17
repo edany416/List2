@@ -138,11 +138,30 @@ class PersistanceService {
         let tagsForTask = (task.tags as! NSSet).allObjects as! [Tag]
         for tag in tagsForTask {
             tag.removeFromTasks(task)
-            if tag.tasks!.count == 0 {
+            if !tag.isSaved && tag.tasks!.count == 0 {
                 context.delete(tag)
             }
         }
         context.delete(task)
+        PersistanceService.instance.saveContext()
+    }
+    
+    func removeSavedTag(_ tag: Tag) {
+        if tag.tasks!.count > 0 {
+            for task in tag.tasks!.allObjects as! [Task] {
+                if task.tags!.count == 1 {
+                    if let unTagged = PersistanceService.instance.fetchTag(for: Tag.fetchRequest(), named: "Untagged") {
+                        unTagged.addToTasks(task)
+                    } else {
+                        let unTagged = Tag(context: PersistanceService.instance.context)
+                        unTagged.name = "Untagged"
+                        unTagged.addToTasks(task)
+                    }
+                }
+            }
+        }
+        
+        context.delete(tag)
         PersistanceService.instance.saveContext()
     }
 }

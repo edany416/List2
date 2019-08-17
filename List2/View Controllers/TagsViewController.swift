@@ -32,12 +32,31 @@ class TagsViewController: UIViewController {
     
     
     @IBAction func onTapAddButton(_ sender: Any) {
-        let tagName = tagTextField.text
-        let newTag = Tag(context: PersistanceService.instance.context)
-        newTag.name = tagName
-        newTag.isSaved = true
-        savedTags.append(newTag)
-        PersistanceService.instance.saveContext()
+        
+        guard let text = tagTextField.text else {
+            return
+        }
+        let trimmed = text.trimmingCharacters(in: CharacterSet(charactersIn: " "))
+        if !trimmed.isEmpty { //Make sure text field isnt abunch of white space
+            let tagName = cleanText(tagTextField.text!)
+            let newTag = Tag(context: PersistanceService.instance.context)
+            newTag.name = tagName
+            newTag.isSaved = true
+            savedTags.append(newTag)
+            PersistanceService.instance.saveContext()
+        }
+        tagTextField.text = ""
+    }
+    
+    private func cleanText(_ text: String) -> String {
+        var textArray = text.components(separatedBy:" ")
+        if textArray.first == "" {
+            textArray.remove(at: 0)
+        }
+        if textArray.last == "" {
+            textArray.remove(at: textArray.count - 1)
+        }
+        return textArray.joined(separator: "_")
     }
 }
 
@@ -53,5 +72,11 @@ extension TagsViewController: UITableViewDataSource {
         return cell
     }
     
-    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if (editingStyle == .delete) {
+            let tagToRemove = savedTags[indexPath.row]
+            savedTags.remove(at: indexPath.row)
+            PersistanceService.instance.removeSavedTag(tagToRemove)
+        }
+    }    
 }
