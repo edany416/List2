@@ -53,6 +53,7 @@ class TaskDetailViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(contentDidSave(_:)), name: Notification.Name.NSManagedObjectContextDidSave, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleDuplicateTask(_:)), name: Notification.Name.didAddDuplicateTask, object: nil)
         
         tags = PersistanceService.instance.fetchTags(given: Tag.fetchRequest())
         for tag in tags! {
@@ -108,6 +109,12 @@ class TaskDetailViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
+    @objc func handleDuplicateTask(_ notification: Notification) {
+        let duplicateTaskName = taskNameTextField.text
+        let duplicateAlert = ErrorAlertController(errorMessage: "Task named '\(duplicateTaskName!)' already exists")
+        self.present(duplicateAlert.errorAlertControler, animated: true, completion: nil)
+    }
+    
     @IBAction func cancelTapped(_ sender: UIButton) {
         self.view.endEditing(true)
         self.dismiss(animated: true, completion: nil)
@@ -116,7 +123,12 @@ class TaskDetailViewController: UIViewController {
     @IBAction func saveTapped(_ sender: Any) {
         let taskName = taskNameTextField!.text
         let tags = parseTags()
-        PersistanceService.instance.saveTask(taskName: taskName!, dueDate: nil, notes: nil, tags: tags)
+        if tags!.contains(Constants.UNTAGGED) {
+            let invalidTagNameAlert = ErrorAlertController(errorMessage: "Tag named 'Untagged' is reserved and cannot be used")
+            self.present(invalidTagNameAlert.errorAlertControler, animated: true, completion: nil)
+        } else {
+           PersistanceService.instance.saveTask(taskName: taskName!, dueDate: nil, notes: nil, tags: tags)
+        }
     }
     
     private func parseTags() -> [String]? {

@@ -65,37 +65,58 @@ class PersistanceService {
         }
     }
     
+    func saveTag(tagName name: String) {
+        if let tag = PersistanceService.instance.fetchTag(for: Tag.fetchRequest(), named: name) {
+            if tag.isSaved {
+                NotificationCenter.default.post(name: .didAddDuplicateTag, object: nil)
+            } else {
+                tag.isSaved = true
+                PersistanceService.instance.saveContext()
+            }
+        } else {
+            let newTag = Tag(context: PersistanceService.instance.context)
+            newTag.name = name
+            newTag.isSaved = true
+            PersistanceService.instance.saveContext()
+        }
+    }
+    
     func saveTask(taskName name: String, dueDate date: Date?, notes: String?, tags: [String]?) {
-        let newTask = Task(context: self.context)
-        newTask.name = name
-        if let dueDate = date {
-            newTask.dueDate = dueDate as NSDate
-        }
-        newTask.notes = notes
-        if tags != nil {
-            //Associate tags with tasks
-            for tag_string in tags! {
-                if let existingTag = fetchTag(for: Tag.fetchRequest(), named: tag_string) {
-                    existingTag.addToTasks(newTask)
-                } else {
-                    let newTag = Tag(context: PersistanceService.instance.context)
-                    print("Saved \(newTag.isSaved)")
-                    newTag.name = tag_string
-                    newTask.addToTags(newTag)
+        
+        if PersistanceService.instance.fetchTask(for: Task.fetchRequest(), named: name) != nil {
+            NotificationCenter.default.post(name: .didAddDuplicateTask, object: nil)
+        } else {
+            let newTask = Task(context: self.context)
+            newTask.name = name
+            if let dueDate = date {
+                newTask.dueDate = dueDate as NSDate
+            }
+            newTask.notes = notes
+            if tags != nil {
+                //Associate tags with tasks
+                for tag_string in tags! {
+                    if let existingTag = fetchTag(for: Tag.fetchRequest(), named: tag_string) {
+                        existingTag.addToTasks(newTask)
+                    } else {
+                        let newTag = Tag(context: PersistanceService.instance.context)
+                        print("Saved \(newTag.isSaved)")
+                        newTag.name = tag_string
+                        newTask.addToTags(newTag)
+                    }
+                }
+                
+                //Associate tags with tags
+                for i in 0..<tags!.count - 1 {
+                    let currentTag = fetchTag(for: Tag.fetchRequest(), named: tags![i])
+                    for j in i+1..<tags!.count {
+                        let nextTag = fetchTag(for: Tag.fetchRequest(), named: tags![j])
+                        currentTag!.addToAssociatedTags(nextTag!)
+                    }
                 }
             }
-            
-            //Associate tags with tags
-            for i in 0..<tags!.count - 1 {
-                let currentTag = fetchTag(for: Tag.fetchRequest(), named: tags![i])
-                for j in i+1..<tags!.count {
-                    let nextTag = fetchTag(for: Tag.fetchRequest(), named: tags![j])
-                    currentTag!.addToAssociatedTags(nextTag!)
-                }
-            }
+            PersistanceService.instance.saveContext()
+            os_log("Task successfully saved", log: OSLog.default, type: .info)
         }
-        PersistanceService.instance.saveContext()
-        os_log("Task successfully saved", log: OSLog.default, type: .info)
     }
     
     func fetchTasks(given fetchRequest: NSFetchRequest<Task>) -> [Task]? {
@@ -132,6 +153,22 @@ class PersistanceService {
             return nil
         }
         return tag![0]
+    }
+    
+    func fetchTask(for fetchRequest: NSFetchRequest<Task>, named name: String) -> Task? {
+        fetchRequest.predicate = NSPredicate(format: "name == %@", name)
+        
+        var task: [Task]?
+        do {
+            task = try PersistanceService.instance.context.fetch(fetchRequest)
+        } catch {
+            os_log("Could not fetch tag", log: .default, type: .error)
+        }
+        
+        if task!.count == 0 {
+            return nil
+        }
+        return task![0]
     }
     
     func completeTask(_ task: Task) {

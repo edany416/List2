@@ -22,8 +22,24 @@ class TagsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tagsTableView.dataSource = self
+        retrieveData()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleDuplicateTag(_:)), name: .didAddDuplicateTag, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(contentDidSave(_:)), name: .NSManagedObjectContextDidSave, object: nil)
+    }
+    
+    private func retrieveData() {
         let tags = PersistanceService.instance.fetchTags(given: Tag.fetchRequest())!
         savedTags = tags.filter{$0.isSaved == true}
+    }
+    
+    @objc func handleDuplicateTag(_ notification: Notification) {
+        let duplicateTagError = ErrorAlertController.init(errorMessage: "Saved tag with given name already exists")
+        self.present(duplicateTagError.errorAlertControler, animated: true, completion: nil)
+    }
+    
+    @objc func contentDidSave(_ notification: Notification) {
+        retrieveData()
     }
     
     @IBAction func onTapDone(_ sender: UIButton) {
@@ -39,11 +55,7 @@ class TagsViewController: UIViewController {
         let trimmed = text.trimmingCharacters(in: CharacterSet(charactersIn: " "))
         if !trimmed.isEmpty { //Make sure text field isnt abunch of white space
             let tagName = cleanText(tagTextField.text!)
-            let newTag = Tag(context: PersistanceService.instance.context)
-            newTag.name = tagName
-            newTag.isSaved = true
-            savedTags.append(newTag)
-            PersistanceService.instance.saveContext()
+            PersistanceService.instance.saveTag(tagName: tagName)
         }
         tagTextField.text = ""
     }
@@ -57,6 +69,10 @@ class TagsViewController: UIViewController {
             textArray.remove(at: textArray.count - 1)
         }
         return textArray.joined(separator: "_")
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 }
 

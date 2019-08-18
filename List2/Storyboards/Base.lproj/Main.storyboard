@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="nqL-fH-uxL">
-                                <rect key="frame" x="0.0" y="85" width="375" height="582"/>
+                                <rect key="frame" x="0.0" y="75" width="375" height="592"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="Todo Cell" rowHeight="181" id="oeR-9A-mbV" customClass="ExpandingTableViewCell" customModule="List2" customModuleProvider="target">
@@ -62,8 +62,9 @@
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4NH-gR-A4e">
                                                             <rect key="frame" x="8" y="12.5" width="25" height="25"/>
                                                             <subviews>
-                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hgk-ol-oQ4" customClass="RoundedButton" customModule="List2" customModuleProvider="target">
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hgk-ol-oQ4">
                                                                     <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
+                                                                    <state key="normal" image="EmptyCheckCircle"/>
                                                                 </button>
                                                             </subviews>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -143,17 +144,17 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cq8-qs-vm6" userLabel="Top toolbar">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="85"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="75"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mIW-23-VKb">
-                                        <rect key="frame" x="0.0" y="85" width="375" height="0.0"/>
+                                        <rect key="frame" x="0.0" y="75" width="375" height="0.0"/>
                                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" id="V9g-Qf-q7h"/>
                                         </constraints>
                                     </view>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="MuV-h6-lJj">
-                                        <rect key="frame" x="8" y="45" width="359" height="40"/>
+                                        <rect key="frame" x="8" y="35" width="359" height="40"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="btJ-SP-IqM"/>
@@ -181,7 +182,7 @@
                                 <constraints>
                                     <constraint firstItem="mIW-23-VKb" firstAttribute="leading" secondItem="cq8-qs-vm6" secondAttribute="leading" id="Eze-Hl-0tb"/>
                                     <constraint firstAttribute="bottom" secondItem="mIW-23-VKb" secondAttribute="bottom" id="FT2-EU-RWr"/>
-                                    <constraint firstAttribute="height" constant="85" id="IWM-an-RJW"/>
+                                    <constraint firstAttribute="height" constant="75" id="IWM-an-RJW"/>
                                     <constraint firstItem="MuV-h6-lJj" firstAttribute="leading" secondItem="cq8-qs-vm6" secondAttribute="leading" constant="8" id="aJC-ma-7Wm"/>
                                     <constraint firstAttribute="trailing" secondItem="mIW-23-VKb" secondAttribute="trailing" id="fCG-JB-r30"/>
                                     <constraint firstAttribute="bottom" secondItem="MuV-h6-lJj" secondAttribute="bottom" id="lsl-9a-3pQ"/>
@@ -613,6 +614,7 @@
     </scenes>
     <resources>
         <image name="Add_Button_Green" width="75" height="75"/>
+        <image name="EmptyCheckCircle" width="100" height="100"/>
         <image name="right_arrow" width="30" height="30"/>
     </resources>
 </document>

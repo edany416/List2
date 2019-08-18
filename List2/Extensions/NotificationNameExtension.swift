@@ -10,4 +10,6 @@ import Foundation
 
 extension Notification.Name {
     static let didCompleteTodo = Notification.Name("didCompleteTodo")
+    static let didAddDuplicateTask = Notification.Name("didAddDuplicateTask")
+    static let didAddDuplicateTag = Notification.Name("didAddDupicateTag")
 }
