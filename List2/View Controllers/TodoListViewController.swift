@@ -13,6 +13,8 @@ class TodoListViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tagPicker: UICollectionView!
     @IBOutlet weak var addButton: RoundedButton!
+    @IBOutlet weak var tagSortViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var tagSortViewConstraintToTop: NSLayoutConstraint!
     
     private var tasks:[Task]? = [Task]() {
         didSet {
@@ -48,7 +50,7 @@ class TodoListViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(didCompleteTodo(_:)), name: .didCompleteTodo, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(contextDidSave(_:)), name: Notification.Name.NSManagedObjectContextDidSave, object: nil)
         addButton.outlineColor = .clear
-
+        tagSortViewConstraintToTop.constant = self.view.bounds.height
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -110,6 +112,30 @@ class TodoListViewController: UIViewController {
         
     }
     
+    private var sortViewIsExpanded = false
+    @IBAction func onTapSort(_ sender: Any) {
+        if sortViewIsExpanded {
+            contractTagSortView()
+        } else {
+            expandTagSortView()
+        }
+        
+        sortViewIsExpanded = !sortViewIsExpanded
+    }
+    
+    private func contractTagSortView() {
+        tagSortViewConstraintToTop.constant = self.view.bounds.height
+        UIView.animate(withDuration: 0.2) {
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    private func expandTagSortView() {
+        tagSortViewConstraintToTop.constant = self.view.bounds.height - tagSortViewHeightConstraint.constant
+        UIView.animate(withDuration: 0.2) {
+            self.view.layoutIfNeeded()
+        }
+    }
 }
 
 //MARK: - TABLEVIEW DELEGATE
@@ -188,3 +214,5 @@ extension TodoListViewController: AddPopUpDelegate {
         performSegue(withIdentifier: "AddTagModal", sender: nil)
     }
 }
+
+

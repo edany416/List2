@@ -55,6 +55,8 @@
 		8CBFB27D22E98CAA0065E9AA /* TagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CBFB27B22E98CAA0065E9AA /* TagCell.swift */; };
 		8CBFB27E22E98CAA0065E9AA /* TagFilterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CBFB27C22E98CAA0065E9AA /* TagFilterCell.xib */; };
 		8CBFB28022EAE6990065E9AA /* OffsetShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CBFB27F22EAE6990065E9AA /* OffsetShadowView.swift */; };
+		8CBFEAA52309FE7F00C3C958 /* TagSortView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CBFEAA42309FE7F00C3C958 /* TagSortView.xib */; };
+		8CBFEAA72309FEC500C3C958 /* TagSortView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CBFEAA62309FEC500C3C958 /* TagSortView.swift */; };
 		8CD062D02300C099002F01DD /* TapTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD062CF2300C099002F01DD /* TapTracker.swift */; };
 		8CE3FFBB22B9BF3600E1C7C6 /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CE3FFBA22B9BF3600E1C7C6 /* DatePickerView.swift */; };
 		8CE7E82822FBC30000A14E7C /* RunningTagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CE7E82722FBC30000A14E7C /* RunningTagCell.swift */; };
@@ -145,6 +147,8 @@
 		8CBFB27B22E98CAA0065E9AA /* TagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCell.swift; sourceTree = "<group>"; };
 		8CBFB27C22E98CAA0065E9AA /* TagFilterCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TagFilterCell.xib; sourceTree = "<group>"; };
 		8CBFB27F22EAE6990065E9AA /* OffsetShadowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffsetShadowView.swift; sourceTree = "<group>"; };
+		8CBFEAA42309FE7F00C3C958 /* TagSortView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TagSortView.xib; sourceTree = "<group>"; };
+		8CBFEAA62309FEC500C3C958 /* TagSortView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagSortView.swift; sourceTree = "<group>"; };
 		8CD062CF2300C099002F01DD /* TapTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapTracker.swift; sourceTree = "<group>"; };
 		8CE3FFBA22B9BF3600E1C7C6 /* DatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
 		8CE7E82722FBC30000A14E7C /* RunningTagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunningTagCell.swift; sourceTree = "<group>"; };
@@ -311,6 +315,8 @@
 				8CE7E82F22FF6F1600A14E7C /* SuggestionsView.swift */,
 				8CFD30602302547900D14DB8 /* AddPopUpView.xib */,
 				8CFD30622302556800D14DB8 /* AddPopUpView.swift */,
+				8CBFEAA42309FE7F00C3C958 /* TagSortView.xib */,
+				8CBFEAA62309FEC500C3C958 /* TagSortView.swift */,
 			);
 			path = "Custom UI";
 			sourceTree = "<group>";
@@ -496,6 +502,7 @@
 				8C27E023229B710800A27AF7 /* LaunchScreen.storyboard in Resources */,
 				8CFD30612302547900D14DB8 /* AddPopUpView.xib in Resources */,
 				8C27E020229B710800A27AF7 /* Assets.xcassets in Resources */,
+				8CBFEAA52309FE7F00C3C958 /* TagSortView.xib in Resources */,
 				8CBFB27E22E98CAA0065E9AA /* TagFilterCell.xib in Resources */,
 				8CEF476122B6C67E00310963 /* GoogleService-Info.plist in Resources */,
 				8CE7E82E22FF6BDE00A14E7C /* SuggestionsView.xib in Resources */,
@@ -624,6 +631,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8C4EDADF22CECD7000F00248 /* ErrorAlertController.swift in Sources */,
+				8CBFEAA72309FEC500C3C958 /* TagSortView.swift in Sources */,
 				8C0BBB6A22D8EE5C0065AEE4 /* PersistenceService.swift in Sources */,
 				8C0BBB7C22DDA3930065AEE4 /* Task+CoreDataClass.swift in Sources */,
 				8C27E06A229D03DF00A27AF7 /* NotesCell.swift in Sources */,
