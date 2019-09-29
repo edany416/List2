@@ -25,6 +25,7 @@ struct TapTracker {
         tracker[name] = !tapStatus!
     }
     
+    //Returns true is tapped
     func tapStatus(for tag: Tag) -> Bool {
         let tagName = tag.name!
         return tracker[tagName]!

@@ -8,11 +8,6 @@
 
 import UIKit
 
-enum SortingType {
-    case alpha
-    case associatedTasks
-}
-
 protocol SortViewDelegate {
     func didTapSort(by sortType: SortingType)
 }

@@ -46,8 +46,11 @@
 		8C27E06D229D20D400A27AF7 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C27E06C229D20D400A27AF7 /* Constants.swift */; };
 		8C398E7522B1D8820092EE03 /* ExpandingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C398E7422B1D8820092EE03 /* ExpandingTableViewCell.swift */; };
 		8C398E7722B1D96E0092EE03 /* TodoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C398E7622B1D96E0092EE03 /* TodoListViewController.swift */; };
+		8C3CBE31230CEF57005D67E9 /* TagSorter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3CBE30230CEF57005D67E9 /* TagSorter.swift */; };
 		8C4EDADD22CEB89E00F00248 /* DBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4EDADC22CEB89E00F00248 /* DBManager.swift */; };
 		8C4EDADF22CECD7000F00248 /* ErrorAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4EDADE22CECD7000F00248 /* ErrorAlertController.swift */; };
+		8C7D08FB234008280091D8F4 /* TagPickerCollectionViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7D08FA234008280091D8F4 /* TagPickerCollectionViewManager.swift */; };
+		8C7D08FD23401F410091D8F4 /* SelectedTagsCollectionViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7D08FC23401F410091D8F4 /* SelectedTagsCollectionViewManager.swift */; };
 		8C8FF92E23065497005BA6D1 /* Notes.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 8C8FF92D23065497005BA6D1 /* Notes.rtf */; };
 		8CAAFE9E229F716F000E2CC5 /* Subtask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CAAFE9D229F716F000E2CC5 /* Subtask.swift */; };
 		8CAAFEA2229F7349000E2CC5 /* SubtaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CAAFEA1229F7349000E2CC5 /* SubtaskCell.swift */; };
@@ -138,8 +141,11 @@
 		8C27E06C229D20D400A27AF7 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		8C398E7422B1D8820092EE03 /* ExpandingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandingTableViewCell.swift; sourceTree = "<group>"; };
 		8C398E7622B1D96E0092EE03 /* TodoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListViewController.swift; sourceTree = "<group>"; };
+		8C3CBE30230CEF57005D67E9 /* TagSorter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagSorter.swift; sourceTree = "<group>"; };
 		8C4EDADC22CEB89E00F00248 /* DBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBManager.swift; sourceTree = "<group>"; };
 		8C4EDADE22CECD7000F00248 /* ErrorAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorAlertController.swift; sourceTree = "<group>"; };
+		8C7D08FA234008280091D8F4 /* TagPickerCollectionViewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagPickerCollectionViewManager.swift; sourceTree = "<group>"; };
+		8C7D08FC23401F410091D8F4 /* SelectedTagsCollectionViewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedTagsCollectionViewManager.swift; sourceTree = "<group>"; };
 		8C8FF92D23065497005BA6D1 /* Notes.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Notes.rtf; sourceTree = "<group>"; };
 		8CAAFE9D229F716F000E2CC5 /* Subtask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Subtask.swift; sourceTree = "<group>"; };
 		8CAAFEA1229F7349000E2CC5 /* SubtaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubtaskCell.swift; sourceTree = "<group>"; };
@@ -347,6 +353,9 @@
 				8C193A0B22EE4EE1009D6E23 /* AutoComplete.swift */,
 				8C193A1122F143EC009D6E23 /* TagFilter.swift */,
 				8CD062CF2300C099002F01DD /* TapTracker.swift */,
+				8C3CBE30230CEF57005D67E9 /* TagSorter.swift */,
+				8C7D08FA234008280091D8F4 /* TagPickerCollectionViewManager.swift */,
+				8C7D08FC23401F410091D8F4 /* SelectedTagsCollectionViewManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -647,6 +656,7 @@
 				8C398E7722B1D96E0092EE03 /* TodoListViewController.swift in Sources */,
 				8C08BE8322E55354007422F2 /* TaskDetailViewController.swift in Sources */,
 				8C0BBB8822DF96020065AEE4 /* TaskCell.swift in Sources */,
+				8C7D08FB234008280091D8F4 /* TagPickerCollectionViewManager.swift in Sources */,
 				8C27E056229B91FD00A27AF7 /* TodoNameCell.swift in Sources */,
 				8CAAFEA2229F7349000E2CC5 /* SubtaskCell.swift in Sources */,
 				8CFD30692302717B00D14DB8 /* TagsViewController.swift in Sources */,
@@ -655,11 +665,13 @@
 				8C27E05A229B922800A27AF7 /* AddSubtaskCell.swift in Sources */,
 				8C27E06D229D20D400A27AF7 /* Constants.swift in Sources */,
 				8C27E01E229B710600A27AF7 /* List2.xcdatamodeld in Sources */,
+				8C3CBE31230CEF57005D67E9 /* TagSorter.swift in Sources */,
 				8C03607F22E0089700B6BE9C /* RoundedView.swift in Sources */,
 				8C0BBB7B22DDA3930065AEE4 /* Task+CoreDataProperties.swift in Sources */,
 				8C27E04E229B757800A27AF7 /* LogoScreenViewController.swift in Sources */,
 				8CBFB28022EAE6990065E9AA /* OffsetShadowView.swift in Sources */,
 				8C398E7522B1D8820092EE03 /* ExpandingTableViewCell.swift in Sources */,
+				8C7D08FD23401F410091D8F4 /* SelectedTagsCollectionViewManager.swift in Sources */,
 				8C193A1222F143EC009D6E23 /* TagFilter.swift in Sources */,
 				8C27E058229B921200A27AF7 /* DueDateCell.swift in Sources */,
 				8C27E05C229BBA8900A27AF7 /* NotesViewController.swift in Sources */,

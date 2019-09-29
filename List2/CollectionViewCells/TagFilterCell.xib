@@ -19,9 +19,8 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k1m-SS-AUc">
-                        <rect key="frame" x="0.0" y="0.0" width="120" height="43"/>
+                        <rect key="frame" x="36.5" y="9.5" width="47" height="24"/>
                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
-                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8d4-QY-8mE">
@@ -34,11 +33,9 @@
                 </subviews>
             </view>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="k1m-SS-AUc" secondAttribute="trailing" id="6sC-g0-EhH"/>
-                <constraint firstAttribute="bottom" secondItem="k1m-SS-AUc" secondAttribute="bottom" id="DEc-Yd-8Wk"/>
+                <constraint firstItem="k1m-SS-AUc" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="DPs-wu-qQu"/>
                 <constraint firstAttribute="bottom" secondItem="8d4-QY-8mE" secondAttribute="bottom" id="PfS-TX-DwQ"/>
-                <constraint firstItem="k1m-SS-AUc" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="ddQ-G4-sSm"/>
-                <constraint firstItem="k1m-SS-AUc" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="nrk-Qw-0az"/>
+                <constraint firstItem="k1m-SS-AUc" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="TdC-9f-ir4"/>
                 <constraint firstItem="8d4-QY-8mE" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="wJZ-Fp-yLb"/>
                 <constraint firstAttribute="trailing" secondItem="8d4-QY-8mE" secondAttribute="trailing" id="zj4-1E-1p3"/>
             </constraints>
