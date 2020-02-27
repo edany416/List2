@@ -31,10 +31,10 @@
                     </state>
                 </button>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="iC8-Kh-3WM">
-                    <rect key="frame" x="0.0" y="0.0" width="482" height="394"/>
+                    <rect key="frame" x="8" y="8" width="482" height="386"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="3ig-EL-MAb">
-                        <size key="itemSize" width="50" height="50"/>
+                        <size key="itemSize" width="70" height="40"/>
                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
                         <size key="footerReferenceSize" width="0.0" height="0.0"/>
                         <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -43,9 +43,9 @@
             </subviews>
             <color key="backgroundColor" red="0.89803921568627454" green="0.89411764705882346" blue="0.89411764705882346" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="iC8-Kh-3WM" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="Rjt-1k-FZ9"/>
-                <constraint firstItem="iC8-Kh-3WM" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="UYj-4m-h7p"/>
-                <constraint firstItem="iC8-Kh-3WM" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="UkD-Ta-Gxk"/>
+                <constraint firstItem="iC8-Kh-3WM" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" constant="8" id="Rjt-1k-FZ9"/>
+                <constraint firstItem="iC8-Kh-3WM" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="8" id="UYj-4m-h7p"/>
+                <constraint firstItem="iC8-Kh-3WM" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="8" id="UkD-Ta-Gxk"/>
                 <constraint firstItem="BiJ-em-Kof" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" constant="-8" id="fOG-KN-D70"/>
                 <constraint firstItem="BiJ-em-Kof" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="70" id="fi4-oa-wGv"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="BiJ-em-Kof" secondAttribute="trailing" constant="70" id="ppZ-Bc-bpv"/>

@@ -83,8 +83,6 @@ class PersistanceManager {
         return true
     }
     
-    
-    
     func fetchTasks() -> [Task] {
         var tasks = [Task]()
         do {

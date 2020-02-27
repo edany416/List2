@@ -27,7 +27,7 @@ class BlurredView: UIView {
         self.addSubview(blurEffectView)
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissSelf))
-        self.addGestureRecognizer(tapGesture)
+        //self.addGestureRecognizer(tapGesture)
     }
     
     @objc func dismissSelf() {
