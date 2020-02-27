@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TagFilterView" customModule="ListIII" customModuleProvider="target">
+            <connections>
+                <outlet property="applyButton" destination="BiJ-em-Kof" id="2jz-18-joA"/>
+                <outlet property="contentView" destination="iN0-l3-epB" id="zGv-FA-wZk"/>
+                <outlet property="tagsCollectionView" destination="iC8-Kh-3WM" id="rEo-Pc-t9f"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="482" height="484"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BiJ-em-Kof">
+                    <rect key="frame" x="70" y="402" width="342" height="40"/>
+                    <color key="backgroundColor" red="0.40784313725490196" green="0.75294117647058822" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="eHk-fh-PBm"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                    <state key="normal" title="Apply Tags (3)">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                </button>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="iC8-Kh-3WM">
+                    <rect key="frame" x="0.0" y="0.0" width="482" height="394"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="3ig-EL-MAb">
+                        <size key="itemSize" width="50" height="50"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                </collectionView>
+            </subviews>
+            <color key="backgroundColor" red="0.89803921568627454" green="0.89411764705882346" blue="0.89411764705882346" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="iC8-Kh-3WM" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="Rjt-1k-FZ9"/>
+                <constraint firstItem="iC8-Kh-3WM" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="UYj-4m-h7p"/>
+                <constraint firstItem="iC8-Kh-3WM" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="UkD-Ta-Gxk"/>
+                <constraint firstItem="BiJ-em-Kof" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" constant="-8" id="fOG-KN-D70"/>
+                <constraint firstItem="BiJ-em-Kof" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="70" id="fi4-oa-wGv"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="BiJ-em-Kof" secondAttribute="trailing" constant="70" id="ppZ-Bc-bpv"/>
+                <constraint firstItem="BiJ-em-Kof" firstAttribute="top" secondItem="iC8-Kh-3WM" secondAttribute="bottom" constant="8" id="q1n-0n-2jf"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="186.95652173913044" y="-96.428571428571431"/>
+        </view>
+    </objects>
+</document>
