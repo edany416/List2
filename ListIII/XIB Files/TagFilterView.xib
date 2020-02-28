@@ -20,7 +20,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BiJ-em-Kof">
-                    <rect key="frame" x="70" y="402" width="342" height="40"/>
+                    <rect key="frame" x="96.5" y="402" width="289" height="40"/>
                     <color key="backgroundColor" red="0.40784313725490196" green="0.75294117647058822" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="eHk-fh-PBm"/>
@@ -55,9 +55,9 @@
                 <constraint firstAttribute="trailing" secondItem="Bwd-3d-fbB" secondAttribute="trailing" constant="8" id="KHd-6Z-vaz"/>
                 <constraint firstItem="iC8-Kh-3WM" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" constant="-8" id="Rjt-1k-FZ9"/>
                 <constraint firstItem="iC8-Kh-3WM" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="8" id="UkD-Ta-Gxk"/>
+                <constraint firstItem="BiJ-em-Kof" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="f6Y-xQ-y7i"/>
+                <constraint firstItem="BiJ-em-Kof" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.6" id="fEZ-6K-tPx"/>
                 <constraint firstItem="BiJ-em-Kof" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" constant="-8" id="fOG-KN-D70"/>
-                <constraint firstItem="BiJ-em-Kof" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="70" id="fi4-oa-wGv"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="BiJ-em-Kof" secondAttribute="trailing" constant="70" id="ppZ-Bc-bpv"/>
                 <constraint firstItem="BiJ-em-Kof" firstAttribute="top" secondItem="iC8-Kh-3WM" secondAttribute="bottom" constant="8" id="q1n-0n-2jf"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

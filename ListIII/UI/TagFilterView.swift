@@ -69,7 +69,7 @@ class TagFilterView: UIView {
         let nib = UINib(nibName: "TagCollectionViewCell", bundle:nil)
         tagsCollectionView.register(nib, forCellWithReuseIdentifier: "TagCell")
         tagsCollectionView.backgroundColor = .clear
-        self.layer.cornerRadius = 5.0
+        self.layer.cornerRadius = 15.0
         self.layer.masksToBounds = true
     }
     
