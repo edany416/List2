@@ -9,6 +9,6 @@
 import Foundation
 import UIKit
 
-enum Constants {
+enum GlobalConstants {
     static let MAIN_GREEN_COLOR = #colorLiteral(red: 0.4078431373, green: 0.7529411765, blue: 0.4, alpha: 1)
 }

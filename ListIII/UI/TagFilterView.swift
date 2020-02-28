@@ -76,7 +76,6 @@ class TagFilterView: UIView {
     @IBAction func didTapCancel(_ sender: UIButton) {
         delegate?.didTapCancelButton()
     }
-    
 }
 
 extension TagFilterView: UICollectionViewDelegate, UICollectionViewDataSource {

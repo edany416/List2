@@ -33,7 +33,7 @@ class TagCollectionViewCell: UICollectionViewCell {
     func setState(to state: TagCellState) {
         switch  state {
         case .selected:
-            self.name.backgroundColor = Constants.MAIN_GREEN_COLOR
+            self.name.backgroundColor = GlobalConstants.MAIN_GREEN_COLOR
             self.name.textColor = .white
         case .notSelected:
             self.name.backgroundColor = .clear

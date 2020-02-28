@@ -8,16 +8,21 @@
 
 import UIKit
 
+private enum Constants {
+    static let POP_UP_WIDTH_MULTIPLIER: CGFloat = 0.75
+    static let VARIABLE_CONSTRAINT_MULTIPLIER: CGFloat = 0.75
+    static let INITIAL_OVERLAY_COLOR = UIColor(displayP3Red: 0, green: 0, blue: 0, alpha: 0)
+    static let END_OVERLAY_COLOR = UIColor(displayP3Red: 0, green: 0, blue: 0, alpha: 0.2)
+    static let ANIMATION_DURATION_TIME = 0.2
+}
+
 class TaskListViewController: UIViewController {
     
     @IBOutlet private weak var taskTableView: UITableView!
     @IBOutlet private weak var tagFilterButton: UIButton!
     private var tasks: [Task]!
-    private var tagFilter: TagFilterView?
-    private var opaqueView: UIView?
     private var hiddenTags: [Tag]!
     private var filteredTags: [Tag]!
-    private var tagFilterAnimator: ViewPopUpAnimator?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,36 +37,65 @@ class TaskListViewController: UIViewController {
         filteredTags = [Tag]()
     }
     
-    var constraints: [NSLayoutConstraint]!
+    private var variableConstraint: NSLayoutConstraint?
+    private var overlayView: UIView?
+    private var tagFilterView: TagFilterView?
     @IBAction func didTapTagFilterButton(_ sender: UIButton) {
-        let width = self.view.bounds.width * 0.75
-        let height = width
-        let startX = (self.view.bounds.width - width)/2.0
-        tagFilter = TagFilterView(frame: CGRect(x: startX, y: self.view.bounds.maxY, width: width, height: height))
-        tagFilter?.delegate = self
-        tagFilter!.configure(from: TagFilterViewModel(nonSelectedData: hiddenTags.map({$0.name!}),
-                                                     selectedData: filteredTags.map({$0.name!})))
-        opaqueView = UIView(frame: self.view.bounds)
-        self.opaqueView?.backgroundColor = UIColor(displayP3Red: 0, green: 0, blue: 0, alpha: 0.2)
-        self.view.addSubview(self.opaqueView!)
+        if tagFilterView == nil {
+            let width = self.view.bounds.width * Constants.POP_UP_WIDTH_MULTIPLIER
+            let height = width
+            overlayView = UIView(frame: self.view.bounds)
+            overlayView?.backgroundColor = Constants.INITIAL_OVERLAY_COLOR
+            self.view.addSubview(overlayView!)
+            tagFilterView = TagFilterView(frame: .zero)
+            tagFilterView?.delegate = self
+            tagFilterView!.configure(from: TagFilterViewModel(nonSelectedData: hiddenTags.map({$0.name!}),
+                                                            selectedData: filteredTags.map({$0.name!})))
+            tagFilterView!.translatesAutoresizingMaskIntoConstraints = false
+            self.view.addSubview(tagFilterView!)
+            variableConstraint = tagFilterView?.topAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0)
+            let constraints = [
+                variableConstraint!,
+                tagFilterView!.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+                tagFilterView!.widthAnchor.constraint(equalToConstant: width),
+                tagFilterView!.heightAnchor.constraint(equalToConstant: height)
+            ]
+            NSLayoutConstraint.activate(constraints)
+            self.view.layoutIfNeeded()
+        }
+        overlayView?.isUserInteractionEnabled = true
+        animatePopUp()
+    }
+    
+    private func animatePopUp() {
+        variableConstraint?.constant = -1 * self.view.bounds.height * Constants.VARIABLE_CONSTRAINT_MULTIPLIER
+        UIView.animate(withDuration: Constants.ANIMATION_DURATION_TIME,
+                        delay: 0,
+                        options: .curveEaseOut,
+                        animations: {
+                            self.overlayView?.backgroundColor = Constants.END_OVERLAY_COLOR
+                            self.view.layoutIfNeeded()
+        }, completion: nil)
         
-        tagFilterAnimator = ViewPopUpAnimator(relativeView: self.view,
-                                              popUpView: tagFilter!,
-                                              popUpViewHeight: height,
-                                              popUpViewWidth: width,
-                                              popUpViewTopToHeightOfRelativeViewPercentage: 0.75,
-                                              animationDuration: 0.2)
-        
-        
-        
-        tagFilterAnimator?.animateUp()
+    }
+    
+    private func animatePopDown() {
+        variableConstraint?.constant = 0
+        UIView.animate(withDuration: Constants.ANIMATION_DURATION_TIME,
+                        delay: 0,
+                        options: .curveEaseOut,
+                        animations: {
+                            self.overlayView?.backgroundColor = Constants.INITIAL_OVERLAY_COLOR
+                            self.view.layoutIfNeeded()
+        }, completion: {finished in
+            self.overlayView?.isUserInteractionEnabled = false
+        })
     }
 }
 
 extension TaskListViewController: TagFilterViewDelegate {
     func didTapCancelButton() {
-        opaqueView?.removeFromSuperview()
-        tagFilterAnimator?.animateDown()
+        animatePopDown()
     }
 }
 
