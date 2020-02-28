@@ -8,16 +8,29 @@
 
 import UIKit
 
+struct TagFilterViewModel {
+    let nonSelectedData: [String]
+    let selectedData: [String]
+}
+
+protocol TagFilterViewDelegate {
+    func didTapCancelButton()
+}
+
 class TagFilterView: UIView {
     
     @IBOutlet var contentView: UIView!
     @IBOutlet private weak var applyButton: UIButton!
     @IBOutlet private weak var tagsCollectionView: UICollectionView!
     
-    private var tags: [Tag]!
-    private var selectedTags: [Tag]! {
+    var delegate: TagFilterViewDelegate?
+    
+    private var nonSelectedData: [String]!
+    private var selectedData: [String]! {
         didSet {
-            applyButton.setTitle("Apply Tag (\(self.selectedTags.count))", for: .normal)
+            applyButton.isEnabled = self.selectedData.count != 0
+            let result = TaskFilter.numTasksForTags(named: selectedData)
+            applyButton.setTitle("Show Tasks (\(result))", for: .normal)
         }
     }
     
@@ -38,7 +51,15 @@ class TagFilterView: UIView {
         contentView.frame = self.bounds
         contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         configureCollectionView()
-        loadData()
+        tagsCollectionView.reloadData()
+        
+        applyButton.isEnabled = false
+        applyButton.layer.cornerRadius = 5.0
+    }
+    
+    func configure(from model: TagFilterViewModel) {
+        nonSelectedData = model.nonSelectedData
+        selectedData = model.selectedData
         tagsCollectionView.reloadData()
     }
     
@@ -48,55 +69,52 @@ class TagFilterView: UIView {
         let nib = UINib(nibName: "TagCollectionViewCell", bundle:nil)
         tagsCollectionView.register(nib, forCellWithReuseIdentifier: "TagCell")
         tagsCollectionView.backgroundColor = .clear
+        self.layer.cornerRadius = 5.0
+        self.layer.masksToBounds = true
     }
     
-    private func loadData() {
-        //tags = PersistanceManager.instance.fetchTags()
-        tags = TestUtilities.loadTagsFromJSON()
-        selectedTags = [Tag]()
+    @IBAction func didTapCancel(_ sender: UIButton) {
+        delegate?.didTapCancelButton()
     }
-
+    
 }
 
 extension TagFilterView: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if section == 0 && !selectedTags.isEmpty {
-            return selectedTags.count
+        if section == 0 && !selectedData.isEmpty {
+            return selectedData.count
         } else {
-            return tags.count
+            return nonSelectedData.count
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = tagsCollectionView.dequeueReusableCell(withReuseIdentifier: "TagCell", for: indexPath) as! TagCollectionViewCell
-        let tag = getTag(from: indexPath)
-        cell.configureCell(from: TagCellModel(tagName: tag.name!))
-        tag.selected ? cell.setState(to: .selected) : cell.setState(to: .notSelected)
+        var dataToDisplay: String!
+        if indexPath.section == 0 && !selectedData.isEmpty {
+            dataToDisplay = selectedData[indexPath.row]
+            cell.setState(to: .selected)
+        } else {
+            dataToDisplay = nonSelectedData[indexPath.row]
+            cell.setState(to: .notSelected)
+        }
+        cell.configureCell(from: TagCellModel(tagName: dataToDisplay))
         return cell
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return selectedTags.isEmpty ? 1 : 2
+        return selectedData.isEmpty ? 1 : 2
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let tappedTag: Tag!
-        if indexPath.section == 0 && !selectedTags.isEmpty {
-            tappedTag = selectedTags.remove(at: indexPath.row)
-            tags.append(tappedTag)
+        let tapped: String!
+        if indexPath.section == 0 && !selectedData.isEmpty {
+            tapped = selectedData.remove(at: indexPath.row)
+            nonSelectedData.append(tapped)
         } else {
-            tappedTag = tags.remove(at: indexPath.row)
-            selectedTags.append(tappedTag)
+            tapped = nonSelectedData.remove(at: indexPath.row)
+            selectedData.append(tapped)
         }
-        tappedTag.selected = !tappedTag.selected
         tagsCollectionView.reloadData()
-    }
-    
-    private func getTag(from indexPath: IndexPath) -> Tag {
-        if indexPath.section == 0 && !selectedTags.isEmpty {
-            return selectedTags[indexPath.row]
-        } else {
-            return tags[indexPath.row]
-        }
     }
 }

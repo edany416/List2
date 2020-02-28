@@ -1,14 +1,27 @@
 [
     {
-        "name"  :   "Homework",
-        "id"    :   "1234"
+        "name"  :   "Task1",
+        "id"    :   "1234",
+        "tags"  :   ["T1", "T2", "T3"]
     },
     {
-        "name"  :   "Buy toothpaste",
-        "id"    :   "4567"
+        "name"  :   "Task2",
+        "id"    :   "4567",
+        "tags"  :   ["T1", "T2", "T4"]
     },
     {
-        "name"  :   "Go to gym",
-        "id"    :   "7890"
+        "name"  :   "Task3",
+        "id"    :   "7890",
+        "tags"  :   ["T2", "T4"]
+    },
+    {
+        "name"  :   "Task4",
+        "id"    :   "4321",
+        "tags"  :   ["T5"]
+    },
+    {
+        "name"  :   "Task5",
+        "id"    :   "7654",
+        "tags"  :   ["T3"]
     }
 ]

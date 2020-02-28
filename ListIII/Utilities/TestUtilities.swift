@@ -9,23 +9,20 @@
 import Foundation
 
 enum TestUtilities {
-    static func loadTagsFromJSON() -> [Tag] {
-        var tags = [Tag]()
-        let url = Bundle.main.url(forResource: "tags", withExtension: "json")!
+    static func setupDB(){
+        let url = Bundle.main.url(forResource: "tasks", withExtension: "json")!
         do {
             let jsonData = try Data(contentsOf: url)
-            let parsedTags = try JSONSerialization.jsonObject(with: jsonData) as! [[String: String]]
-            for tag in parsedTags {
-                let newTag = Tag(context: PersistanceManager.instance.context)
-                newTag.name = tag["name"]
-                newTag.selected = false
-                tags.append(newTag)
+            let parsedTasks = try JSONSerialization.jsonObject(with: jsonData) as! [[String: Any]]
+            for task in parsedTasks {
+                let name = task["name"]! as! String
+                let id = task["id"]! as! String
+                let associatedTags = task["tags"]! as! [String]
+                PersistanceManager.instance.createNewTask(name, id, associatedTags: associatedTags)
             }
         }
         catch {
             print(error)
         }
-        
-        return tags
     }
 }

@@ -31,7 +31,7 @@
                     </state>
                 </button>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="iC8-Kh-3WM">
-                    <rect key="frame" x="8" y="8" width="482" height="386"/>
+                    <rect key="frame" x="8" y="30" width="466" height="364"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="3ig-EL-MAb">
                         <size key="itemSize" width="70" height="40"/>
@@ -40,11 +40,20 @@
                         <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                     </collectionViewFlowLayout>
                 </collectionView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bwd-3d-fbB">
+                    <rect key="frame" x="426" y="0.0" width="48" height="30"/>
+                    <state key="normal" title="Cancel"/>
+                    <connections>
+                        <action selector="didTapCancel:" destination="-1" eventType="touchUpInside" id="cXM-yw-9iy"/>
+                    </connections>
+                </button>
             </subviews>
-            <color key="backgroundColor" red="0.89803921568627454" green="0.89411764705882346" blue="0.89411764705882346" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="iC8-Kh-3WM" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" constant="8" id="Rjt-1k-FZ9"/>
-                <constraint firstItem="iC8-Kh-3WM" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="8" id="UYj-4m-h7p"/>
+                <constraint firstItem="Bwd-3d-fbB" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="3c7-PE-fC0"/>
+                <constraint firstItem="iC8-Kh-3WM" firstAttribute="top" secondItem="Bwd-3d-fbB" secondAttribute="bottom" id="6Gj-og-mCT"/>
+                <constraint firstAttribute="trailing" secondItem="Bwd-3d-fbB" secondAttribute="trailing" constant="8" id="KHd-6Z-vaz"/>
+                <constraint firstItem="iC8-Kh-3WM" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" constant="-8" id="Rjt-1k-FZ9"/>
                 <constraint firstItem="iC8-Kh-3WM" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="8" id="UkD-Ta-Gxk"/>
                 <constraint firstItem="BiJ-em-Kof" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" constant="-8" id="fOG-KN-D70"/>
                 <constraint firstItem="BiJ-em-Kof" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="70" id="fi4-oa-wGv"/>

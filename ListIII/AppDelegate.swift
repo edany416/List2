@@ -12,30 +12,9 @@ import os
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    
-    private func loadDataIntoDB() {
-        let url = Bundle.main.url(forResource: "tasks", withExtension: "json")!
-        do {
-            let jsonData = try Data(contentsOf: url)
-            let tasks = try JSONSerialization.jsonObject(with: jsonData) as! [[String: String]]
-            for task in tasks {
-                let name = task["name"]!
-                let id = task["id"]!
-                if PersistanceManager.instance.createNewTask(name, id) {
-                   print("task created")
-                }
-            }
-            
-        }
-        catch {
-            print(error)
-        }
-    }
-
-
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        loadDataIntoDB()
+        TestUtilities.setupDB()
         return true
     }
 

@@ -61,7 +61,7 @@ class PersistanceManager {
         }
     }
     
-    func createNewTask(_ name: String, _ id: String) -> Bool {
+    func createNewTask(_ name: String, _ id: String, associatedTags: [String]?) -> Bool {
         let fetchRequest: NSFetchRequest<Task> = Task.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "id == %@", id)
         do {
@@ -78,9 +78,40 @@ class PersistanceManager {
         let newTask = Task(context: PersistanceManager.instance.context)
         newTask.taskName = name
         newTask.id = id
+        
+        if let tags = associatedTags {
+            for tagName in tags {
+                if let tag = PersistanceManager.instance.createTag(named: tagName) {
+                    newTask.addToTags(tag)
+                } else if let tag = PersistanceManager.instance.fetchTag(named: tagName) {
+                    newTask.addToTags(tag)
+                }
+            }
+        }
+        
         PersistanceManager.instance.saveContext()
         
         return true
+    }
+    
+    func createTag(named name: String) -> Tag? {
+        let fetchRequest: NSFetchRequest<Tag> = Tag.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "name == %@", name)
+        do {
+            let exists = try !(PersistanceManager.instance.context.fetch(fetchRequest).isEmpty)
+            if exists {
+                os_log("Tag with given ID already exists", log: .default, type: .error)
+                return nil
+            }
+            
+        } catch {
+            os_log("Error when checking if task with given ID exists", log: .default, type: .error)
+        }
+        
+        let newTag = Tag(context: PersistanceManager.instance.context)
+        newTag.name = name
+        PersistanceManager.instance.saveContext()
+        return newTag
     }
     
     func fetchTasks() -> [Task] {
@@ -99,7 +130,7 @@ class PersistanceManager {
     func fetchTags() -> [Tag] {
         var tags = [Tag]()
         do {
-            if let fetchedTags = try PersistanceManager.instance.context.fetch(Task.fetchRequest()) as? [Tag] {
+            if let fetchedTags = try PersistanceManager.instance.context.fetch(Tag.fetchRequest()) as? [Tag] {
                 tags = fetchedTags
             }
         } catch {
@@ -109,6 +140,23 @@ class PersistanceManager {
         return tags
     }
     
+    func fetchTag(named name: String) -> Tag? {
+        let fetchRequest: NSFetchRequest<Tag> = Tag.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "name == %@", name)
+        
+        var tag: Tag?
+        
+        do {
+            let fetchedTag = try PersistanceManager.instance.context.fetch(fetchRequest)
+            if !fetchedTag.isEmpty {
+                tag = fetchedTag[0]
+            }
+        } catch {
+            os_log("Error when fetching tag", log: .default, type: .error)
+        }
+        
+        return tag
+    }
 }
 
 

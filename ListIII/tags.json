@@ -1,17 +1,22 @@
 [
     {
         "name"      :   "Tag_1",
+        "tasks"     :   ["Task1", "Task2"]
     },
     {
         "name"      :   "Tag_2",
+        "tasks"     :   ["Task1", "Task2", "Task3"]
     },
     {
         "name"      :   "Tag_3",
+        "tasks"     :   ["Task1", "Task5"]
     },
     {
         "name"      :   "Tag_4",
+        "tasks"     :   ["Task2", "Task3"]
     },
     {
         "name"      :   "Tag_5",
+        "tasks"     :   ["Task4"]
     }
 ]

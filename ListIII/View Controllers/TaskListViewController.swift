@@ -13,7 +13,10 @@ class TaskListViewController: UIViewController {
     @IBOutlet private weak var taskTableView: UITableView!
     @IBOutlet private weak var tagFilterButton: UIButton!
     private var tasks: [Task]!
-    
+    private var tagFilter: TagFilterView?
+    private var opaqueView: UIView?
+    private var hiddenTags: [Tag]!
+    private var filteredTags: [Tag]!
     override func viewDidLoad() {
         super.viewDidLoad()
         taskTableView.delegate = self
@@ -23,17 +26,46 @@ class TaskListViewController: UIViewController {
     
     private func loadData() {
         tasks = PersistanceManager.instance.fetchTasks()
+        hiddenTags = PersistanceManager.instance.fetchTags()
+        filteredTags = [Tag]()
     }
     
+    var constraints: [NSLayoutConstraint]!
     @IBAction func didTapTagFilterButton(_ sender: UIButton) {
-        let blurredView = BlurredView(frame: self.view.bounds)
-        let width = blurredView.bounds.width * 0.75
-        let height = blurredView.bounds.height * 0.50
-        let tagFilter = TagFilterView(frame: CGRect(x: 0, y: 0, width: width, height: height))
-        blurredView.addContentView(tagFilter)
-        self.view.addSubview(blurredView)
+        let width = self.view.bounds.width * 0.75
+        let height = width
+        let startX = (self.view.bounds.width - width)/2.0
+        tagFilter = TagFilterView(frame: CGRect(x: startX, y: self.view.bounds.maxY, width: width, height: height))
+        tagFilter?.delegate = self
+        tagFilter!.configure(from: TagFilterViewModel(nonSelectedData: hiddenTags.map({$0.name!}),
+                                                     selectedData: filteredTags.map({$0.name!})))
+        tagFilter?.translatesAutoresizingMaskIntoConstraints = false
+        opaqueView = UIView(frame: self.view.bounds)
+        self.opaqueView?.backgroundColor = UIColor(displayP3Red: 0, green: 0, blue: 0, alpha: 0.2)
+        self.view.addSubview(self.opaqueView!)
+        self.view.addSubview(tagFilter!)
+        constraints = [
+            tagFilter!.heightAnchor.constraint(equalToConstant: height),
+            tagFilter!.widthAnchor.constraint(equalToConstant: width),
+            tagFilter!.topAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -1 * self.view.bounds.height*0.75),
+            tagFilter!.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
+            
+        ]
+        NSLayoutConstraint.activate(constraints)
+        UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut, animations: {
+            self.view.layoutIfNeeded()
+        }, completion: nil)
     }
-    
+}
+
+extension TaskListViewController: TagFilterViewDelegate {
+    func didTapCancelButton() {
+        constraints[2].constant = 0
+        UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut, animations: {
+            self.opaqueView?.removeFromSuperview()
+            self.view.layoutIfNeeded()
+        }, completion: nil)
+    }
 }
 
 extension TaskListViewController: UITableViewDelegate, UITableViewDataSource {

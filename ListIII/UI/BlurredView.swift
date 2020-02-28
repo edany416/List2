@@ -21,13 +21,10 @@ class BlurredView: UIView {
     }
     
     private func setup() {
-        let blurEffect = UIBlurEffect(style: .systemUltraThinMaterial)
+        let blurEffect = UIBlurEffect(style: .extraLight)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.frame = self.bounds
         self.addSubview(blurEffectView)
-        
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissSelf))
-        //self.addGestureRecognizer(tapGesture)
     }
     
     @objc func dismissSelf() {
