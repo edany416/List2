@@ -20,9 +20,21 @@ class TaskListViewController: UIViewController {
     
     @IBOutlet private weak var taskTableView: UITableView!
     @IBOutlet private weak var tagFilterButton: UIButton!
-    private var tasks: [Task]!
-    private var hiddenTags: [Tag]!
-    private var filteredTags: [Tag]!
+    private var tasks: [Task]! {
+        didSet {
+            taskTableView.reloadData()
+        }
+    }
+    
+    private var tagSelectionTracker: [Tag:Bool]!
+    private var selectedTags: [String] {
+        let tags = Array(tagSelectionTracker.filter({$0.value == true}).keys)
+        return tags.map({$0.name!})
+    }
+    private var availableTags: [String] {
+        let tags = Array(tagSelectionTracker.filter({$0.value == false}).keys)
+        return tags.map({$0.name!})
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,13 +45,15 @@ class TaskListViewController: UIViewController {
     
     private func loadData() {
         tasks = PersistanceManager.instance.fetchTasks()
-        hiddenTags = PersistanceManager.instance.fetchTags()
-        filteredTags = [Tag]()
+        let tags = PersistanceManager.instance.fetchTags()
+        tagSelectionTracker = [Tag:Bool]()
+        tags.forEach({tagSelectionTracker[$0] = false})
     }
     
     private var variableConstraint: NSLayoutConstraint?
     private var overlayView: UIView?
     private var tagFilterView: TagFilterView?
+    private var taskFilter = TaskFilter()
     @IBAction func didTapTagFilterButton(_ sender: UIButton) {
         if tagFilterView == nil {
             let width = self.view.bounds.width * Constants.POP_UP_WIDTH_MULTIPLIER
@@ -49,8 +63,8 @@ class TaskListViewController: UIViewController {
             self.view.addSubview(overlayView!)
             tagFilterView = TagFilterView(frame: .zero)
             tagFilterView?.delegate = self
-            tagFilterView!.configure(from: TagFilterViewModel(nonSelectedData: hiddenTags.map({$0.name!}),
-                                                            selectedData: filteredTags.map({$0.name!})))
+            tagFilterView!.applyButton.setTitle("Show Tasks (All)", for: .normal)
+            tagFilterView!.configure(from: TagFilterViewModel(nonSelectedData: availableTags, selectedData: selectedTags))
             tagFilterView!.translatesAutoresizingMaskIntoConstraints = false
             self.view.addSubview(tagFilterView!)
             variableConstraint = tagFilterView?.topAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0)
@@ -69,6 +83,8 @@ class TaskListViewController: UIViewController {
     
     private func animatePopUp() {
         variableConstraint?.constant = -1 * self.view.bounds.height * Constants.VARIABLE_CONSTRAINT_MULTIPLIER
+        tagFilterView!.configure(from: TagFilterViewModel(nonSelectedData: availableTags,
+                                                          selectedData: selectedTags))
         UIView.animate(withDuration: Constants.ANIMATION_DURATION_TIME,
                         delay: 0,
                         options: .curveEaseOut,
@@ -91,10 +107,39 @@ class TaskListViewController: UIViewController {
             self.overlayView?.isUserInteractionEnabled = false
         })
     }
+    
+    private func updateSelectedTagData() {
+        
+    }
 }
 
 extension TaskListViewController: TagFilterViewDelegate {
+    
+    func didSelectItem(with tagName: String) {
+        let result = taskFilter.appendTag(withName: tagName)
+        tagFilterView?.applyButton.setTitle("Show Tasks (\(result))", for: .normal)
+    }
+    
+    func didDeselectItem(with tagName: String) {
+        if let result = taskFilter.removeTag(withName: tagName) {
+            tagFilterView?.applyButton.setTitle("Show Tasks (\(result))", for: .normal)
+        } else {
+            tagFilterView?.applyButton.setTitle("Show Tasks (All)", for: .normal)
+        }
+    }
+    
+    func didTapApply() {
+        if let filteredTasks = taskFilter.apply() {
+            tasks = filteredTasks
+            tagSelectionTracker.keys.forEach { tagSelectionTracker[$0] = taskFilter.appliedTags.contains($0)}
+        } else {
+            tasks = PersistanceManager.instance.fetchTasks()
+        }
+        animatePopDown()
+    }
+    
     func didTapCancelButton() {
+        taskFilter.cancel()
         animatePopDown()
     }
 }

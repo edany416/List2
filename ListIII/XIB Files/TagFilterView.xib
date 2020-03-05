@@ -11,7 +11,7 @@
             <connections>
                 <outlet property="applyButton" destination="BiJ-em-Kof" id="2jz-18-joA"/>
                 <outlet property="contentView" destination="iN0-l3-epB" id="zGv-FA-wZk"/>
-                <outlet property="tagsCollectionView" destination="iC8-Kh-3WM" id="rEo-Pc-t9f"/>
+                <outlet property="tagsTableView" destination="yk2-VB-8pl" id="efQ-jR-yth"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -26,20 +26,13 @@
                         <constraint firstAttribute="height" constant="40" id="eHk-fh-PBm"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                    <state key="normal" title="Apply Tags (3)">
+                    <state key="normal">
                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </state>
+                    <connections>
+                        <action selector="didTapApply:" destination="-1" eventType="touchUpInside" id="Lsl-mh-xg3"/>
+                    </connections>
                 </button>
-                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="iC8-Kh-3WM">
-                    <rect key="frame" x="8" y="30" width="466" height="364"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="3ig-EL-MAb">
-                        <size key="itemSize" width="70" height="40"/>
-                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                    </collectionViewFlowLayout>
-                </collectionView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bwd-3d-fbB">
                     <rect key="frame" x="426" y="0.0" width="48" height="30"/>
                     <state key="normal" title="Cancel"/>
@@ -47,18 +40,22 @@
                         <action selector="didTapCancel:" destination="-1" eventType="touchUpInside" id="cXM-yw-9iy"/>
                     </connections>
                 </button>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="yk2-VB-8pl">
+                    <rect key="frame" x="20" y="33" width="442" height="361"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                </tableView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="Bwd-3d-fbB" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="3c7-PE-fC0"/>
-                <constraint firstItem="iC8-Kh-3WM" firstAttribute="top" secondItem="Bwd-3d-fbB" secondAttribute="bottom" id="6Gj-og-mCT"/>
                 <constraint firstAttribute="trailing" secondItem="Bwd-3d-fbB" secondAttribute="trailing" constant="8" id="KHd-6Z-vaz"/>
-                <constraint firstItem="iC8-Kh-3WM" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" constant="-8" id="Rjt-1k-FZ9"/>
-                <constraint firstItem="iC8-Kh-3WM" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="8" id="UkD-Ta-Gxk"/>
+                <constraint firstItem="yk2-VB-8pl" firstAttribute="top" secondItem="Bwd-3d-fbB" secondAttribute="bottom" constant="3" id="LZf-CY-rZp"/>
+                <constraint firstItem="BiJ-em-Kof" firstAttribute="top" secondItem="yk2-VB-8pl" secondAttribute="bottom" constant="8" id="f16-WA-poQ"/>
                 <constraint firstItem="BiJ-em-Kof" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="f6Y-xQ-y7i"/>
                 <constraint firstItem="BiJ-em-Kof" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.6" id="fEZ-6K-tPx"/>
                 <constraint firstItem="BiJ-em-Kof" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" constant="-8" id="fOG-KN-D70"/>
-                <constraint firstItem="BiJ-em-Kof" firstAttribute="top" secondItem="iC8-Kh-3WM" secondAttribute="bottom" constant="8" id="q1n-0n-2jf"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="yk2-VB-8pl" secondAttribute="trailing" constant="20" id="mtK-t7-gRj"/>
+                <constraint firstItem="yk2-VB-8pl" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="uRS-fk-QwC"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
