@@ -18,6 +18,7 @@ class TaskTableViewCell: UITableViewCell {
 
     func configureCell(from model: TaskCellModel) {
         taskNameLabel.text = model.taskLabelText
+        taskNameLabel.backgroundColor = .clear
     }
     
     override func awakeFromNib() {

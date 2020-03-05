@@ -36,16 +36,11 @@ struct TaskFilter {
     private var pendingTags: [Tag]?
     private var pendingIntersection: Set<Task>?
     mutating func appendTag(withName tagName: String) -> Int {
-        if let tag = PersistanceManager.instance.fetchTag(named: tagName), let tasks = tag.tasks as? Set<Task> {
-            
-            assert(!confirmedTags.contains(tag), "Tag named \(tagName) has already been added to filter")
-            
+        if let tag = PersistanceManager.instance.fetchTag(named: tagName), let tasks = tag.tasks as? Set<Task> {  
             if !isInPendingState {
                 pendingTags = confirmedTags
                 pendingIntersection = appliedIntersection
             }
-            
-            assert(!pendingTags!.contains(tag), "Tag named \(tagName) has already been added to filter")
             
             pendingTags!.append(tag)
             if pendingIntersection == nil {
@@ -58,7 +53,6 @@ struct TaskFilter {
     }
     
     mutating func removeTag(withName tagName: String) -> Int? {
-        assert(isInInitialState == false, "No tags have been added to remove")
         pendingIntersection = nil
         if !isInPendingState {
             pendingTags = confirmedTags.filter({$0.name! != tagName})

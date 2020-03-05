@@ -39,20 +39,21 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cxy-qW-QmE">
                                 <rect key="frame" x="20" y="132" width="374" height="130"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No tags have been selected" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uXw-1X-kG4">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C1N-xS-Yfi">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="130"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="uXw-1X-kG4" secondAttribute="trailing" id="HAp-PV-1j7"/>
-                                    <constraint firstItem="uXw-1X-kG4" firstAttribute="top" secondItem="cxy-qW-QmE" secondAttribute="top" id="Qq4-fT-snb"/>
-                                    <constraint firstAttribute="bottom" secondItem="uXw-1X-kG4" secondAttribute="bottom" id="a1O-by-vvN"/>
-                                    <constraint firstItem="uXw-1X-kG4" firstAttribute="leading" secondItem="cxy-qW-QmE" secondAttribute="leading" id="fpa-fW-bea"/>
+                                    <constraint firstItem="C1N-xS-Yfi" firstAttribute="top" secondItem="cxy-qW-QmE" secondAttribute="top" id="Nvl-0d-MQG"/>
+                                    <constraint firstAttribute="bottom" secondItem="C1N-xS-Yfi" secondAttribute="bottom" id="QFX-dN-Nyk"/>
                                     <constraint firstAttribute="height" constant="130" id="qqd-PN-EIr"/>
+                                    <constraint firstAttribute="trailing" secondItem="C1N-xS-Yfi" secondAttribute="trailing" id="tI1-xv-iZL"/>
+                                    <constraint firstItem="C1N-xS-Yfi" firstAttribute="leading" secondItem="cxy-qW-QmE" secondAttribute="leading" id="zbl-PX-JU2"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tasks" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uWv-Wy-VYk">
@@ -107,7 +108,6 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="uWv-Wy-VYk" firstAttribute="top" secondItem="uXw-1X-kG4" secondAttribute="bottom" constant="8" id="3lv-AT-l1s"/>
                             <constraint firstItem="uWv-Wy-VYk" firstAttribute="leading" secondItem="qVq-Tr-fTe" secondAttribute="leading" constant="20" id="8Rm-yO-Gbv"/>
                             <constraint firstItem="8yi-ok-Lcf" firstAttribute="leading" secondItem="qVq-Tr-fTe" secondAttribute="leading" constant="20" id="LVs-Je-NmM"/>
                             <constraint firstItem="qVq-Tr-fTe" firstAttribute="trailing" secondItem="g0v-KX-LxQ" secondAttribute="trailing" constant="20" id="ML7-RA-M6K"/>
@@ -120,6 +120,7 @@
                             <constraint firstItem="qVq-Tr-fTe" firstAttribute="trailing" secondItem="5OF-4U-Wxf" secondAttribute="trailing" constant="20" id="fQl-ht-mLm"/>
                             <constraint firstItem="qVq-Tr-fTe" firstAttribute="trailing" secondItem="cxy-qW-QmE" secondAttribute="trailing" constant="20" id="kba-ut-UJX"/>
                             <constraint firstItem="g0v-KX-LxQ" firstAttribute="top" secondItem="qVq-Tr-fTe" secondAttribute="top" id="lvN-kb-GUW"/>
+                            <constraint firstItem="uWv-Wy-VYk" firstAttribute="top" secondItem="C1N-xS-Yfi" secondAttribute="bottom" constant="8" id="msA-Xn-wIi"/>
                             <constraint firstItem="5OF-4U-Wxf" firstAttribute="leading" secondItem="qVq-Tr-fTe" secondAttribute="leading" constant="20" id="sFz-56-lZp"/>
                             <constraint firstItem="5OF-4U-Wxf" firstAttribute="bottom" secondItem="qVq-Tr-fTe" secondAttribute="bottom" id="xdr-zB-W0d"/>
                             <constraint firstItem="Z95-I4-zoc" firstAttribute="height" secondItem="8yi-ok-Lcf" secondAttribute="height" multiplier="0.833333" id="zAN-eX-BUA"/>
@@ -128,6 +129,7 @@
                     </view>
                     <connections>
                         <outlet property="tagFilterButton" destination="Z95-I4-zoc" id="XXr-3X-3xv"/>
+                        <outlet property="tagsTextView" destination="C1N-xS-Yfi" id="rlw-9k-MwV"/>
                         <outlet property="taskTableView" destination="5OF-4U-Wxf" id="lsg-Qd-PEe"/>
                     </connections>
                 </viewController>

@@ -12,12 +12,29 @@ struct TagFilterCellModel {
     let tagName: String
 }
 
+enum FilterCellSelectionState {
+    case selected
+    case notSelected
+}
+
 class TagFilterCell: UITableViewCell {
 
     @IBOutlet private weak var tagName: UILabel!
     
     func configureCell(from model: TagFilterCellModel) {
         tagName.text = model.tagName
+        tagName.backgroundColor = .clear
+    }
+    
+    func setSelectionState(to state: FilterCellSelectionState) {
+        switch state {
+        case .selected:
+            self.backgroundColor = GlobalConstants.MAIN_GREEN_COLOR
+            self.tagName.textColor = .white
+        case .notSelected:
+            self.backgroundColor = .white
+            self.tagName.textColor = .black
+        }
     }
     
     override func awakeFromNib() {

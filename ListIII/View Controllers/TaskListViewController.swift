@@ -20,6 +20,7 @@ class TaskListViewController: UIViewController {
     
     @IBOutlet private weak var taskTableView: UITableView!
     @IBOutlet private weak var tagFilterButton: UIButton!
+    @IBOutlet weak var tagsTextView: UITextView!
     private var tasks: [Task]! {
         didSet {
             taskTableView.reloadData()
@@ -131,10 +132,12 @@ extension TaskListViewController: TagFilterViewDelegate {
     func didTapApply() {
         if let filteredTasks = taskFilter.apply() {
             tasks = filteredTasks
-            tagSelectionTracker.keys.forEach { tagSelectionTracker[$0] = taskFilter.appliedTags.contains($0)}
         } else {
             tasks = PersistanceManager.instance.fetchTasks()
         }
+        let appliedTags = taskFilter.appliedTags
+        tagSelectionTracker.keys.forEach { tagSelectionTracker[$0] = appliedTags.contains($0)}
+        tagsTextView.text = appliedTags.map({$0.name!}).joined(separator: " ")
         animatePopDown()
     }
     
