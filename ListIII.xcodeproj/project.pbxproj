@@ -13,7 +13,7 @@
 		E2E5770F2407241900AFC9B2 /* PersistanceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E5770E2407241900AFC9B2 /* PersistanceManager.swift */; };
 		E2E5771724072FB000AFC9B2 /* tasks.json in Resources */ = {isa = PBXBuildFile; fileRef = E2E5771624072FB000AFC9B2 /* tasks.json */; };
 		E2E5771924073A2F00AFC9B2 /* TagFilterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2E5771824073A2F00AFC9B2 /* TagFilterView.xib */; };
-		E2E5771B24073D5900AFC9B2 /* TagFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E5771A24073D5900AFC9B2 /* TagFilterView.swift */; };
+		E2E5771B24073D5900AFC9B2 /* TagSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E5771A24073D5900AFC9B2 /* TagSelectorView.swift */; };
 		E2E577212407432200AFC9B2 /* BlurredView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E577202407432200AFC9B2 /* BlurredView.swift */; };
 		E2E5772B240758E300AFC9B2 /* tags.json in Resources */ = {isa = PBXBuildFile; fileRef = E2E5772A240758E300AFC9B2 /* tags.json */; };
 		E2E5772D24075A6F00AFC9B2 /* TestUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E5772C24075A6F00AFC9B2 /* TestUtilities.swift */; };
@@ -25,6 +25,11 @@
 		E2E577422408B95600AFC9B2 /* ViewPopUpAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E577412408B95600AFC9B2 /* ViewPopUpAnimator.swift */; };
 		E2ECAB322410914D00A317AA /* TagFilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2ECAB302410914D00A317AA /* TagFilterCell.swift */; };
 		E2ECAB332410914D00A317AA /* TagFilterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2ECAB312410914D00A317AA /* TagFilterCell.xib */; };
+		E2ECAB372411DE8000A317AA /* FilterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2ECAB362411DE8000A317AA /* FilterTests.swift */; };
+		E2ECAB392411DEBF00A317AA /* TestTasks.json in Resources */ = {isa = PBXBuildFile; fileRef = E2ECAB382411DEBF00A317AA /* TestTasks.json */; };
+		E2ECAB452414E61700A317AA /* TagPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2ECAB442414E61700A317AA /* TagPickerView.swift */; };
+		E2ECAB472414E91000A317AA /* ScratchPad in Resources */ = {isa = PBXBuildFile; fileRef = E2ECAB462414E91000A317AA /* ScratchPad */; };
+		E2ECAB492414E99100A317AA /* TaskTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2ECAB482414E99100A317AA /* TaskTableViewDataSource.swift */; };
 		E2F50D0723C15AF800FA985B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F50D0623C15AF800FA985B /* AppDelegate.swift */; };
 		E2F50D0923C15AF800FA985B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F50D0823C15AF800FA985B /* SceneDelegate.swift */; };
 		E2F50D0E23C15AF800FA985B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E2F50D0C23C15AF800FA985B /* Main.storyboard */; };
@@ -59,7 +64,7 @@
 		E2E5770E2407241900AFC9B2 /* PersistanceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistanceManager.swift; sourceTree = "<group>"; };
 		E2E5771624072FB000AFC9B2 /* tasks.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = tasks.json; sourceTree = "<group>"; };
 		E2E5771824073A2F00AFC9B2 /* TagFilterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TagFilterView.xib; sourceTree = "<group>"; };
-		E2E5771A24073D5900AFC9B2 /* TagFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagFilterView.swift; sourceTree = "<group>"; };
+		E2E5771A24073D5900AFC9B2 /* TagSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagSelectorView.swift; sourceTree = "<group>"; };
 		E2E577202407432200AFC9B2 /* BlurredView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurredView.swift; sourceTree = "<group>"; };
 		E2E5772A240758E300AFC9B2 /* tags.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = tags.json; sourceTree = "<group>"; };
 		E2E5772C24075A6F00AFC9B2 /* TestUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUtilities.swift; sourceTree = "<group>"; };
@@ -71,6 +76,11 @@
 		E2E577412408B95600AFC9B2 /* ViewPopUpAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewPopUpAnimator.swift; sourceTree = "<group>"; };
 		E2ECAB302410914D00A317AA /* TagFilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagFilterCell.swift; sourceTree = "<group>"; };
 		E2ECAB312410914D00A317AA /* TagFilterCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TagFilterCell.xib; sourceTree = "<group>"; };
+		E2ECAB362411DE8000A317AA /* FilterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterTests.swift; sourceTree = "<group>"; };
+		E2ECAB382411DEBF00A317AA /* TestTasks.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = TestTasks.json; sourceTree = "<group>"; };
+		E2ECAB442414E61700A317AA /* TagPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagPickerView.swift; sourceTree = "<group>"; };
+		E2ECAB462414E91000A317AA /* ScratchPad */ = {isa = PBXFileReference; lastKnownFileType = text; path = ScratchPad; sourceTree = "<group>"; };
+		E2ECAB482414E99100A317AA /* TaskTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableViewDataSource.swift; sourceTree = "<group>"; };
 		E2F50D0323C15AF800FA985B /* ListIII.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ListIII.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2F50D0623C15AF800FA985B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E2F50D0823C15AF800FA985B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -135,9 +145,10 @@
 			isa = PBXGroup;
 			children = (
 				E2E5770B24071F4000AFC9B2 /* TaskTableViewCell.swift */,
-				E2E5771A24073D5900AFC9B2 /* TagFilterView.swift */,
+				E2E5771A24073D5900AFC9B2 /* TagSelectorView.swift */,
 				E2E577202407432200AFC9B2 /* BlurredView.swift */,
 				E2ECAB302410914D00A317AA /* TagFilterCell.swift */,
+				E2ECAB442414E61700A317AA /* TagPickerView.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -163,6 +174,14 @@
 			path = "XIB Files";
 			sourceTree = "<group>";
 		};
+		E2ECAB3B2412E59200A317AA /* Datasource-Delegate-Managers */ = {
+			isa = PBXGroup;
+			children = (
+				E2ECAB482414E99100A317AA /* TaskTableViewDataSource.swift */,
+			);
+			path = "Datasource-Delegate-Managers";
+			sourceTree = "<group>";
+		};
 		E2F50CFA23C15AF700FA985B = {
 			isa = PBXGroup;
 			children = (
@@ -186,6 +205,7 @@
 		E2F50D0523C15AF800FA985B /* ListIII */ = {
 			isa = PBXGroup;
 			children = (
+				E2ECAB3B2412E59200A317AA /* Datasource-Delegate-Managers */,
 				E2E5770D240723EA00AFC9B2 /* Model */,
 				E2E5770A24071F1500AFC9B2 /* UI */,
 				E2E577402408839800AFC9B2 /* XIB Files */,
@@ -200,6 +220,8 @@
 				E2F50D0F23C15AF800FA985B /* ListIII.xcdatamodeld */,
 				E2E5771624072FB000AFC9B2 /* tasks.json */,
 				E2E5772A240758E300AFC9B2 /* tags.json */,
+				E2ECAB382411DEBF00A317AA /* TestTasks.json */,
+				E2ECAB462414E91000A317AA /* ScratchPad */,
 			);
 			path = ListIII;
 			sourceTree = "<group>";
@@ -209,6 +231,7 @@
 			children = (
 				E2F50D2023C15B0100FA985B /* ListIIITests.swift */,
 				E2F50D2223C15B0100FA985B /* Info.plist */,
+				E2ECAB362411DE8000A317AA /* FilterTests.swift */,
 			);
 			path = ListIIITests;
 			sourceTree = "<group>";
@@ -329,7 +352,9 @@
 				E2E5771924073A2F00AFC9B2 /* TagFilterView.xib in Resources */,
 				E2E5771724072FB000AFC9B2 /* tasks.json in Resources */,
 				E2F50D1623C15B0000FA985B /* LaunchScreen.storyboard in Resources */,
+				E2ECAB472414E91000A317AA /* ScratchPad in Resources */,
 				E2ECAB332410914D00A317AA /* TagFilterCell.xib in Resources */,
+				E2ECAB392411DEBF00A317AA /* TestTasks.json in Resources */,
 				E2F50D1323C15B0000FA985B /* Assets.xcassets in Resources */,
 				E2E5772B240758E300AFC9B2 /* tags.json in Resources */,
 				E2F50D0E23C15AF800FA985B /* Main.storyboard in Resources */,
@@ -361,7 +386,8 @@
 				E2F50D0723C15AF800FA985B /* AppDelegate.swift in Sources */,
 				E2E5772D24075A6F00AFC9B2 /* TestUtilities.swift in Sources */,
 				E2E5773F2408634C00AFC9B2 /* TaskFilter.swift in Sources */,
-				E2E5771B24073D5900AFC9B2 /* TagFilterView.swift in Sources */,
+				E2ECAB492414E99100A317AA /* TaskTableViewDataSource.swift in Sources */,
+				E2E5771B24073D5900AFC9B2 /* TagSelectorView.swift in Sources */,
 				E2E5770C24071F4000AFC9B2 /* TaskTableViewCell.swift in Sources */,
 				E2E5773C24085CD800AFC9B2 /* Tag+CoreDataClass.swift in Sources */,
 				E2E577422408B95600AFC9B2 /* ViewPopUpAnimator.swift in Sources */,
@@ -371,6 +397,7 @@
 				E2E5770924071B1A00AFC9B2 /* TaskListViewController.swift in Sources */,
 				E2E5773D24085CD800AFC9B2 /* Tag+CoreDataProperties.swift in Sources */,
 				E2ECAB322410914D00A317AA /* TagFilterCell.swift in Sources */,
+				E2ECAB452414E61700A317AA /* TagPickerView.swift in Sources */,
 				E2E5773B24085CD800AFC9B2 /* Task+CoreDataProperties.swift in Sources */,
 				E2E5773A24085CD800AFC9B2 /* Task+CoreDataClass.swift in Sources */,
 				E2E5770F2407241900AFC9B2 /* PersistanceManager.swift in Sources */,
@@ -382,6 +409,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E2F50D2123C15B0100FA985B /* ListIIITests.swift in Sources */,
+				E2ECAB372411DE8000A317AA /* FilterTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

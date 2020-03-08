@@ -8,96 +8,68 @@
 
 import Foundation
 
+//Returns tasks for a selection of tags
 struct TaskFilter {
-    
-    var appliedTags: [Tag] {
-        return confirmedTags
-    }
-    
-    private var confirmedTags: [Tag] {
-        didSet{
-            if self.confirmedTags.isEmpty {
-                appliedIntersection = nil
-            }
-        }
-    }
-    private var appliedIntersection: Set<Task>?
-    private var isInInitialState: Bool {
-        return pendingTags == nil && confirmedTags.isEmpty
-    }
-    private var isInPendingState: Bool {
-        return pendingTags != nil
-    }
+    private(set) var appliedTags: [Tag]
+    private(set) var pendingTags: [Tag]?
+    private(set) var appliedIntersection: Set<Task>?
+    private(set) var pendingIntersection: Set<Task>?
     
     init() {
-        confirmedTags = [Tag]()
+        appliedTags = [Tag]()
     }
     
-    private var pendingTags: [Tag]?
-    private var pendingIntersection: Set<Task>?
-    mutating func appendTag(withName tagName: String) -> Int {
-        if let tag = PersistanceManager.instance.fetchTag(named: tagName), let tasks = tag.tasks as? Set<Task> {  
-            if !isInPendingState {
-                pendingTags = confirmedTags
-                pendingIntersection = appliedIntersection
-            }
-            
-            pendingTags!.append(tag)
-            if pendingIntersection == nil {
-                pendingIntersection = tasks
-            } else {
-                pendingIntersection = pendingIntersection!.intersection(tasks)
-            }
-        }
-        return pendingIntersection!.count
-    }
-    
-    mutating func removeTag(withName tagName: String) -> Int? {
-        pendingIntersection = nil
-        if !isInPendingState {
-            pendingTags = confirmedTags.filter({$0.name! != tagName})
-        } else { //In pending state pending tags includes the applied tags
-            pendingTags = pendingTags!.filter({$0.name! != tagName})
+    mutating func appendTag(withName tagName: String) {
+        let tag = PersistanceManager.instance.fetchTag(named: tagName)!
+        let tasksForTag = tag.tasks as! Set<Task>
+                
+        if pendingTags == nil {
+            pendingTags = appliedTags
+            pendingIntersection = appliedIntersection
         }
         
-        if pendingTags!.isEmpty {
-            return nil
+        guard !pendingTags!.contains(tag) else {
+            return
+        }
+        
+        pendingTags!.append(tag)
+        computeIntersection(from: tasksForTag)
+    }
+    
+    mutating func removeTag(withName tagName: String) {
+        pendingIntersection = nil
+        if pendingTags == nil {
+            pendingTags = appliedTags.filter({$0.name! != tagName})
+        } else {
+            pendingTags = pendingTags?.filter({$0.name! != tagName})
         }
         
         for tag in pendingTags! {
-            let tasks = tag.tasks as! Set<Task>
-            if pendingIntersection == nil {
-                pendingIntersection = tasks
-            } else {
-                pendingIntersection = pendingIntersection?.intersection(tasks)
-            }
+            let tasksForTag = tag.tasks as! Set<Task>
+            computeIntersection(from: tasksForTag)
         }
-        
-        return pendingIntersection!.count
     }
-
     
-    mutating func apply() -> [Task]? {
-        if isInInitialState {
-            return nil
+    mutating func applyFilter() {
+        if pendingTags != nil {
+            appliedTags = pendingTags!
+            appliedIntersection = pendingIntersection
+            
+            pendingTags = nil
+            pendingIntersection = nil
         }
-        if !isInPendingState && !confirmedTags.isEmpty {
-            return Array(appliedIntersection!)
-        }
-        
-        confirmedTags = pendingTags!
-        appliedIntersection = pendingIntersection
-        
-        pendingTags = nil
-        pendingIntersection = nil
-        
-        return appliedIntersection == nil ? nil : Array(appliedIntersection!)
-        
     }
-
-    mutating func cancel() {
+    
+    mutating func cancelFilter() {
         pendingTags = nil
         pendingIntersection = nil
+    }
+    
+    private mutating func computeIntersection(from tasks: Set<Task>) {
+        if pendingIntersection == nil {
+            pendingIntersection = tasks
+        } else {
+            pendingIntersection = pendingIntersection?.intersection(tasks)
+        }
     }
 }
-

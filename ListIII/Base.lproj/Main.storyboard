@@ -16,31 +16,31 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g0v-KX-LxQ">
-                                <rect key="frame" x="364" y="44" width="30" height="30"/>
+                                <rect key="frame" x="379" y="44" width="15" height="15"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="KIW-9s-PEv"/>
-                                    <constraint firstAttribute="width" constant="30" id="qZi-Pw-3ln"/>
+                                    <constraint firstAttribute="height" constant="15" id="KIW-9s-PEv"/>
+                                    <constraint firstAttribute="width" constant="15" id="qZi-Pw-3ln"/>
                                 </constraints>
                                 <state key="normal" image="Plus"/>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z95-I4-zoc">
-                                <rect key="frame" x="363" y="94" width="32" height="30"/>
+                                <rect key="frame" x="370.5" y="79" width="32" height="30"/>
                                 <state key="normal" title="filter"/>
                                 <connections>
                                     <action selector="didTapTagFilterButton:" destination="cxZ-1h-LR7" eventType="touchUpInside" id="5Jq-Au-Nbf"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tags" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8yi-ok-Lcf">
-                                <rect key="frame" x="20" y="91" width="62.5" height="36"/>
+                                <rect key="frame" x="20" y="76" width="62.5" height="36"/>
                                 <fontDescription key="fontDescription" name="SFMono-Medium" family="SF Mono" pointSize="30"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cxy-qW-QmE">
-                                <rect key="frame" x="20" y="132" width="374" height="130"/>
+                                <rect key="frame" x="20" y="117" width="374" height="75"/>
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C1N-xS-Yfi">
-                                        <rect key="frame" x="0.0" y="0.0" width="374" height="130"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="75"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
@@ -51,19 +51,19 @@
                                 <constraints>
                                     <constraint firstItem="C1N-xS-Yfi" firstAttribute="top" secondItem="cxy-qW-QmE" secondAttribute="top" id="Nvl-0d-MQG"/>
                                     <constraint firstAttribute="bottom" secondItem="C1N-xS-Yfi" secondAttribute="bottom" id="QFX-dN-Nyk"/>
-                                    <constraint firstAttribute="height" constant="130" id="qqd-PN-EIr"/>
+                                    <constraint firstAttribute="height" constant="75" id="qqd-PN-EIr"/>
                                     <constraint firstAttribute="trailing" secondItem="C1N-xS-Yfi" secondAttribute="trailing" id="tI1-xv-iZL"/>
                                     <constraint firstItem="C1N-xS-Yfi" firstAttribute="leading" secondItem="cxy-qW-QmE" secondAttribute="leading" id="zbl-PX-JU2"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tasks" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uWv-Wy-VYk">
-                                <rect key="frame" x="20" y="270" width="73" height="36"/>
+                                <rect key="frame" x="20" y="200" width="73" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="5OF-4U-Wxf">
-                                <rect key="frame" x="20" y="314" width="374" height="548"/>
+                                <rect key="frame" x="20" y="244" width="374" height="618"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TaskCell" rowHeight="62" id="xTo-3L-8yv" customClass="TaskTableViewCell" customModule="ListIII" customModuleProvider="target">

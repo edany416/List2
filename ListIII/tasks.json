@@ -1,27 +1,27 @@
 [
     {
-        "name"  :   "Task1",
+        "name"  :   "Problems chapter 5.2",
         "id"    :   "1234",
-        "tags"  :   ["T1", "T2", "T3", "T8"]
+        "tags"  :   ["Homework", "Due_On_Monday", "Math"]
     },
     {
-        "name"  :   "Task2",
+        "name"  :   "Read book chapter 7",
         "id"    :   "4567",
-        "tags"  :   ["T1", "T2", "T4"]
+        "tags"  :   ["Homework", "History", "Due_Tomorrow"]
     },
     {
-        "name"  :   "Task3",
+        "name"  :   "Clean and organize room",
         "id"    :   "7890",
-        "tags"  :   ["T2", "T4", "T7"]
+        "tags"  :   ["House_Chores", "Do_On_Wednesday"]
     },
     {
-        "name"  :   "Task4",
+        "name"  :   "Start working on review sheet",
         "id"    :   "4321",
-        "tags"  :   ["T5", "T6"]
+        "tags"  :   ["Math", "Exam_Prep", "Do_On_Wednesday"]
     },
     {
-        "name"  :   "Task5",
+        "name"  :   "Go to gym",
         "id"    :   "7654",
-        "tags"  :   ["T3", "T6", "T7"]
+        "tags"  :   ["Weekend_Activities"]
     }
 ]

@@ -1,0 +1,97 @@
+Popup animator class:
+- width
+- height
+- percentage to go up
+- parent view
+- the view thats going to pop up
+
+
+
+if tagFilterView == nil {
+    let width = self.view.bounds.width * Constants.POP_UP_WIDTH_MULTIPLIER
+    let height = width
+    overlayView = UIView(frame: self.view.bounds)
+    overlayView?.backgroundColor = Constants.INITIAL_OVERLAY_COLOR
+    self.view.addSubview(overlayView!)
+    
+    tagFilterView = TagSelectorView(frame: .zero)
+    tagFilterView?.delegate = self
+    tagFilterView!.applyButton.setTitle("Show Tasks (All)", for: .normal)
+    tagFilterView!.configure(from: TagFilterViewModel(nonSelectedData: availableTags, selectedData: selectedTags))
+    
+    
+    tagFilterView!.translatesAutoresizingMaskIntoConstraints = false
+    self.view.addSubview(tagFilterView!)
+    variableConstraint = tagFilterView?.topAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0)
+    let constraints = [
+        variableConstraint!,
+        tagFilterView!.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+        tagFilterView!.widthAnchor.constraint(equalToConstant: width),
+        tagFilterView!.heightAnchor.constraint(equalToConstant: height)
+    ]
+    NSLayoutConstraint.activate(constraints)
+    self.view.layoutIfNeeded()
+}
+overlayView?.isUserInteractionEnabled = true
+animatePopUp()
+
+
+//Pop up
+variableConstraint?.constant = -1 * self.view.bounds.height * Constants.VARIABLE_CONSTRAINT_MULTIPLIER
+tagFilterView!.configure(from: TagFilterViewModel(nonSelectedData: availableTags,
+                                                  selectedData: selectedTags))
+UIView.animate(withDuration: Constants.ANIMATION_DURATION_TIME,
+                delay: 0,
+                options: .curveEaseOut,
+                animations: {
+                    self.overlayView?.backgroundColor = Constants.END_OVERLAY_COLOR
+                    self.view.layoutIfNeeded()
+}, completion: nil)
+
+//Pop down
+variableConstraint?.constant = 0
+UIView.animate(withDuration: Constants.ANIMATION_DURATION_TIME,
+                delay: 0,
+                options: .curveEaseOut,
+                animations: {
+                    self.overlayView?.backgroundColor = Constants.INITIAL_OVERLAY_COLOR
+                    self.view.layoutIfNeeded()
+}, completion: {finished in
+    self.overlayView?.isUserInteractionEnabled = false
+})
+
+extension TaskListViewController: TagFilterViewDelegate {
+    func didSelectItem(with tagName: String) {
+        taskFilter.appendTag(withName: tagName)
+        tagFilterView?.applyButton.setTitle("Show Tasks (\(taskFilter.pendingIntersection!.count))", for: .normal)
+    }
+    
+    func didDeselectItem(with tagName: String) {
+        taskFilter.removeTag(withName: tagName)
+        var availableTasks = String()
+        if let count = taskFilter.pendingIntersection?.count, count > 0{
+            availableTasks = String(count)
+        } else {
+            availableTasks = "All"
+        }
+        tagFilterView!.applyButton.setTitle("Show Tasks (\(availableTasks))", for: .normal)
+    }
+    
+    func didTapApply() {
+        taskFilter.applyFilter()
+        if taskFilter.appliedTags.isEmpty {
+            tableViewDataSourceDelegateManager!.updateTasks(from: PersistanceManager.instance.fetchTasks())
+        } else {
+            tableViewDataSourceDelegateManager!.updateTasks(from: Array(taskFilter.appliedIntersection!))
+        }
+        taskTableView.reloadData()
+        tagSelectionTracker.keys.forEach { tagSelectionTracker[$0] = taskFilter.appliedTags.contains($0)}
+        tagsTextView.text = taskFilter.appliedTags.map({$0.name!}).joined(separator: " , ")
+        animatePopDown()
+    }
+    
+    func didTapCancelButton() {
+        taskFilter.cancelFilter()
+        animatePopDown()
+    }
+}

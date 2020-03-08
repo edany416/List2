@@ -157,6 +157,24 @@ class PersistanceManager {
         
         return tag
     }
+    
+    func fetchTask(withId taskId: String) -> Task?{
+        let fetchRequest: NSFetchRequest<Task> = Task.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "id == %@", taskId)
+        
+        var task: Task?
+        
+        do {
+            let fetchedTask = try PersistanceManager.instance.context.fetch(fetchRequest)
+            if !fetchedTask.isEmpty {
+                task = fetchedTask[0]
+            }
+        } catch {
+            os_log("Error when fetching task", log: .default, type: .error)
+        }
+        
+        return task
+    }
 }
 
 

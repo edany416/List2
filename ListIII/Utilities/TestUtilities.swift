@@ -9,8 +9,8 @@
 import Foundation
 
 enum TestUtilities {
-    static func setupDB(){
-        let url = Bundle.main.url(forResource: "tasks", withExtension: "json")!
+    static func setupDB(from resourses: String){
+        let url = Bundle.main.url(forResource: resourses, withExtension: "json")!
         do {
             let jsonData = try Data(contentsOf: url)
             let parsedTasks = try JSONSerialization.jsonObject(with: jsonData) as! [[String: Any]]

@@ -20,7 +20,7 @@ protocol TagFilterViewDelegate {
     func didTapApply()
 }
 
-class TagFilterView: UIView {
+class TagSelectorView: UIView {
     
     @IBOutlet var contentView: UIView!
     @IBOutlet weak var applyButton: UIButton!
@@ -28,8 +28,8 @@ class TagFilterView: UIView {
     
     var delegate: TagFilterViewDelegate?
     
-    private var nonSelectedData: [String]!
-    private var selectedData: [String]!
+    private var nonSelectedItems: [String]!
+    private var selectedItems: [String]!
     
     
     override init(frame: CGRect) {
@@ -52,8 +52,8 @@ class TagFilterView: UIView {
     }
     
     func configure(from model: TagFilterViewModel) {
-        nonSelectedData = model.nonSelectedData.sorted(by: <)
-        selectedData = model.selectedData
+        nonSelectedItems = model.nonSelectedData.sorted(by: <)
+        selectedItems = model.selectedData
         tagsTableView.reloadData()
     }
     
@@ -77,16 +77,16 @@ class TagFilterView: UIView {
     }
 }
 
-extension TagFilterView: UITableViewDelegate, UITableViewDataSource {
+extension TagSelectorView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return selectedData.count + nonSelectedData.count
+        return selectedItems.count + nonSelectedItems.count
     }
     
     private func getDataFrom(indexPath: IndexPath) -> (String,Bool) {
-        if indexPath.row < selectedData.count {
-            return (selectedData[indexPath.row], true)
+        if indexPath.row < selectedItems.count {
+            return (selectedItems[indexPath.row], true)
         }
-        return (nonSelectedData[indexPath.row - selectedData.count], false)
+        return (nonSelectedItems[indexPath.row - selectedItems.count], false)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -104,27 +104,27 @@ extension TagFilterView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row >= selectedData.count {
-            let index = indexPath.row - selectedData.count
-            let selectedItem = nonSelectedData.remove(at: index)
-            selectedData.append(selectedItem)
+        if indexPath.row >= selectedItems.count {
+            let index = indexPath.row - selectedItems.count
+            let selectedItem = nonSelectedItems.remove(at: index)
+            selectedItems.append(selectedItem)
             tagsTableView.beginUpdates()
             tagsTableView.deleteRows(at: [indexPath], with: .right)
-            tagsTableView.insertRows(at: [IndexPath(row: selectedData.count - 1, section: 0)], with: .right)
+            tagsTableView.insertRows(at: [IndexPath(row: selectedItems.count - 1, section: 0)], with: .right)
             tagsTableView.endUpdates()
             delegate?.didSelectItem(with: selectedItem)
         } else {
-            let deselectedItem = selectedData.remove(at: indexPath.row)
+            let deselectedItem = selectedItems.remove(at: indexPath.row)
             let indexOfInsertion: IndexPath!
-            if let index = nonSelectedData.firstIndex(where: {deselectedItem < $0}) {
-                indexOfInsertion = IndexPath(row: selectedData.count + index, section: 0)
-                nonSelectedData.insert(deselectedItem, at: index)
-            } else if nonSelectedData.count == 0 {
-                indexOfInsertion = IndexPath(row: selectedData.count, section: 0)
-                nonSelectedData.append(deselectedItem)
+            if let index = nonSelectedItems.firstIndex(where: {deselectedItem < $0}) {
+                indexOfInsertion = IndexPath(row: selectedItems.count + index, section: 0)
+                nonSelectedItems.insert(deselectedItem, at: index)
+            } else if nonSelectedItems.count == 0 {
+                indexOfInsertion = IndexPath(row: selectedItems.count, section: 0)
+                nonSelectedItems.append(deselectedItem)
             } else {
                 indexOfInsertion = IndexPath(row: tagsTableView.numberOfRows(inSection: 0) - 1, section: 0)
-                nonSelectedData.append(deselectedItem)
+                nonSelectedItems.append(deselectedItem)
             }
             tagsTableView.beginUpdates()
             tagsTableView.deleteRows(at: [indexPath], with: .right)

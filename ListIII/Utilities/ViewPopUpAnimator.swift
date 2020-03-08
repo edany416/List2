@@ -9,48 +9,72 @@
 import Foundation
 import UIKit
 
+private enum Constants {
+    static let POP_UP_WIDTH_MULTIPLIER: CGFloat = 0.75
+    static let VARIABLE_CONSTRAINT_MULTIPLIER: CGFloat = 0.75
+    static let INITIAL_OVERLAY_COLOR = UIColor(displayP3Red: 0, green: 0, blue: 0, alpha: 0)
+    static let END_OVERLAY_COLOR = UIColor(displayP3Red: 0, green: 0, blue: 0, alpha: 0.2)
+    static let ANIMATION_DURATION_TIME = 0.2
+}
+
+
 class ViewPopUpAnimator {
-    private let relativeView: UIView
-    private let popUpView: UIView
-    private let popUpViewHeight: CGFloat
-    private let popUpViewWidth: CGFloat
-    private let popUpViewTopToHeightOfRelativeViewPercentage: CGFloat
-    private let animationDuration: TimeInterval
+    private var overlayView: UIView!
+    private var parentView: UIView!
+    private var popupView: UIView!
     private var variableConstraint: NSLayoutConstraint!
+    private var popupWidth: CGFloat!
+    private var popUpHeight: CGFloat!
     
-    init(relativeView: UIView, popUpView: UIView, popUpViewHeight: CGFloat, popUpViewWidth: CGFloat, popUpViewTopToHeightOfRelativeViewPercentage: CGFloat, animationDuration: TimeInterval ) {
-        self.relativeView = relativeView
-        self.popUpView = popUpView
-        self.popUpViewHeight = popUpViewHeight
-        self.popUpViewWidth = popUpViewWidth
-        self.popUpViewTopToHeightOfRelativeViewPercentage = popUpViewTopToHeightOfRelativeViewPercentage
-        self.animationDuration = animationDuration
+    init(parentView: UIView, popupView: UIView, height: CGFloat, width: CGFloat ) {
+        self.parentView = parentView
+        self.popupView = popupView
+        self.popupWidth = width
+        self.popUpHeight = height
+        setup()
     }
-    
-    func animateUp() {
-        popUpView.translatesAutoresizingMaskIntoConstraints = false
-        relativeView.addSubview(popUpView)
-        variableConstraint = popUpView.topAnchor.constraint(equalTo: relativeView.bottomAnchor, constant: -1 * relativeView.bounds.height * popUpViewTopToHeightOfRelativeViewPercentage)
-        let constraints: [NSLayoutConstraint] = [
-            popUpView.heightAnchor.constraint(equalToConstant: popUpViewHeight),
-            popUpView.widthAnchor.constraint(equalToConstant: popUpViewWidth),
-            popUpView.centerXAnchor.constraint(equalTo: relativeView.centerXAnchor),
-            variableConstraint
+
+    private func setup() {
+        overlayView = UIView(frame: parentView.bounds)
+        overlayView.backgroundColor = Constants.INITIAL_OVERLAY_COLOR
+        parentView.addSubview(overlayView)
+        
+        popupView.translatesAutoresizingMaskIntoConstraints = false
+        parentView.addSubview(self.popupView)
+        variableConstraint = popupView.topAnchor.constraint(equalTo: parentView.bottomAnchor, constant: 0)
+        let constraints = [
+            variableConstraint!,
+            popupView.centerXAnchor.constraint(equalTo: parentView.centerXAnchor),
+            popupView.widthAnchor.constraint(equalToConstant: popupWidth),
+            popupView.heightAnchor.constraint(equalToConstant: popUpHeight)
+            
         ]
         
         NSLayoutConstraint.activate(constraints)
-        UIView.animate(withDuration: animationDuration,
+        parentView.layoutIfNeeded()
+    }
+    
+    func popup() {
+        variableConstraint.constant = -1 * parentView.bounds.height * Constants.VARIABLE_CONSTRAINT_MULTIPLIER
+        UIView.animate(withDuration: Constants.ANIMATION_DURATION_TIME,
                         delay: 0,
                         options: .curveEaseOut,
                         animations: {
-                            self.relativeView.layoutIfNeeded()
+                            self.overlayView.backgroundColor = Constants.END_OVERLAY_COLOR
+                            self.parentView.layoutIfNeeded()
         }, completion: nil)
     }
     
-    func animateDown() {
+    func popdown() {
         variableConstraint.constant = 0
-        UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut, animations: {
-            self.relativeView.layoutIfNeeded()
-        }, completion: nil)
+        UIView.animate(withDuration: Constants.ANIMATION_DURATION_TIME,
+                        delay: 0,
+                        options: .curveEaseOut,
+                        animations: {
+                            self.overlayView.backgroundColor = Constants.INITIAL_OVERLAY_COLOR
+                            self.parentView.layoutIfNeeded()
+        }, completion: {finished in
+            self.overlayView.isUserInteractionEnabled = false
+        })
     }
 }
