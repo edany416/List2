@@ -39,6 +39,9 @@ class TagPickerView: UIView {
         addSubview(contentView)
         contentView.frame = self.bounds
         contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        
+        let nib = UINib(nibName: "TagFilterCell", bundle:nil)
+        pickerTableView.register(nib, forCellReuseIdentifier: "TagFilterCell")
     }
     
     @IBAction func didTapMainButton(_ sender: UIButton) {

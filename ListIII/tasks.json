@@ -2,26 +2,26 @@
     {
         "name"  :   "Problems chapter 5.2",
         "id"    :   "1234",
-        "tags"  :   ["Homework", "Due_On_Monday", "Math"]
+        "tags"  :   ["1", "2", "3"]
     },
     {
         "name"  :   "Read book chapter 7",
         "id"    :   "4567",
-        "tags"  :   ["Homework", "History", "Due_Tomorrow"]
+        "tags"  :   ["1", "4", "5"]
     },
     {
         "name"  :   "Clean and organize room",
         "id"    :   "7890",
-        "tags"  :   ["House_Chores", "Do_On_Wednesday"]
+        "tags"  :   ["6", "7"]
     },
     {
         "name"  :   "Start working on review sheet",
         "id"    :   "4321",
-        "tags"  :   ["Math", "Exam_Prep", "Do_On_Wednesday"]
+        "tags"  :   ["3", "4", "7"]
     },
     {
         "name"  :   "Go to gym",
         "id"    :   "7654",
-        "tags"  :   ["Weekend_Activities"]
+        "tags"  :   ["6"]
     }
 ]

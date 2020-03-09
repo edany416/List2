@@ -15,44 +15,73 @@ class TaskListViewController: UIViewController {
     @IBOutlet private weak var tagFilterButton: UIButton!
     @IBOutlet weak var tagsTextView: UITextView!
     
-    private var taskTableViewDataSource: TaskTableViewDataSource?
-    
-//    private var tagSelectionTracker: [Tag:Bool]!
-//    private var selectedTags: [String] {
-//        let tags = Array(tagSelectionTracker.filter({$0.value == true}).keys)
-//        return tags.map({$0.name!})
-//    }
-//    private var availableTags: [String] {
-//        let tags = Array(tagSelectionTracker.filter({$0.value == false}).keys)
-//        return tags.map({$0.name!})
-//    }
+    private var taskTableViewDataSource: TaskTableViewDataSource!
+    private var tagPickerManager: TagPickerManager!
+    private var taskFilter: TaskFilter!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         loadData()
         taskTableView.dataSource = taskTableViewDataSource
+        taskFilter = TaskFilter()
+        tagPickerManager.delegate = self
     }
     
     private func loadData() {
         let tasks = (PersistanceManager.instance.fetchTasks())
         taskTableViewDataSource = TaskTableViewDataSource(from: tasks)
         
-//        let tags = PersistanceManager.instance.fetchTags()
-//        tagSelectionTracker = [Tag:Bool]()
-//        tags.forEach({tagSelectionTracker[$0] = false})
+        let tags = PersistanceManager.instance.fetchTags()
+        tagPickerManager = TagPickerManager(tags.map({$0.name!}))
+        
     }
     
     private var tagPickerView: TagPickerView?
-    private var taskFilter: TaskFilter?
     private var popupAnimator: ViewPopUpAnimator?
     @IBAction func didTapTagFilterButton(_ sender: UIButton) {
         if popupAnimator == nil {
-            let width = view.bounds.width * 0.75
+            let width = view.bounds.width * 0.80
             let height = width
             tagPickerView = TagPickerView(frame: .zero)
+            tagPickerView!.pickerTableView.delegate = tagPickerManager
+            tagPickerView!.pickerTableView.dataSource = tagPickerManager
+            tagPickerView!.delegate = self
             popupAnimator = ViewPopUpAnimator(parentView: self.view, popupView: tagPickerView!, height: height, width: width)
         }
         popupAnimator!.popup()
+    }
+}
+
+extension TaskListViewController: TagPickerManagerDelegate {
+    func didSelectItem(_ tag: String) {
+        taskFilter.appendTag(withName: tag)
+    }
+    
+    func didDeselectItem(_ tag: String) {
+        taskFilter.removeTag(withName: tag)
+    }
+}
+
+extension TaskListViewController: TagPickerViewDelegate {
+    func didTapMainButton() {
+        taskFilter.applyFilter()
+        if let filteredTasks = taskFilter.appliedIntersection {
+            taskTableViewDataSource.updateTaskList(Array(filteredTasks))
+        } else {
+            let tasks = PersistanceManager.instance.fetchTasks()
+            taskTableViewDataSource.updateTaskList(tasks)
+        }
+        taskTableView.reloadData()
+        popupAnimator!.popdown()
+    }
+    
+    func didTapTopLeftButton() {
+        taskFilter.cancelFilter()
+        popupAnimator!.popdown()
+    }
+    
+    func didTapTopRightButton() {
+        print("This will be clear all")
     }
 }
 

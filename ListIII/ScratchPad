@@ -1,65 +1,3 @@
-Popup animator class:
-- width
-- height
-- percentage to go up
-- parent view
-- the view thats going to pop up
-
-
-
-if tagFilterView == nil {
-    let width = self.view.bounds.width * Constants.POP_UP_WIDTH_MULTIPLIER
-    let height = width
-    overlayView = UIView(frame: self.view.bounds)
-    overlayView?.backgroundColor = Constants.INITIAL_OVERLAY_COLOR
-    self.view.addSubview(overlayView!)
-    
-    tagFilterView = TagSelectorView(frame: .zero)
-    tagFilterView?.delegate = self
-    tagFilterView!.applyButton.setTitle("Show Tasks (All)", for: .normal)
-    tagFilterView!.configure(from: TagFilterViewModel(nonSelectedData: availableTags, selectedData: selectedTags))
-    
-    
-    tagFilterView!.translatesAutoresizingMaskIntoConstraints = false
-    self.view.addSubview(tagFilterView!)
-    variableConstraint = tagFilterView?.topAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0)
-    let constraints = [
-        variableConstraint!,
-        tagFilterView!.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-        tagFilterView!.widthAnchor.constraint(equalToConstant: width),
-        tagFilterView!.heightAnchor.constraint(equalToConstant: height)
-    ]
-    NSLayoutConstraint.activate(constraints)
-    self.view.layoutIfNeeded()
-}
-overlayView?.isUserInteractionEnabled = true
-animatePopUp()
-
-
-//Pop up
-variableConstraint?.constant = -1 * self.view.bounds.height * Constants.VARIABLE_CONSTRAINT_MULTIPLIER
-tagFilterView!.configure(from: TagFilterViewModel(nonSelectedData: availableTags,
-                                                  selectedData: selectedTags))
-UIView.animate(withDuration: Constants.ANIMATION_DURATION_TIME,
-                delay: 0,
-                options: .curveEaseOut,
-                animations: {
-                    self.overlayView?.backgroundColor = Constants.END_OVERLAY_COLOR
-                    self.view.layoutIfNeeded()
-}, completion: nil)
-
-//Pop down
-variableConstraint?.constant = 0
-UIView.animate(withDuration: Constants.ANIMATION_DURATION_TIME,
-                delay: 0,
-                options: .curveEaseOut,
-                animations: {
-                    self.overlayView?.backgroundColor = Constants.INITIAL_OVERLAY_COLOR
-                    self.view.layoutIfNeeded()
-}, completion: {finished in
-    self.overlayView?.isUserInteractionEnabled = false
-})
-
 extension TaskListViewController: TagFilterViewDelegate {
     func didSelectItem(with tagName: String) {
         taskFilter.appendTag(withName: tagName)
@@ -95,3 +33,49 @@ extension TaskListViewController: TagFilterViewDelegate {
         animatePopDown()
     }
 }
+
+ func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        if indexPath.row >= selectedItems.count {
+//            let index = indexPath.row - selectedItems.count
+//            let selectedItem = nonSelectedItems.remove(at: index)
+//            selectedItems.append(selectedItem)
+//            tagsTableView.beginUpdates()
+//            tagsTableView.deleteRows(at: [indexPath], with: .right)
+//            tagsTableView.insertRows(at: [IndexPath(row: selectedItems.count - 1, section: 0)], with: .right)
+//            tagsTableView.endUpdates()
+//            delegate?.didSelectItem(with: selectedItem)
+//        } else {
+//            let deselectedItem = selectedItems.remove(at: indexPath.row)
+//            let indexOfInsertion: IndexPath!
+//            if let index = nonSelectedItems.firstIndex(where: {deselectedItem < $0}) {
+//                indexOfInsertion = IndexPath(row: selectedItems.count + index, section: 0)
+//                nonSelectedItems.insert(deselectedItem, at: index)
+//            } else if nonSelectedItems.count == 0 {
+//                indexOfInsertion = IndexPath(row: selectedItems.count, section: 0)
+//                nonSelectedItems.append(deselectedItem)
+//            } else {
+//                indexOfInsertion = IndexPath(row: tagsTableView.numberOfRows(inSection: 0) - 1, section: 0)
+//                nonSelectedItems.append(deselectedItem)
+//            }
+//            tagsTableView.beginUpdates()
+//            tagsTableView.deleteRows(at: [indexPath], with: .right)
+//            tagsTableView.insertRows(at: [indexOfInsertion], with: .right)
+//            tagsTableView.endUpdates()
+//            delegate?.didDeselectItem(with: deselectedItem)
+//        }
+//    }
+//}
+
+//    private var tagSelectionTracker: [Tag:Bool]!
+//    private var selectedTags: [String] {
+//        let tags = Array(tagSelectionTracker.filter({$0.value == true}).keys)
+//        return tags.map({$0.name!})
+//    }
+//    private var availableTags: [String] {
+//        let tags = Array(tagSelectionTracker.filter({$0.value == false}).keys)
+//        return tags.map({$0.name!})
+//    }
+
+//        tagSelectionTracker = [Tag:Bool]()
+//        tags.forEach({tagSelectionTracker[$0] = false})
+
