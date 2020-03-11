@@ -26,14 +26,17 @@ private struct Result: Equatable {
 
 class FilterTests: XCTestCase {
 
-    var taskFilter = TaskFilter2()
-    
+    var taskFilter = TaskFilter()
+    var didLoadData = false
     override func setUp() {
-        TestUtilities.setupDB(from: "TestTasks")
+        if !didLoadData {
+            TestUtilities.setupDB(from: "TestTasks")
+            didLoadData = true
+        }
     }
 
     override func tearDown() {
-        taskFilter = TaskFilter2()
+        taskFilter = TaskFilter()
     }
 
     func testExample() {
@@ -196,7 +199,7 @@ class FilterTests: XCTestCase {
         
     }
     
-    private func getActualResult(for filter: TaskFilter2) -> Result {
+    private func getActualResult(for filter: TaskFilter) -> Result {
         let appliedTags = filter.appliedTags.map({$0.name!})
         let pendingTags = filter.pendingTags?.map({$0.name!})
         let appliedIntersection = filter.appliedIntersection?.map({$0.taskName!}).sorted(by: < )

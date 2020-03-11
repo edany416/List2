@@ -175,6 +175,88 @@ class PersistanceManager {
         
         return task
     }
+    
+    func allTags(for tasks: [Task]) -> [Tag] {
+        var ids = [String]()
+        for task in tasks {
+            ids.append(task.id!)
+        }
+        
+        var predicates = [NSPredicate]()
+        for id in ids {
+            let predicate = NSPredicate(format: "ANY tasks.id == %@", id)
+            predicates.append(predicate)
+        }
+        
+        let fetchRequest: NSFetchRequest<Tag> = Tag.fetchRequest()
+        fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
+        
+        let tags = [Tag]()
+        do {
+            let tags = try PersistanceManager.instance.context.fetch(fetchRequest)
+            return tags
+            
+        } catch {
+            os_log("Error when fetching tag", log: .default, type: .error)
+        }
+        
+        return tags
+    }
+    
+    func fetchTasks(for tags: [Tag]) -> [Task] {
+        
+        guard !tags.isEmpty else {
+            return [Task]()
+        }
+        
+        var predicates = [NSPredicate]()
+        for tag in tags {
+            let predicate = NSPredicate(format: "ANY tags.name == %@", tag.name! )
+            predicates.append(predicate)
+        }
+        
+        let fetchRequest: NSFetchRequest<Task> = Task.fetchRequest()
+        fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
+        
+        var tasks = [Task]()
+        do {
+            tasks = try PersistanceManager.instance.context.fetch(fetchRequest)
+        } catch {
+            os_log("Error when fetching task", log: .default, type: .error)
+        }
+        
+        return tasks
+    }
+    
+    func fetchTagsAssociated(with tags: [Tag]) -> [Tag] {
+        
+        guard !tags.isEmpty else {
+            return [Tag]()
+        }
+        
+        var predicates = [NSPredicate]()
+        for tag in tags {
+            let predicate = NSPredicate(format: "ANY tags.name == %@", tag.name! )
+            predicates.append(predicate)
+        }
+        
+        let fetchRequest: NSFetchRequest<Task> = Task.fetchRequest()
+        fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
+        
+        var tagSet = Set<Tag>()
+        do {
+            let tasks = try PersistanceManager.instance.context.fetch(fetchRequest)
+            tasks.forEach({tagSet = tagSet.union($0.tags as! Set<Tag>)})
+            tagSet = tagSet.subtracting(Set(tags))
+            return Array(tagSet)
+            
+        } catch {
+            os_log("Error when fetching tag", log: .default, type: .error)
+        }
+        
+        return Array(tagSet)
+        
+    }
 }
 
 

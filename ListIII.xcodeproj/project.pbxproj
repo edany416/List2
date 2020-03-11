@@ -22,6 +22,8 @@
 		E2E5773D24085CD800AFC9B2 /* Tag+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E5773924085CD800AFC9B2 /* Tag+CoreDataProperties.swift */; };
 		E2E5773F2408634C00AFC9B2 /* TaskFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E5773E2408634C00AFC9B2 /* TaskFilter.swift */; };
 		E2E577422408B95600AFC9B2 /* ViewPopUpAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E577412408B95600AFC9B2 /* ViewPopUpAnimator.swift */; };
+		E2EB8EA9241609D500EF20D5 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2EB8EA8241609D500EF20D5 /* Util.swift */; };
+		E2EB8EAB24181DF800EF20D5 /* CoreDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2EB8EAA24181DF800EF20D5 /* CoreDataTests.swift */; };
 		E2ECAB322410914D00A317AA /* TagPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2ECAB302410914D00A317AA /* TagPickerCell.swift */; };
 		E2ECAB332410914D00A317AA /* TagFilterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2ECAB312410914D00A317AA /* TagFilterCell.xib */; };
 		E2ECAB372411DE8000A317AA /* FilterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2ECAB362411DE8000A317AA /* FilterTests.swift */; };
@@ -72,6 +74,8 @@
 		E2E5773924085CD800AFC9B2 /* Tag+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Tag+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		E2E5773E2408634C00AFC9B2 /* TaskFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskFilter.swift; sourceTree = "<group>"; };
 		E2E577412408B95600AFC9B2 /* ViewPopUpAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewPopUpAnimator.swift; sourceTree = "<group>"; };
+		E2EB8EA8241609D500EF20D5 /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
+		E2EB8EAA24181DF800EF20D5 /* CoreDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataTests.swift; sourceTree = "<group>"; };
 		E2ECAB302410914D00A317AA /* TagPickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagPickerCell.swift; sourceTree = "<group>"; };
 		E2ECAB312410914D00A317AA /* TagFilterCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TagFilterCell.xib; sourceTree = "<group>"; };
 		E2ECAB362411DE8000A317AA /* FilterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterTests.swift; sourceTree = "<group>"; };
@@ -127,6 +131,7 @@
 				E2E5772C24075A6F00AFC9B2 /* TestUtilities.swift */,
 				E2E5773E2408634C00AFC9B2 /* TaskFilter.swift */,
 				E2E577412408B95600AFC9B2 /* ViewPopUpAnimator.swift */,
+				E2EB8EA8241609D500EF20D5 /* Util.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -229,6 +234,7 @@
 				E2F50D2023C15B0100FA985B /* ListIIITests.swift */,
 				E2F50D2223C15B0100FA985B /* Info.plist */,
 				E2ECAB362411DE8000A317AA /* FilterTests.swift */,
+				E2EB8EAA24181DF800EF20D5 /* CoreDataTests.swift */,
 			);
 			path = ListIIITests;
 			sourceTree = "<group>";
@@ -391,6 +397,7 @@
 				E2F50D0923C15AF800FA985B /* SceneDelegate.swift in Sources */,
 				E2F50D1123C15AF800FA985B /* ListIII.xcdatamodeld in Sources */,
 				E2E5770924071B1A00AFC9B2 /* TaskListViewController.swift in Sources */,
+				E2EB8EA9241609D500EF20D5 /* Util.swift in Sources */,
 				E2E5773D24085CD800AFC9B2 /* Tag+CoreDataProperties.swift in Sources */,
 				E2ECAB322410914D00A317AA /* TagPickerCell.swift in Sources */,
 				E2ECAB452414E61700A317AA /* TagPickerView.swift in Sources */,
@@ -406,6 +413,7 @@
 			files = (
 				E2F50D2123C15B0100FA985B /* ListIIITests.swift in Sources */,
 				E2ECAB372411DE8000A317AA /* FilterTests.swift in Sources */,
+				E2EB8EAB24181DF800EF20D5 /* CoreDataTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

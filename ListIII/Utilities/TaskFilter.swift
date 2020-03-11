@@ -12,8 +12,8 @@ import Foundation
 struct TaskFilter {
     private(set) var appliedTags: [Tag]
     private(set) var pendingTags: [Tag]?
-    private(set) var appliedIntersection: Set<Task>?
-    private(set) var pendingIntersection: Set<Task>?
+    private(set) var appliedIntersection: [Task]?
+    private(set) var pendingIntersection: [Task]?
     
     init() {
         appliedTags = [Tag]()
@@ -21,19 +21,15 @@ struct TaskFilter {
     
     mutating func appendTag(withName tagName: String) {
         let tag = PersistanceManager.instance.fetchTag(named: tagName)!
-        let tasksForTag = tag.tasks as! Set<Task>
-                
         if pendingTags == nil {
             pendingTags = appliedTags
             pendingIntersection = appliedIntersection
         }
-        
         guard !pendingTags!.contains(tag) else {
             return
         }
-        
         pendingTags!.append(tag)
-        computeIntersection(from: tasksForTag)
+        pendingIntersection = PersistanceManager.instance.fetchTasks(for: pendingTags!)
     }
     
     mutating func removeTag(withName tagName: String) {
@@ -41,35 +37,31 @@ struct TaskFilter {
         if pendingTags == nil {
             pendingTags = appliedTags.filter({$0.name! != tagName})
         } else {
-            pendingTags = pendingTags?.filter({$0.name! != tagName})
+            pendingTags = pendingTags!.filter({$0.name! != tagName})
         }
-        
-        for tag in pendingTags! {
-            let tasksForTag = tag.tasks as! Set<Task>
-            computeIntersection(from: tasksForTag)
-        }
+        if !pendingTags!.isEmpty {
+            pendingIntersection = PersistanceManager.instance.fetchTasks(for: pendingTags!)
+        }   
     }
     
     mutating func applyFilter() {
         if pendingTags != nil {
             appliedTags = pendingTags!
             appliedIntersection = pendingIntersection
-            
             pendingTags = nil
             pendingIntersection = nil
         }
     }
     
-    mutating func cancelFilter() {
+    mutating func reset() {
+        appliedTags = [Tag]()
         pendingTags = nil
+        appliedIntersection = nil
         pendingIntersection = nil
     }
     
-    private mutating func computeIntersection(from tasks: Set<Task>) {
-        if pendingIntersection == nil {
-            pendingIntersection = tasks
-        } else {
-            pendingIntersection = pendingIntersection?.intersection(tasks)
-        }
+    mutating func cancelFilter() {
+        pendingTags = nil
+        pendingIntersection = nil
     }
 }

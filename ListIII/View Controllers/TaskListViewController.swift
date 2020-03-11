@@ -43,8 +43,8 @@ class TaskListViewController: UIViewController {
             let width = view.bounds.width * 0.80
             let height = width
             tagPickerView = TagPickerView(frame: .zero)
-            tagPickerView!.pickerTableView.delegate = tagPickerManager
-            tagPickerView!.pickerTableView.dataSource = tagPickerManager
+            tagPickerView?.set(dataSource: tagPickerManager, delegate: tagPickerManager)
+            
             tagPickerView!.delegate = self
             popupAnimator = ViewPopUpAnimator(parentView: self.view, popupView: tagPickerView!, height: height, width: width)
         }
@@ -55,10 +55,18 @@ class TaskListViewController: UIViewController {
 extension TaskListViewController: TagPickerManagerDelegate {
     func didSelectItem(_ tag: String) {
         taskFilter.appendTag(withName: tag)
+        let pending = taskFilter.pendingTags!
+        let associatedTags = Util.associatedTags(for: pending)
+        tagPickerManager.set(selectionItems: associatedTags)
+        tagPickerView!.reloadData()
     }
     
     func didDeselectItem(_ tag: String) {
         taskFilter.removeTag(withName: tag)
+        let pendingTags = taskFilter.pendingTags!
+        let associatedTags = Util.associatedTags(for: pendingTags)
+        tagPickerManager.set(selectionItems: associatedTags)
+        tagPickerView!.reloadData()
     }
 }
 
@@ -77,11 +85,25 @@ extension TaskListViewController: TagPickerViewDelegate {
     
     func didTapTopLeftButton() {
         taskFilter.cancelFilter()
+        let applied = taskFilter.appliedTags
+        let associated = Util.associatedTags(for: applied)
+        tagPickerManager.set(selectedItems: applied.map({$0.name!}))
+        tagPickerManager.set(selectionItems: associated)
+        tagPickerView!.reloadData()
         popupAnimator!.popdown()
     }
     
     func didTapTopRightButton() {
-        print("This will be clear all")
+        taskFilter.reset()
+        let allTags = PersistanceManager.instance.fetchTags()
+        tagPickerManager.set(selectionItems: allTags.map({$0.name!}))
+        tagPickerManager.set(selectedItems: [])
+        tagPickerView!.reloadData()
+        
+        let tasks = PersistanceManager.instance.fetchTasks()
+        taskTableViewDataSource.updateTaskList(tasks)
+        taskTableView.reloadData()
+        popupAnimator!.popdown()
     }
 }
 

@@ -25,9 +25,17 @@ class TagPickerManager: NSObject, UITableViewDataSource, UITableViewDelegate {
         selectedItems = [String]()
     }
     
-    func update(tagNames items: [String]) {
-        self.items = items.sorted(by: < )
+    func set(selectionItems: [String]) {
+        items = selectionItems.sorted(by: < )
     }
+    
+    func set(selectedItems: [String]) {
+        self.selectedItems = selectedItems
+    }
+    
+//    func update(tagNames items: [String]) {
+//        self.items = items.sorted(by: < )
+//    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return items.count + selectedItems.count
@@ -57,17 +65,27 @@ class TagPickerManager: NSObject, UITableViewDataSource, UITableViewDelegate {
             let (rowIndex, itemsIndex) = indexForDeselectedItem(item)
             items.insert(item, at: itemsIndex)
             indexOfInsertion = IndexPath(row: rowIndex, section: 0)
-            delegate?.didDeselectItem(item)
+            performSelectionUpdate(tableView, fromIndexPath: indexPath, toIndexPath: indexOfInsertion, completion: { finished in
+                self.delegate?.didDeselectItem(item)
+            })
+            
         } else { //Selection Case
             item = items.remove(at: indexPath.row - selectedItems.count)
             selectedItems.append(item)
             indexOfInsertion = IndexPath(row: selectedItems.count - 1, section: 0)
-            delegate?.didSelectItem(item)
+            performSelectionUpdate(tableView, fromIndexPath: indexPath, toIndexPath: indexOfInsertion, completion: { finished in
+                self.delegate?.didSelectItem(item)
+            })
         }
-        tableView.beginUpdates()
-        tableView.deleteRows(at: [indexPath], with: .right)
-        tableView.insertRows(at: [indexOfInsertion], with: .right)
-        tableView.endUpdates()
+    }
+    
+    private func performSelectionUpdate(_ tableView: UITableView, fromIndexPath: IndexPath, toIndexPath: IndexPath, completion: @escaping (Bool) -> Void) {
+        tableView.performBatchUpdates({
+            tableView.beginUpdates()
+            tableView.deleteRows(at: [fromIndexPath], with: .right)
+            tableView.insertRows(at: [toIndexPath], with: .right)
+            tableView.endUpdates()
+        }, completion: completion)
     }
     
     private func indexForDeselectedItem(_ item: String) -> (Int,Int) { //(RowIndex, ItemsIndex)

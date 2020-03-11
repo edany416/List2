@@ -7,7 +7,7 @@
     {
         "name"  :   "Read book chapter 7",
         "id"    :   "4567",
-        "tags"  :   ["1", "4", "5"]
+        "tags"  :   ["1", "2", "5"]
     },
     {
         "name"  :   "Clean and organize room",
@@ -17,11 +17,11 @@
     {
         "name"  :   "Start working on review sheet",
         "id"    :   "4321",
-        "tags"  :   ["3", "4", "7"]
+        "tags"  :   ["4", "7"]
     },
     {
         "name"  :   "Go to gym",
         "id"    :   "7654",
-        "tags"  :   ["6"]
+        "tags"  :   ["6", "4"]
     }
 ]

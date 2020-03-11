@@ -20,7 +20,7 @@ class TagPickerView: UIView {
     @IBOutlet weak var mainButton: UIButton!
     @IBOutlet weak var topRightButton: UIButton!
     @IBOutlet weak var topLeftButton: UIButton!
-    @IBOutlet weak var pickerTableView: UITableView!
+    @IBOutlet private weak var pickerTableView: UITableView!
     
     var delegate: TagPickerViewDelegate?
     
@@ -42,6 +42,15 @@ class TagPickerView: UIView {
         
         let nib = UINib(nibName: "TagFilterCell", bundle:nil)
         pickerTableView.register(nib, forCellReuseIdentifier: "TagFilterCell")
+    }
+    
+    func reloadData() {
+        pickerTableView.reloadData()
+    }
+    
+    func set(dataSource: UITableViewDataSource?, delegate: UITableViewDelegate?) {
+        pickerTableView.dataSource = dataSource
+        pickerTableView.delegate = delegate
     }
     
     @IBAction func didTapMainButton(_ sender: UIButton) {
