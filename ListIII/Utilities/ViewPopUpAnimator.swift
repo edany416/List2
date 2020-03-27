@@ -33,10 +33,11 @@ class ViewPopUpAnimator {
         self.popUpHeight = height
         setup()
     }
-
+    
     private func setup() {
         overlayView = UIView(frame: parentView.bounds)
         overlayView.backgroundColor = Constants.INITIAL_OVERLAY_COLOR
+        
         parentView.addSubview(overlayView)
         
         popupView.translatesAutoresizingMaskIntoConstraints = false
@@ -55,7 +56,7 @@ class ViewPopUpAnimator {
     }
     
     func popup() {
-        variableConstraint.constant = -1 * parentView.bounds.height * Constants.VARIABLE_CONSTRAINT_MULTIPLIER
+        //variableConstraint.constant = -1 * parentView.bounds.height * Constants.VARIABLE_CONSTRAINT_MULTIPLIER
         UIView.animate(withDuration: Constants.ANIMATION_DURATION_TIME,
                         delay: 0,
                         options: .curveEaseOut,

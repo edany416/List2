@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E20071E124256AB1004F2E14 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20071E024256AB1004F2E14 /* SearchBar.swift */; };
+		E20071E324257D37004F2E14 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20071E224257D37004F2E14 /* TestViewController.swift */; };
 		E256C78224159EB900E1D27F /* TagPickerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E256C78124159EB900E1D27F /* TagPickerManager.swift */; };
 		E2E577062406733200AFC9B2 /* GlobalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E577052406733200AFC9B2 /* GlobalConstants.swift */; };
 		E2E5770924071B1A00AFC9B2 /* TaskListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E5770824071B1A00AFC9B2 /* TaskListViewController.swift */; };
@@ -59,6 +61,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E20071E024256AB1004F2E14 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
+		E20071E224257D37004F2E14 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		E256C78124159EB900E1D27F /* TagPickerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagPickerManager.swift; sourceTree = "<group>"; };
 		E2E577052406733200AFC9B2 /* GlobalConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalConstants.swift; sourceTree = "<group>"; };
 		E2E5770824071B1A00AFC9B2 /* TaskListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListViewController.swift; sourceTree = "<group>"; };
@@ -140,6 +144,7 @@
 			isa = PBXGroup;
 			children = (
 				E2E5770824071B1A00AFC9B2 /* TaskListViewController.swift */,
+				E20071E224257D37004F2E14 /* TestViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -150,6 +155,7 @@
 				E2E5770B24071F4000AFC9B2 /* TaskTableViewCell.swift */,
 				E2ECAB302410914D00A317AA /* TagPickerCell.swift */,
 				E2ECAB442414E61700A317AA /* TagPickerView.swift */,
+				E20071E024256AB1004F2E14 /* SearchBar.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -392,6 +398,7 @@
 				E2E5773F2408634C00AFC9B2 /* TaskFilter.swift in Sources */,
 				E2ECAB492414E99100A317AA /* TaskTableViewDataSource.swift in Sources */,
 				E2E5770C24071F4000AFC9B2 /* TaskTableViewCell.swift in Sources */,
+				E20071E324257D37004F2E14 /* TestViewController.swift in Sources */,
 				E2E5773C24085CD800AFC9B2 /* Tag+CoreDataClass.swift in Sources */,
 				E2E577422408B95600AFC9B2 /* ViewPopUpAnimator.swift in Sources */,
 				E2F50D0923C15AF800FA985B /* SceneDelegate.swift in Sources */,
@@ -402,6 +409,7 @@
 				E2ECAB322410914D00A317AA /* TagPickerCell.swift in Sources */,
 				E2ECAB452414E61700A317AA /* TagPickerView.swift in Sources */,
 				E2E5773B24085CD800AFC9B2 /* Task+CoreDataProperties.swift in Sources */,
+				E20071E124256AB1004F2E14 /* SearchBar.swift in Sources */,
 				E2E5773A24085CD800AFC9B2 /* Task+CoreDataClass.swift in Sources */,
 				E2E5770F2407241900AFC9B2 /* PersistanceManager.swift in Sources */,
 			);

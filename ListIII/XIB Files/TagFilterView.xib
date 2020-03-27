@@ -12,6 +12,7 @@
                 <outlet property="contentView" destination="iN0-l3-epB" id="s4m-Q3-6G5"/>
                 <outlet property="mainButton" destination="BiJ-em-Kof" id="YwP-Qy-ide"/>
                 <outlet property="pickerTableView" destination="yk2-VB-8pl" id="NWf-5q-sDl"/>
+                <outlet property="searchBar" destination="8Sn-No-5r5" id="4ZS-N1-gtk"/>
                 <outlet property="topLeftButton" destination="6xM-2I-pse" id="T2w-du-dNH"/>
                 <outlet property="topRightButton" destination="Bwd-3d-fbB" id="kk2-VX-amS"/>
             </connections>
@@ -43,7 +44,7 @@
                     </connections>
                 </button>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="yk2-VB-8pl">
-                    <rect key="frame" x="20" y="33" width="442" height="361"/>
+                    <rect key="frame" x="20" y="65" width="442" height="329"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                 </tableView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6xM-2I-pse">
@@ -53,21 +54,30 @@
                         <action selector="didTapTopLeftButton:" destination="-1" eventType="touchUpInside" id="sc6-sy-Xv2"/>
                     </connections>
                 </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Sn-No-5r5" customClass="SearchBar" customModule="ListIII" customModuleProvider="target">
+                    <rect key="frame" x="20" y="30" width="442" height="30"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="VPM-oX-yf0"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="Bwd-3d-fbB" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="3c7-PE-fC0"/>
                 <constraint firstAttribute="trailing" secondItem="Bwd-3d-fbB" secondAttribute="trailing" constant="8" id="KHd-6Z-vaz"/>
-                <constraint firstItem="yk2-VB-8pl" firstAttribute="top" secondItem="Bwd-3d-fbB" secondAttribute="bottom" constant="3" id="LZf-CY-rZp"/>
                 <constraint firstItem="6xM-2I-pse" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="P4y-V4-Ocj"/>
                 <constraint firstItem="BiJ-em-Kof" firstAttribute="top" secondItem="yk2-VB-8pl" secondAttribute="bottom" constant="8" id="f16-WA-poQ"/>
                 <constraint firstItem="BiJ-em-Kof" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="f6Y-xQ-y7i"/>
                 <constraint firstItem="BiJ-em-Kof" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.6" id="fEZ-6K-tPx"/>
                 <constraint firstItem="BiJ-em-Kof" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" constant="-8" id="fOG-KN-D70"/>
-                <constraint firstItem="yk2-VB-8pl" firstAttribute="top" secondItem="6xM-2I-pse" secondAttribute="bottom" constant="3" id="gNX-eG-aFp"/>
+                <constraint firstItem="yk2-VB-8pl" firstAttribute="top" secondItem="8Sn-No-5r5" secondAttribute="bottom" constant="5" id="has-77-UaE"/>
+                <constraint firstItem="8Sn-No-5r5" firstAttribute="top" secondItem="6xM-2I-pse" secondAttribute="bottom" id="ib4-cN-Kax"/>
+                <constraint firstItem="8Sn-No-5r5" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="lRE-7y-NTh"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="yk2-VB-8pl" secondAttribute="trailing" constant="20" id="mtK-t7-gRj"/>
                 <constraint firstItem="6xM-2I-pse" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="t88-NF-92D"/>
                 <constraint firstItem="yk2-VB-8pl" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="uRS-fk-QwC"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="8Sn-No-5r5" secondAttribute="trailing" constant="20" id="xCC-uJ-v1V"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>

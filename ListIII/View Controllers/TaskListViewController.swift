@@ -28,6 +28,7 @@ class TaskListViewController: UIViewController {
     }
     
     private func loadData() {
+        TestUtilities.setupDB(from: "tasks")
         let tasks = (PersistanceManager.instance.fetchTasks())
         taskTableViewDataSource = TaskTableViewDataSource(from: tasks)
         
@@ -38,15 +39,17 @@ class TaskListViewController: UIViewController {
     
     private var tagPickerView: TagPickerView?
     private var popupAnimator: ViewPopUpAnimator?
+    
     @IBAction func didTapTagFilterButton(_ sender: UIButton) {
         if popupAnimator == nil {
             let width = view.bounds.width * 0.80
-            let height = width
+            let tagPickerHeight = width
             tagPickerView = TagPickerView(frame: .zero)
-            tagPickerView?.set(dataSource: tagPickerManager, delegate: tagPickerManager)
-            
+            tagPickerView!.tableViewDelegate = tagPickerManager
+            tagPickerView?.tableViewDataSource = tagPickerManager
             tagPickerView!.delegate = self
-            popupAnimator = ViewPopUpAnimator(parentView: self.view, popupView: tagPickerView!, height: height, width: width)
+            
+            popupAnimator = ViewPopUpAnimator(parentView: self.view, popupView: tagPickerView!, height: tagPickerHeight, width: width)
         }
         popupAnimator!.popup()
     }
@@ -71,6 +74,10 @@ extension TaskListViewController: TagPickerManagerDelegate {
 }
 
 extension TaskListViewController: TagPickerViewDelegate {
+    func didSearch(for query: String) {
+        
+    }
+    
     func didTapMainButton() {
         taskFilter.applyFilter()
         if let filteredTasks = taskFilter.appliedIntersection {
@@ -80,6 +87,7 @@ extension TaskListViewController: TagPickerViewDelegate {
             taskTableViewDataSource.updateTaskList(tasks)
         }
         taskTableView.reloadData()
+        tagsTextView.text = taskFilter.appliedTags.map({$0.name!}).joined(separator: ", ")
         popupAnimator!.popdown()
     }
     
@@ -103,6 +111,9 @@ extension TaskListViewController: TagPickerViewDelegate {
         let tasks = PersistanceManager.instance.fetchTasks()
         taskTableViewDataSource.updateTaskList(tasks)
         taskTableView.reloadData()
+        
+        tagsTextView.text = ""
+        
         popupAnimator!.popdown()
     }
 }

@@ -12,17 +12,29 @@ protocol TagPickerViewDelegate {
     func didTapMainButton()
     func didTapTopLeftButton()
     func didTapTopRightButton()
+    func didSearch(for query: String)
 }
 
-class TagPickerView: UIView {
-
+class TagPickerView: UIView, SearchBarDelegate {
+    
     @IBOutlet var contentView: UIView!
     @IBOutlet weak var mainButton: UIButton!
     @IBOutlet weak var topRightButton: UIButton!
     @IBOutlet weak var topLeftButton: UIButton!
     @IBOutlet private weak var pickerTableView: UITableView!
+    @IBOutlet private weak var searchBar: SearchBar!
     
     var delegate: TagPickerViewDelegate?
+    var tableViewDataSource: UITableViewDataSource? {
+        didSet {
+            pickerTableView.dataSource = self.tableViewDataSource
+        }
+    }
+    var tableViewDelegate: UITableViewDelegate? {
+        didSet {
+            pickerTableView.delegate = self.tableViewDelegate
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -42,15 +54,15 @@ class TagPickerView: UIView {
         
         let nib = UINib(nibName: "TagFilterCell", bundle:nil)
         pickerTableView.register(nib, forCellReuseIdentifier: "TagFilterCell")
+        
+        self.contentView.layer.cornerRadius = 15.0
+        self.contentView.layer.masksToBounds = true
+        
+        self.mainButton.layer.cornerRadius = 7.0
     }
     
     func reloadData() {
         pickerTableView.reloadData()
-    }
-    
-    func set(dataSource: UITableViewDataSource?, delegate: UITableViewDelegate?) {
-        pickerTableView.dataSource = dataSource
-        pickerTableView.delegate = delegate
     }
     
     @IBAction func didTapMainButton(_ sender: UIButton) {
@@ -63,5 +75,9 @@ class TagPickerView: UIView {
     
     @IBAction func didTapTopRightButton(_ sender: UIButton) {
         delegate?.didTapTopRightButton()
+    }
+    
+    func textDidChangeTo(_ query: String) {
+        delegate?.didSearch(for: query)
     }
 }

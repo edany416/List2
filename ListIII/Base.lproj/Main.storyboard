@@ -137,6 +137,36 @@
             </objects>
             <point key="canvasLocation" x="-39.130434782608695" y="-7.3660714285714279"/>
         </scene>
+        <!--Test View Controller-->
+        <scene sceneID="LSW-XW-y6k">
+            <objects>
+                <viewController id="uiS-nd-0nQ" customClass="TestViewController" customModule="ListIII" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="a58-00-DTY">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MuD-kc-hRK" customClass="SearchBar" customModule="ListIII" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="384" width="414" height="128"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="MuD-kc-hRK" firstAttribute="trailing" secondItem="psj-cy-Kt2" secondAttribute="trailing" id="Ggb-kz-PSd"/>
+                            <constraint firstItem="psj-cy-Kt2" firstAttribute="bottom" secondItem="MuD-kc-hRK" secondAttribute="bottom" constant="350" id="N1f-Eq-naT"/>
+                            <constraint firstItem="MuD-kc-hRK" firstAttribute="leading" secondItem="psj-cy-Kt2" secondAttribute="leading" id="qWa-Rv-Tqe"/>
+                            <constraint firstItem="MuD-kc-hRK" firstAttribute="top" secondItem="psj-cy-Kt2" secondAttribute="top" constant="340" id="tC7-I2-UQe"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="psj-cy-Kt2"/>
+                    </view>
+                    <connections>
+                        <outlet property="searchBar" destination="MuD-kc-hRK" id="hiz-Gk-Kpe"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qbJ-FI-LHV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="791.304347826087" y="-7.3660714285714279"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Plus" width="40" height="40"/>

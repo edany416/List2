@@ -32,11 +32,7 @@ class TagPickerManager: NSObject, UITableViewDataSource, UITableViewDelegate {
     func set(selectedItems: [String]) {
         self.selectedItems = selectedItems
     }
-    
-//    func update(tagNames items: [String]) {
-//        self.items = items.sorted(by: < )
-//    }
-    
+        
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return items.count + selectedItems.count
     }
