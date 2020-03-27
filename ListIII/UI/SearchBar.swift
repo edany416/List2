@@ -12,7 +12,7 @@ protocol SearchBarDelegate{
     func textDidChangeTo(_ query: String)
 }
 
-class SearchBar: UIView {
+class SearchBar: UIView, UITextFieldDelegate {
     private var textField: UITextField!
     private var textFieldConstraints: [NSLayoutConstraint] {
         let constraints = [
@@ -44,6 +44,7 @@ class SearchBar: UIView {
     
     private func setup() {
         textField = UITextField(frame: .zero)
+        textField.delegate = self
         textField.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(textField)
         textField.addTarget(self, action: #selector(textDidChange(_:)), for: .editingChanged)
@@ -52,5 +53,13 @@ class SearchBar: UIView {
         self.backgroundColor = #colorLiteral(red: 0.8896132112, green: 0.8918974996, blue: 0.915286839, alpha: 1)
         self.layer.masksToBounds = true
         self.layer.cornerRadius = 5.0
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(textFieldShouldReturn(_:)), name: .shouldResignKeyboardNotification, object: nil)
+    }
+    
+    
+    @objc func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.endEditing(true)
+        return false
     }
 }

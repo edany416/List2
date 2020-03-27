@@ -8,7 +8,6 @@
 
 import UIKit
 
-
 class TaskListViewController: UIViewController {
     
     @IBOutlet private weak var taskTableView: UITableView!
@@ -18,6 +17,11 @@ class TaskListViewController: UIViewController {
     private var taskTableViewDataSource: TaskTableViewDataSource!
     private var tagPickerManager: TagPickerManager!
     private var taskFilter: TaskFilter!
+    private var tagPickerView: TagPickerView!
+    private var popupAnimator: ViewPopUpAnimator!
+    private var popupViewHeight: CGFloat!
+    private var itemsFilteredOutOfSearch = [String]()
+    private var keepPopupAfterKeyBoardRemoval = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +29,22 @@ class TaskListViewController: UIViewController {
         taskTableView.dataSource = taskTableViewDataSource
         taskFilter = TaskFilter()
         tagPickerManager.delegate = self
+        setupTagPickerView()
+        popupViewHeight = self.view.bounds.height * 0.30
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+    }
+    
+    private func setupTagPickerView() {
+        tagPickerView = TagPickerView()
+        let width = view.bounds.width * 0.80
+        let tagPickerHeight = width
+        tagPickerView!.widthAnchor.constraint(equalToConstant: width).isActive = true
+        tagPickerView!.heightAnchor.constraint(equalToConstant: tagPickerHeight).isActive = true
+        tagPickerView!.tableViewDelegate = tagPickerManager
+        tagPickerView?.tableViewDataSource = tagPickerManager
+        tagPickerView!.delegate = self
     }
     
     private func loadData() {
@@ -34,24 +54,28 @@ class TaskListViewController: UIViewController {
         
         let tags = PersistanceManager.instance.fetchTags()
         tagPickerManager = TagPickerManager(tags.map({$0.name!}))
-        
     }
     
-    private var tagPickerView: TagPickerView?
-    private var popupAnimator: ViewPopUpAnimator?
+    @objc func keyboardWillShow(notification: Notification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            if popupViewHeight <= keyboardSize.height {
+                popupAnimator!.popup(withHeight: keyboardSize.height + 20)
+            }
+        }
+    }
+
+    @objc func keyboardWillHide(notification: Notification) {
+        if keepPopupAfterKeyBoardRemoval {
+            popupAnimator.popup(withHeight: popupViewHeight)
+        }
+    }
     
     @IBAction func didTapTagFilterButton(_ sender: UIButton) {
         if popupAnimator == nil {
-            let width = view.bounds.width * 0.80
-            let tagPickerHeight = width
-            tagPickerView = TagPickerView(frame: .zero)
-            tagPickerView!.tableViewDelegate = tagPickerManager
-            tagPickerView?.tableViewDataSource = tagPickerManager
-            tagPickerView!.delegate = self
-            
-            popupAnimator = ViewPopUpAnimator(parentView: self.view, popupView: tagPickerView!, height: tagPickerHeight, width: width)
+            popupAnimator = ViewPopUpAnimator(parentView: self.view, popupView: tagPickerView!)
         }
-        popupAnimator!.popup()
+        keepPopupAfterKeyBoardRemoval = true
+        popupAnimator!.popup(withHeight: popupViewHeight)
     }
 }
 
@@ -75,7 +99,33 @@ extension TaskListViewController: TagPickerManagerDelegate {
 
 extension TaskListViewController: TagPickerViewDelegate {
     func didSearch(for query: String) {
+        let avilableItems = tagPickerManager.availableItems
+        var searchResults = [String]()
         
+        itemsFilteredOutOfSearch.forEach( {
+            if $0.hasPrefix(query) {
+                searchResults.append($0)
+                let toRemove = $0
+                itemsFilteredOutOfSearch.removeAll(where: {$0 == toRemove})
+            }
+        })
+        
+        avilableItems.forEach({
+            if $0.hasPrefix(query) {
+                searchResults.append($0)
+            } else {
+                itemsFilteredOutOfSearch.append($0)
+            }
+        })
+           
+        tagPickerManager.set(selectionItems: searchResults)
+        tagPickerView!.reloadData()
+    }
+    
+    private func keyboardDissmisalAction() {
+        popupAnimator.popdown()
+        keepPopupAfterKeyBoardRemoval = false
+        NotificationCenter.default.post(name: .shouldResignKeyboardNotification, object: nil)
     }
     
     func didTapMainButton() {
@@ -88,7 +138,8 @@ extension TaskListViewController: TagPickerViewDelegate {
         }
         taskTableView.reloadData()
         tagsTextView.text = taskFilter.appliedTags.map({$0.name!}).joined(separator: ", ")
-        popupAnimator!.popdown()
+        keyboardDissmisalAction()
+       
     }
     
     func didTapTopLeftButton() {
@@ -98,7 +149,8 @@ extension TaskListViewController: TagPickerViewDelegate {
         tagPickerManager.set(selectedItems: applied.map({$0.name!}))
         tagPickerManager.set(selectionItems: associated)
         tagPickerView!.reloadData()
-        popupAnimator!.popdown()
+        
+        keyboardDissmisalAction()
     }
     
     func didTapTopRightButton() {
@@ -107,14 +159,13 @@ extension TaskListViewController: TagPickerViewDelegate {
         tagPickerManager.set(selectionItems: allTags.map({$0.name!}))
         tagPickerManager.set(selectedItems: [])
         tagPickerView!.reloadData()
-        
+
         let tasks = PersistanceManager.instance.fetchTasks()
         taskTableViewDataSource.updateTaskList(tasks)
         taskTableView.reloadData()
-        
         tagsTextView.text = ""
         
-        popupAnimator!.popdown()
+        keyboardDissmisalAction()
     }
 }
 

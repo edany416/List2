@@ -59,6 +59,8 @@ class TagPickerView: UIView, SearchBarDelegate {
         self.contentView.layer.masksToBounds = true
         
         self.mainButton.layer.cornerRadius = 7.0
+        
+        searchBar.delegate = self
     }
     
     func reloadData() {

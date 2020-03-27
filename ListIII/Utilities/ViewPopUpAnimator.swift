@@ -23,14 +23,20 @@ class ViewPopUpAnimator {
     private var parentView: UIView!
     private var popupView: UIView!
     private var variableConstraint: NSLayoutConstraint!
-    private var popupWidth: CGFloat!
-    private var popUpHeight: CGFloat!
+    //private var popupWidth: CGFloat!
+    //private var popUpHeight: CGFloat!
     
-    init(parentView: UIView, popupView: UIView, height: CGFloat, width: CGFloat ) {
+//    init(parentView: UIView, popupView: UIView, height: CGFloat, width: CGFloat ) {
+//        self.parentView = parentView
+//        self.popupView = popupView
+//        self.popupWidth = width
+//        self.popUpHeight = height
+//        setup()
+//    }
+    
+    init(parentView: UIView, popupView: UIView) {
         self.parentView = parentView
         self.popupView = popupView
-        self.popupWidth = width
-        self.popUpHeight = height
         setup()
     }
     
@@ -42,21 +48,19 @@ class ViewPopUpAnimator {
         
         popupView.translatesAutoresizingMaskIntoConstraints = false
         parentView.addSubview(self.popupView)
-        variableConstraint = popupView.topAnchor.constraint(equalTo: parentView.bottomAnchor, constant: 0)
+        variableConstraint = popupView.bottomAnchor.constraint(equalTo: parentView.bottomAnchor, constant: popupView.bounds.height)
         let constraints = [
             variableConstraint!,
             popupView.centerXAnchor.constraint(equalTo: parentView.centerXAnchor),
-            popupView.widthAnchor.constraint(equalToConstant: popupWidth),
-            popupView.heightAnchor.constraint(equalToConstant: popUpHeight)
-            
         ]
         
         NSLayoutConstraint.activate(constraints)
         parentView.layoutIfNeeded()
     }
     
-    func popup() {
+    func popup(withHeight height: CGFloat) {
         //variableConstraint.constant = -1 * parentView.bounds.height * Constants.VARIABLE_CONSTRAINT_MULTIPLIER
+        variableConstraint.constant = -1 * height
         UIView.animate(withDuration: Constants.ANIMATION_DURATION_TIME,
                         delay: 0,
                         options: .curveEaseOut,
@@ -67,7 +71,7 @@ class ViewPopUpAnimator {
     }
     
     func popdown() {
-        variableConstraint.constant = 0
+        variableConstraint.constant = popupView.bounds.height
         UIView.animate(withDuration: Constants.ANIMATION_DURATION_TIME,
                         delay: 0,
                         options: .curveEaseOut,

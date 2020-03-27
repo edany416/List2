@@ -19,6 +19,9 @@ class TagPickerManager: NSObject, UITableViewDataSource, UITableViewDelegate {
     private var selectedItems: [String]
     
     var delegate: TagPickerManagerDelegate?
+    var availableItems: [String] {
+        return items
+    }
     
     init(_ tagNames: [String]) {
         items = tagNames.sorted(by: < )
