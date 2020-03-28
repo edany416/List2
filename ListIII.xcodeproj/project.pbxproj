@@ -11,6 +11,7 @@
 		E20071E324257D37004F2E14 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20071E224257D37004F2E14 /* TestViewController.swift */; };
 		E256C78224159EB900E1D27F /* TagPickerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E256C78124159EB900E1D27F /* TagPickerManager.swift */; };
 		E2D41911242EB0B50075C3C1 /* NotificationName+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D41910242EB0B50075C3C1 /* NotificationName+Extension.swift */; };
+		E2D41913242FE03E0075C3C1 /* TaskDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D41912242FE03E0075C3C1 /* TaskDetailViewController.swift */; };
 		E2E577062406733200AFC9B2 /* GlobalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E577052406733200AFC9B2 /* GlobalConstants.swift */; };
 		E2E5770924071B1A00AFC9B2 /* TaskListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E5770824071B1A00AFC9B2 /* TaskListViewController.swift */; };
 		E2E5770C24071F4000AFC9B2 /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E5770B24071F4000AFC9B2 /* TaskTableViewCell.swift */; };
@@ -66,6 +67,7 @@
 		E20071E224257D37004F2E14 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		E256C78124159EB900E1D27F /* TagPickerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagPickerManager.swift; sourceTree = "<group>"; };
 		E2D41910242EB0B50075C3C1 /* NotificationName+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationName+Extension.swift"; sourceTree = "<group>"; };
+		E2D41912242FE03E0075C3C1 /* TaskDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailViewController.swift; sourceTree = "<group>"; };
 		E2E577052406733200AFC9B2 /* GlobalConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalConstants.swift; sourceTree = "<group>"; };
 		E2E5770824071B1A00AFC9B2 /* TaskListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListViewController.swift; sourceTree = "<group>"; };
 		E2E5770B24071F4000AFC9B2 /* TaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableViewCell.swift; sourceTree = "<group>"; };
@@ -155,6 +157,7 @@
 			children = (
 				E2E5770824071B1A00AFC9B2 /* TaskListViewController.swift */,
 				E20071E224257D37004F2E14 /* TestViewController.swift */,
+				E2D41912242FE03E0075C3C1 /* TaskDetailViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -413,6 +416,7 @@
 				E20071E324257D37004F2E14 /* TestViewController.swift in Sources */,
 				E2E5773C24085CD800AFC9B2 /* Tag+CoreDataClass.swift in Sources */,
 				E2E577422408B95600AFC9B2 /* ViewPopUpAnimator.swift in Sources */,
+				E2D41913242FE03E0075C3C1 /* TaskDetailViewController.swift in Sources */,
 				E2F50D0923C15AF800FA985B /* SceneDelegate.swift in Sources */,
 				E2F50D1123C15AF800FA985B /* ListIII.xcdatamodeld in Sources */,
 				E2E5770924071B1A00AFC9B2 /* TaskListViewController.swift in Sources */,

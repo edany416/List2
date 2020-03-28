@@ -17,7 +17,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tag name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eSC-gE-le9">
-                        <rect key="frame" x="8" y="5" width="84" height="55"/>
+                        <rect key="frame" x="0.0" y="5" width="84" height="55"/>
                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -25,7 +25,7 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="eSC-gE-le9" secondAttribute="bottom" constant="5" id="fuP-uG-KmK"/>
-                    <constraint firstItem="eSC-gE-le9" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="nrV-Tf-xrJ"/>
+                    <constraint firstItem="eSC-gE-le9" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="nrV-Tf-xrJ"/>
                     <constraint firstItem="eSC-gE-le9" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="yGz-6Z-FqS"/>
                 </constraints>
             </tableViewCellContentView>

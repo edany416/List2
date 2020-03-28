@@ -19,6 +19,10 @@ class TaskTableViewCell: UITableViewCell {
     func configureCell(from model: TaskCellModel) {
         taskNameLabel.text = model.taskLabelText
         taskNameLabel.backgroundColor = .clear
+        
+        self.layer.masksToBounds = true
+        self.layer.cornerRadius = 8.0
+        
     }
     
     override func awakeFromNib() {

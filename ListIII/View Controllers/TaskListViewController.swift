@@ -44,6 +44,8 @@ class TaskListViewController: UIViewController {
         tagPickerView!.heightAnchor.constraint(equalToConstant: tagPickerHeight).isActive = true
         tagPickerView!.tableViewDelegate = tagPickerManager
         tagPickerView?.tableViewDataSource = tagPickerManager
+        tagPickerView.topLeftButton.setTitle("Cancel", for: .normal)
+        tagPickerView.topRightButton.setTitle("Clear", for: .normal)
         tagPickerView!.delegate = self
     }
     
@@ -74,6 +76,7 @@ class TaskListViewController: UIViewController {
         if popupAnimator == nil {
             popupAnimator = ViewPopUpAnimator(parentView: self.view, popupView: tagPickerView!)
         }
+        
         keepPopupAfterKeyBoardRemoval = true
         popupAnimator!.popup(withHeight: popupViewHeight)
     }
