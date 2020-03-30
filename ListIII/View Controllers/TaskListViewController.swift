@@ -20,8 +20,8 @@ class TaskListViewController: UIViewController {
     private var tagPickerView: TagPickerView!
     private var popupAnimator: ViewPopUpAnimator!
     private var popupViewHeight: CGFloat!
-    private var itemsFilteredOutOfSearch = [String]()
     private var keepPopupAfterKeyBoardRemoval = true
+    private var tagSearch: SearchManager!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +29,7 @@ class TaskListViewController: UIViewController {
         taskTableView.dataSource = taskTableViewDataSource
         taskFilter = TaskFilter()
         tagPickerManager.delegate = self
+        tagSearch = SearchManager(tagPickerManager.availableItems)
         setupTagPickerView()
         popupViewHeight = self.view.bounds.height * 0.30
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -76,7 +77,6 @@ class TaskListViewController: UIViewController {
         if popupAnimator == nil {
             popupAnimator = ViewPopUpAnimator(parentView: self.view, popupView: tagPickerView!)
         }
-        
         keepPopupAfterKeyBoardRemoval = true
         popupAnimator!.popup(withHeight: popupViewHeight)
     }
@@ -87,7 +87,9 @@ extension TaskListViewController: TagPickerManagerDelegate {
         taskFilter.appendTag(withName: tag)
         let pending = taskFilter.pendingTags!
         let associatedTags = Util.associatedTags(for: pending)
+        tagSearch.updateSeachItems(from: associatedTags)
         tagPickerManager.set(selectionItems: associatedTags)
+        tagPickerView.clearSearchBar()
         tagPickerView!.reloadData()
     }
     
@@ -95,32 +97,16 @@ extension TaskListViewController: TagPickerManagerDelegate {
         taskFilter.removeTag(withName: tag)
         let pendingTags = taskFilter.pendingTags!
         let associatedTags = Util.associatedTags(for: pendingTags)
+        tagSearch.updateSeachItems(from: associatedTags)
         tagPickerManager.set(selectionItems: associatedTags)
+        tagPickerView.clearSearchBar()
         tagPickerView!.reloadData()
     }
 }
 
 extension TaskListViewController: TagPickerViewDelegate {
     func didSearch(for query: String) {
-        let avilableItems = tagPickerManager.availableItems
-        var searchResults = [String]()
-        
-        itemsFilteredOutOfSearch.forEach( {
-            if $0.hasPrefix(query) {
-                searchResults.append($0)
-                let toRemove = $0
-                itemsFilteredOutOfSearch.removeAll(where: {$0 == toRemove})
-            }
-        })
-        
-        avilableItems.forEach({
-            if $0.hasPrefix(query) {
-                searchResults.append($0)
-            } else {
-                itemsFilteredOutOfSearch.append($0)
-            }
-        })
-           
+        let searchResults = tagSearch.searchResults(forQuery: query)
         tagPickerManager.set(selectionItems: searchResults)
         tagPickerView!.reloadData()
     }

@@ -8,13 +8,11 @@
 
 import UIKit
 
-class TestViewController: UIViewController, SearchBarDelegate {
-    @IBOutlet weak var searchBar: SearchBar!
+class TestViewController: UIViewController {
+    
+    @IBOutlet weak var underlineTextfield: UnderlinedTextField!
     override func viewDidLoad() {
         super.viewDidLoad()
-        searchBar.delegate = self
-    }
-    func textDidChangeTo(_ query: String) {
-        print(query)
+    
     }
 }

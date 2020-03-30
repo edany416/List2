@@ -9,7 +9,7 @@
 import Foundation
 
 enum Util {
-    static func associatedTags(for tags: [Tag]) -> [String] {
+    static func associatedTags(for tags: [Tag]) -> [String] {    
         if tags.isEmpty {
             let allTags = PersistanceManager.instance.fetchTags()
             return allTags.map({$0.name!})

@@ -42,6 +42,10 @@ class SearchBar: UIView, UITextFieldDelegate {
         }
     }
     
+    func clear() {
+        textField.text?.removeAll()
+    }
+    
     private func setup() {
         textField = UITextField(frame: .zero)
         textField.delegate = self
@@ -49,7 +53,7 @@ class SearchBar: UIView, UITextFieldDelegate {
         self.addSubview(textField)
         textField.addTarget(self, action: #selector(textDidChange(_:)), for: .editingChanged)
         NSLayoutConstraint.activate(textFieldConstraints)
-        textField.backgroundColor = #colorLiteral(red: 0.8896132112, green: 0.8918974996, blue: 0.915286839, alpha: 1)
+        textField.backgroundColor = #colorLiteral(red: 0.8901960784, green: 0.8918974996, blue: 0.915286839, alpha: 1)
         self.backgroundColor = #colorLiteral(red: 0.8896132112, green: 0.8918974996, blue: 0.915286839, alpha: 1)
         self.layer.masksToBounds = true
         self.layer.cornerRadius = 5.0

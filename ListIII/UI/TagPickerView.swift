@@ -67,6 +67,10 @@ class TagPickerView: UIView, SearchBarDelegate {
         pickerTableView.reloadData()
     }
     
+    func clearSearchBar() {
+        searchBar.clear()
+    }
+    
     @IBAction func didTapMainButton(_ sender: UIButton) {
         delegate?.didTapMainButton()
     }

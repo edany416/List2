@@ -10,19 +10,21 @@ import Foundation
 
 enum TestUtilities {
     static func setupDB(from resourses: String){
-        let url = Bundle.main.url(forResource: resourses, withExtension: "json")!
-        do {
-            let jsonData = try Data(contentsOf: url)
-            let parsedTasks = try JSONSerialization.jsonObject(with: jsonData) as! [[String: Any]]
-            for task in parsedTasks {
-                let name = task["name"]! as! String
-                let id = task["id"]! as! String
-                let associatedTags = task["tags"]! as! [String]
-                PersistanceManager.instance.createNewTask(name, id, associatedTags: associatedTags)
+        let tasks = PersistanceManager.instance.fetchTasks()
+        if tasks.isEmpty {
+            let url = Bundle.main.url(forResource: resourses, withExtension: "json")!
+            do {
+                let jsonData = try Data(contentsOf: url)
+                let parsedTasks = try JSONSerialization.jsonObject(with: jsonData) as! [[String: Any]]
+                for task in parsedTasks {
+                    let name = task["name"]! as! String
+                    let associatedTags = task["tags"]! as! [String]
+                    PersistanceManager.instance.createNewTask(name, associatedTags: associatedTags)
+                }
             }
-        }
-        catch {
-            print(error)
+            catch {
+                print(error)
+            }
         }
     }
 }
