@@ -23,16 +23,11 @@ class ViewPopUpAnimator {
     private var parentView: UIView!
     private var popupView: UIView!
     private var variableConstraint: NSLayoutConstraint!
-    //private var popupWidth: CGFloat!
-    //private var popUpHeight: CGFloat!
+    private var popped = false
     
-//    init(parentView: UIView, popupView: UIView, height: CGFloat, width: CGFloat ) {
-//        self.parentView = parentView
-//        self.popupView = popupView
-//        self.popupWidth = width
-//        self.popUpHeight = height
-//        setup()
-//    }
+    var isPoppedUp: Bool {
+        return variableConstraint.constant != 0
+    }
     
     init(parentView: UIView, popupView: UIView) {
         self.parentView = parentView
@@ -59,8 +54,8 @@ class ViewPopUpAnimator {
     }
     
     func popup(withHeight height: CGFloat) {
-        //variableConstraint.constant = -1 * parentView.bounds.height * Constants.VARIABLE_CONSTRAINT_MULTIPLIER
         variableConstraint.constant = -1 * height
+        popped = true
         UIView.animate(withDuration: Constants.ANIMATION_DURATION_TIME,
                         delay: 0,
                         options: .curveEaseOut,
@@ -68,10 +63,12 @@ class ViewPopUpAnimator {
                             self.overlayView.backgroundColor = Constants.END_OVERLAY_COLOR
                             self.parentView.layoutIfNeeded()
         }, completion: nil)
+        
     }
     
     func popdown() {
         variableConstraint.constant = popupView.bounds.height
+        popped = false
         UIView.animate(withDuration: Constants.ANIMATION_DURATION_TIME,
                         delay: 0,
                         options: .curveEaseOut,

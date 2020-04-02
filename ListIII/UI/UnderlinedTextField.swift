@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol UnderlinedTextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool
+}
+
 class UnderlinedTextField: UIView {
     
     private var textField: UITextField!
@@ -19,6 +23,11 @@ class UnderlinedTextField: UIView {
         ]
         
         return constraints
+    }
+    
+    var delegate: UnderlinedTextFieldDelegate?
+    var text: String? {
+        return textField.text
     }
     
     override init(frame: CGRect) {
@@ -36,6 +45,7 @@ class UnderlinedTextField: UIView {
         textField.backgroundColor = .clear
         textField.font = UIFont.systemFont(ofSize: 40)
         textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.delegate = TextFieldManager.manager
         self.addSubview(textField)
         NSLayoutConstraint.activate(textFieldConstraints)
         

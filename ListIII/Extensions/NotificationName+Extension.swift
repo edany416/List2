@@ -10,4 +10,5 @@ import Foundation
 
 extension Notification.Name {
     static let shouldResignKeyboardNotification = Notification.Name("ShouldResignKeyboard.edanyachdav")
+    static let keyboardWillShowNotification = Notification.Name("KeyboardWillShow.edanyachdav")
 }

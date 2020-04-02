@@ -10,6 +10,8 @@
 		E20071E124256AB1004F2E14 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20071E024256AB1004F2E14 /* SearchBar.swift */; };
 		E20071E324257D37004F2E14 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20071E224257D37004F2E14 /* TestViewController.swift */; };
 		E256C78224159EB900E1D27F /* TagPickerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E256C78124159EB900E1D27F /* TagPickerManager.swift */; };
+		E26C3E292431BD3A00E6FC2B /* TagsTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26C3E282431BD3A00E6FC2B /* TagsTextField.swift */; };
+		E26C3E4B2435B5AD00E6FC2B /* TextFieldManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26C3E4A2435B5AD00E6FC2B /* TextFieldManager.swift */; };
 		E2D41911242EB0B50075C3C1 /* NotificationName+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D41910242EB0B50075C3C1 /* NotificationName+Extension.swift */; };
 		E2D41913242FE03E0075C3C1 /* TaskDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D41912242FE03E0075C3C1 /* TaskDetailViewController.swift */; };
 		E2D41917243154A10075C3C1 /* SearchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D41916243154A10075C3C1 /* SearchManager.swift */; };
@@ -68,6 +70,8 @@
 		E20071E024256AB1004F2E14 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		E20071E224257D37004F2E14 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		E256C78124159EB900E1D27F /* TagPickerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagPickerManager.swift; sourceTree = "<group>"; };
+		E26C3E282431BD3A00E6FC2B /* TagsTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsTextField.swift; sourceTree = "<group>"; };
+		E26C3E4A2435B5AD00E6FC2B /* TextFieldManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldManager.swift; sourceTree = "<group>"; };
 		E2D41910242EB0B50075C3C1 /* NotificationName+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationName+Extension.swift"; sourceTree = "<group>"; };
 		E2D41912242FE03E0075C3C1 /* TaskDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailViewController.swift; sourceTree = "<group>"; };
 		E2D41916243154A10075C3C1 /* SearchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchManager.swift; sourceTree = "<group>"; };
@@ -153,6 +157,7 @@
 				E2E577412408B95600AFC9B2 /* ViewPopUpAnimator.swift */,
 				E2EB8EA8241609D500EF20D5 /* Util.swift */,
 				E2D41916243154A10075C3C1 /* SearchManager.swift */,
+				E26C3E4A2435B5AD00E6FC2B /* TextFieldManager.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -175,6 +180,7 @@
 				E2ECAB442414E61700A317AA /* TagPickerView.swift */,
 				E20071E024256AB1004F2E14 /* SearchBar.swift */,
 				E2D41918243186E30075C3C1 /* UnderlinedTextField.swift */,
+				E26C3E282431BD3A00E6FC2B /* TagsTextField.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -415,6 +421,7 @@
 				E2E577062406733200AFC9B2 /* GlobalConstants.swift in Sources */,
 				E2F50D0723C15AF800FA985B /* AppDelegate.swift in Sources */,
 				E2E5772D24075A6F00AFC9B2 /* TestUtilities.swift in Sources */,
+				E26C3E292431BD3A00E6FC2B /* TagsTextField.swift in Sources */,
 				E2E5773F2408634C00AFC9B2 /* TaskFilter.swift in Sources */,
 				E2D41919243186E30075C3C1 /* UnderlinedTextField.swift in Sources */,
 				E2ECAB492414E99100A317AA /* TaskTableViewDataSource.swift in Sources */,
@@ -430,6 +437,7 @@
 				E2D41917243154A10075C3C1 /* SearchManager.swift in Sources */,
 				E2EB8EA9241609D500EF20D5 /* Util.swift in Sources */,
 				E2E5773D24085CD800AFC9B2 /* Tag+CoreDataProperties.swift in Sources */,
+				E26C3E4B2435B5AD00E6FC2B /* TextFieldManager.swift in Sources */,
 				E2ECAB322410914D00A317AA /* TagPickerCell.swift in Sources */,
 				E2ECAB452414E61700A317AA /* TagPickerView.swift in Sources */,
 				E2E5773B24085CD800AFC9B2 /* Task+CoreDataProperties.swift in Sources */,

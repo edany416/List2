@@ -30,7 +30,11 @@ struct SearchManager {
         return Array(result)
     }
     
-    mutating func updateSeachItems(from items: [String]) {
+    mutating func resetSearchItem(from items: [String]) {
         searchableItems = Set(items)
+    }
+    
+    mutating func insertToSearchItems(_ item: String) {
+        searchableItems.insert(item)
     }
 }
