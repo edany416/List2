@@ -11,16 +11,17 @@ import UIKit
 class TaskDetailViewController: UIViewController {
 
     var taskid: String?
-    
-    @IBOutlet private weak var taskNameTextField: UnderlinedTextField!
+    @IBOutlet private weak var taskNameTextfield: UITextField!
     @IBOutlet private weak var tagsTextView: TagsTextView!
+    @IBOutlet private weak var titleLable: UILabel!
     private var tagPickerView: TagPickerView!
     private var popupAnimator: ViewPopUpAnimator!
     private var popupViewHeight: CGFloat!
     private var tagPickerManager: TagPickerManager!
     private var newTagAlert: UIAlertController!
     private var tagSearch: SearchManager!
-    
+    private var popupIsShowing = false
+    private var resetPopUpHeight = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,29 +31,26 @@ class TaskDetailViewController: UIViewController {
         popupViewHeight = self.view.bounds.height * 0.30
         setupAlertController()
         tagSearch = SearchManager(tagPickerManager.availableItems)
+        tagsTextView.delegate = self
+        taskNameTextfield.delegate = TextFieldManager.manager
         TextFieldManager.manager.register(self)
+        titleLable.text = "New Todo"
         if taskid != nil {
-            //At this point populate everything as we are in an edit state
-        } else {
-            //Sreen is in new task mode
+            titleLable.text = ""
         }
         
         NotificationCenter.default.addObserver(self, selector: #selector(taskDidSave), name: .NSManagedObjectContextDidSave, object: nil)
     }
     
-    @IBAction func didTapSave(_ sender: Any) {
-        let taskName = taskNameTextField.text
-        let tags = tagsTextView.tags
-        PersistanceManager.instance.createNewTask(taskName!, associatedTags: tags)
+    @IBAction func didTapCancel(_ sender: Any) {
+        TextFieldManager.manager.unregister()
+        self.dismiss(animated: true, completion: nil)
     }
     
-    private var showPopUp = false
-    @IBAction func didTapButton(_ sender: Any) {
-        if popupAnimator == nil {
-            popupAnimator = ViewPopUpAnimator(parentView: self.view, popupView: tagPickerView)
-        }
-        popupAnimator!.popup(withHeight: popupViewHeight)
-        showPopUp = true
+    @IBAction func didTapSave(_ sender: Any) {
+        let taskName = taskNameTextfield.text
+        let tags = tagsTextView.tags
+        PersistanceManager.instance.createNewTask(taskName!, associatedTags: tags)
     }
     
     @objc func taskDidSave() {
@@ -71,9 +69,11 @@ class TaskDetailViewController: UIViewController {
 
         let submitAction = UIAlertAction(title: "Submit", style: .default) { [unowned newTagAlert] _ in
             let answer = newTagAlert!.textFields![0]
-            self.tagPickerManager.set(selectedItems: self.tagPickerManager.selected + [answer.text!])
-            answer.text = ""
-            self.tagPickerView.reloadData()
+            if answer.text != nil && !answer.text!.isEmpty  {
+                self.tagPickerManager.set(selectedItems: self.tagPickerManager.selected + [answer.text!])
+                answer.text = ""
+                self.tagPickerView.reloadData()
+            }
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { [unowned newTagAlert] _ in
             newTagAlert!.textFields![0].text = ""
@@ -100,11 +100,12 @@ class TaskDetailViewController: UIViewController {
 
 extension TaskDetailViewController: TagPickerManagerDelegate {
     func didSelectItem(_ tag: String) {
-        
+        let newSearchableItems = tagPickerManager.availableItems.filter({$0 != tag})
+        tagSearch.resetSearchItem(from: newSearchableItems)
     }
     
     func didDeselectItem(_ tag: String) {
-        
+        tagSearch.insertToSearchItems(tag)
     }
 }
 
@@ -112,11 +113,17 @@ extension TaskDetailViewController: TagPickerViewDelegate {
     func didTapMainButton() {
         let selected = tagPickerManager.selected
         tagsTextView.tags = selected
+        resetPopUpHeight = false
+        popupIsShowing = false
+        TextFieldManager.manager.resignFirstResponder()
         popupAnimator.popdown()
     }
     
     func didTapTopLeftButton() {
-        print("Do this")
+        resetPopUpHeight = false
+        popupIsShowing = false
+        TextFieldManager.manager.resignFirstResponder()
+        popupAnimator.popdown()
     }
     
     func didTapTopRightButton() {
@@ -126,25 +133,41 @@ extension TaskDetailViewController: TagPickerViewDelegate {
     func didSearch(for query: String) {
         let result = tagSearch.searchResults(forQuery: query)
         tagPickerManager.set(selectionItems: result)
+        
         tagPickerView.reloadData()
     }
 }
 
 extension TaskDetailViewController: TextFieldManagerDelegate {
     func keyboardWillShow(_ textField: UITextField, _ keyboardRect: CGRect) {
-        if showPopUp && popupViewHeight <= keyboardRect.height {
+        if popupIsShowing && popupViewHeight <= keyboardRect.height {
             popupAnimator!.popup(withHeight: keyboardRect.height + 20)
         }
     }
     
     func keyboardWillHide() {
-        if popupAnimator.isPoppedUp {
-            popupAnimator.popdown()
+        if resetPopUpHeight {
+            popupAnimator!.popup(withHeight: popupViewHeight)
+            resetPopUpHeight = false
         }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if popupIsShowing {
+            resetPopUpHeight = true
+        }
         textField.resignFirstResponder()
-        return true
+        return false
     }
+}
+
+extension TaskDetailViewController: TagsTextViewDelegate {
+    func didTapTextView() {
+        if popupAnimator == nil {
+            popupAnimator = ViewPopUpAnimator(parentView: self.view, popupView: tagPickerView)
+        }
+        TextFieldManager.manager.resignFirstResponder()
+        popupAnimator!.popup(withHeight: popupViewHeight)
+        popupIsShowing = true
+    } 
 }

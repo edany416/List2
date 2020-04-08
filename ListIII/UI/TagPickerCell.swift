@@ -19,7 +19,7 @@ class TagPickerCell: UITableViewCell {
     func setSelectionState(to state: TagPickerCellSelectionState) {
         switch state {
         case .selected:
-            self.backgroundColor = GlobalConstants.MAIN_GREEN_COLOR
+            self.backgroundColor = UIColor.systemGreen
             self.tagName.textColor = .white
         case .notSelected:
             self.backgroundColor = .white

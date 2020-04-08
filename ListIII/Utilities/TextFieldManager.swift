@@ -54,7 +54,9 @@ class TextFieldManager: NSObject {
     
     @objc private func keyboardWillShow(_ notification: NSNotification) {
         if let keyboardRect = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            delegate?.keyboardWillShow?(selectedTextField!, keyboardRect)
+            if let selectedTextField = self.selectedTextField {
+                delegate?.keyboardWillShow?(selectedTextField, keyboardRect)
+            }
         }
     }
     

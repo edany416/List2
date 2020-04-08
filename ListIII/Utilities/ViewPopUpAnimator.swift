@@ -23,12 +23,7 @@ class ViewPopUpAnimator {
     private var parentView: UIView!
     private var popupView: UIView!
     private var variableConstraint: NSLayoutConstraint!
-    private var popped = false
-    
-    var isPoppedUp: Bool {
-        return variableConstraint.constant != 0
-    }
-    
+
     init(parentView: UIView, popupView: UIView) {
         self.parentView = parentView
         self.popupView = popupView
@@ -55,7 +50,6 @@ class ViewPopUpAnimator {
     
     func popup(withHeight height: CGFloat) {
         variableConstraint.constant = -1 * height
-        popped = true
         UIView.animate(withDuration: Constants.ANIMATION_DURATION_TIME,
                         delay: 0,
                         options: .curveEaseOut,
@@ -68,7 +62,6 @@ class ViewPopUpAnimator {
     
     func popdown() {
         variableConstraint.constant = popupView.bounds.height
-        popped = false
         UIView.animate(withDuration: Constants.ANIMATION_DURATION_TIME,
                         delay: 0,
                         options: .curveEaseOut,

@@ -33,6 +33,9 @@ class TaskListViewController: UIViewController {
         setupTagPickerView()
         popupViewHeight = self.view.bounds.height * 0.30
         TextFieldManager.manager.register(self)
+        tagsTextView.delegate = self
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(loadData), name: .NSManagedObjectContextDidSave, object: nil)
     }
     
     private func setupTagPickerView() {
@@ -48,21 +51,13 @@ class TaskListViewController: UIViewController {
         tagPickerView!.delegate = self
     }
     
-    private func loadData() {
+    @objc private func loadData() {
         TestUtilities.setupDB(from: "tasks")
         let tasks = (PersistanceManager.instance.fetchTasks())
         taskTableViewDataSource = TaskTableViewDataSource(from: tasks)
         
         let tags = PersistanceManager.instance.fetchTags()
         tagPickerManager = TagPickerManager(tags.map({$0.name!}))
-    }
-    
-    @IBAction func didTapTagFilterButton(_ sender: UIButton) {
-        if popupAnimator == nil {
-            popupAnimator = ViewPopUpAnimator(parentView: self.view, popupView: tagPickerView!)
-        }
-        keepPopupAfterKeyBoardRemoval = true
-        popupAnimator!.popup(withHeight: popupViewHeight)
     }
 }
 
@@ -133,6 +128,8 @@ extension TaskListViewController: TagPickerViewDelegate {
         tagPickerManager.set(selectionItems: allTags.map({$0.name!}))
         tagPickerManager.set(selectedItems: [])
         tagPickerView!.reloadData()
+        
+        tagSearch.resetSearchItem(from: allTags.map({$0.name!}))
 
         let tasks = PersistanceManager.instance.fetchTasks()
         taskTableViewDataSource.updateTaskList(tasks)
@@ -165,5 +162,17 @@ extension TaskListViewController: TextFieldManagerDelegate {
         textField.resignFirstResponder()
         return true
     }
+}
+
+extension TaskListViewController: TagsTextViewDelegate {
+    func didTapTextView() {
+        if popupAnimator == nil {
+            popupAnimator = ViewPopUpAnimator(parentView: self.view, popupView: tagPickerView!)
+        }
+        keepPopupAfterKeyBoardRemoval = true
+        popupAnimator!.popup(withHeight: popupViewHeight)
+    }
+    
+    
 }
 

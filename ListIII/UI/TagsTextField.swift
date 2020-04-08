@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol TagsTextViewDelegate {
+    func didTapTextView()
+}
+
 class TagsTextView: UIView {
     
     private var _tags: [String] = [String]()
@@ -21,6 +25,8 @@ class TagsTextView: UIView {
             return _tags
         }
     }
+    
+    var delegate: TagsTextViewDelegate?
 
     private var textView: UITextView!
     private var textViewConstraints: [NSLayoutConstraint] {
@@ -44,7 +50,10 @@ class TagsTextView: UIView {
     }
     
     private func setup() {
+        setupView()
         textView = UITextView()
+        textView.backgroundColor = .clear
+        textView.isUserInteractionEnabled = false
         textView.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.isEditable = false
@@ -52,6 +61,20 @@ class TagsTextView: UIView {
         NSLayoutConstraint.activate(textViewConstraints)
         
         tags = [String]()
+    }
+    
+    private func setupView() {
+        self.backgroundColor = #colorLiteral(red: 0.9098039216, green: 0.9137254902, blue: 0.9529411765, alpha: 0.4)
+        self.clipsToBounds = true
+        self.layer.cornerRadius = 5
+        
+        self.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapView))
+        self.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc private func didTapView() {
+        delegate?.didTapTextView()
     }
 
 }
