@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol SearchBarDelegate {
+protocol SearchBarDelegate: class {
     func textDidChangeTo(_ query: String)
 }
 
@@ -24,7 +24,7 @@ class SearchBar: UIView /*,UITextFieldDelegate*/ {
         return constraints
     }
     
-    var delegate: SearchBarDelegate?
+    weak var delegate: SearchBarDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)

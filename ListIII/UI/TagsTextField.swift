@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol TagsTextViewDelegate {
+protocol TagsTextViewDelegate: class {
     func didTapTextView()
 }
 
@@ -26,7 +26,7 @@ class TagsTextView: UIView {
         }
     }
     
-    var delegate: TagsTextViewDelegate?
+    weak var delegate: TagsTextViewDelegate?
 
     private var textView: UITextView!
     private var textViewConstraints: [NSLayoutConstraint] {

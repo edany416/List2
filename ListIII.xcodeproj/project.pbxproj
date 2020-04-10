@@ -12,6 +12,11 @@
 		E256C78224159EB900E1D27F /* TagPickerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E256C78124159EB900E1D27F /* TagPickerManager.swift */; };
 		E26C3E292431BD3A00E6FC2B /* TagsTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26C3E282431BD3A00E6FC2B /* TagsTextField.swift */; };
 		E26C3E4B2435B5AD00E6FC2B /* TextFieldManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26C3E4A2435B5AD00E6FC2B /* TextFieldManager.swift */; };
+		E26C3E4D243FB9A700E6FC2B /* TableViewSelectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26C3E4C243FB9A600E6FC2B /* TableViewSelectionManager.swift */; };
+		E26C3E54243FE17200E6FC2B /* TableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26C3E53243FE17200E6FC2B /* TableViewCellViewModel.swift */; };
+		E26C3E56243FE18500E6FC2B /* TableViewCellPropertyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26C3E55243FE18500E6FC2B /* TableViewCellPropertyModel.swift */; };
+		E26C3E58243FFD1400E6FC2B /* TagPickerCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26C3E57243FFD1400E6FC2B /* TagPickerCellViewModel.swift */; };
+		E26C3E5A243FFD8C00E6FC2B /* TagCellPropertyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26C3E59243FFD8C00E6FC2B /* TagCellPropertyModel.swift */; };
 		E2D41911242EB0B50075C3C1 /* NotificationName+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D41910242EB0B50075C3C1 /* NotificationName+Extension.swift */; };
 		E2D41913242FE03E0075C3C1 /* TaskDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D41912242FE03E0075C3C1 /* TaskDetailViewController.swift */; };
 		E2D41917243154A10075C3C1 /* SearchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D41916243154A10075C3C1 /* SearchManager.swift */; };
@@ -72,6 +77,11 @@
 		E256C78124159EB900E1D27F /* TagPickerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagPickerManager.swift; sourceTree = "<group>"; };
 		E26C3E282431BD3A00E6FC2B /* TagsTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsTextField.swift; sourceTree = "<group>"; };
 		E26C3E4A2435B5AD00E6FC2B /* TextFieldManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldManager.swift; sourceTree = "<group>"; };
+		E26C3E4C243FB9A600E6FC2B /* TableViewSelectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewSelectionManager.swift; sourceTree = "<group>"; };
+		E26C3E53243FE17200E6FC2B /* TableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCellViewModel.swift; sourceTree = "<group>"; };
+		E26C3E55243FE18500E6FC2B /* TableViewCellPropertyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCellPropertyModel.swift; sourceTree = "<group>"; };
+		E26C3E57243FFD1400E6FC2B /* TagPickerCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagPickerCellViewModel.swift; sourceTree = "<group>"; };
+		E26C3E59243FFD8C00E6FC2B /* TagCellPropertyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCellPropertyModel.swift; sourceTree = "<group>"; };
 		E2D41910242EB0B50075C3C1 /* NotificationName+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationName+Extension.swift"; sourceTree = "<group>"; };
 		E2D41912242FE03E0075C3C1 /* TaskDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailViewController.swift; sourceTree = "<group>"; };
 		E2D41916243154A10075C3C1 /* SearchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchManager.swift; sourceTree = "<group>"; };
@@ -140,6 +150,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E26C3E50243FDEDB00E6FC2B /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				E26C3E53243FE17200E6FC2B /* TableViewCellViewModel.swift */,
+				E26C3E55243FE18500E6FC2B /* TableViewCellPropertyModel.swift */,
+				E26C3E57243FFD1400E6FC2B /* TagPickerCellViewModel.swift */,
+				E26C3E59243FFD8C00E6FC2B /* TagCellPropertyModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		E2D4190F242EB0920075C3C1 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -211,6 +232,7 @@
 			children = (
 				E2ECAB482414E99100A317AA /* TaskTableViewDataSource.swift */,
 				E256C78124159EB900E1D27F /* TagPickerManager.swift */,
+				E26C3E4C243FB9A600E6FC2B /* TableViewSelectionManager.swift */,
 			);
 			path = ViewManagers;
 			sourceTree = "<group>";
@@ -238,6 +260,7 @@
 		E2F50D0523C15AF800FA985B /* ListIII */ = {
 			isa = PBXGroup;
 			children = (
+				E26C3E50243FDEDB00E6FC2B /* ViewModel */,
 				E2D4190F242EB0920075C3C1 /* Extensions */,
 				E2ECAB3B2412E59200A317AA /* ViewManagers */,
 				E2E5770D240723EA00AFC9B2 /* Model */,
@@ -424,17 +447,21 @@
 				E26C3E292431BD3A00E6FC2B /* TagsTextField.swift in Sources */,
 				E2E5773F2408634C00AFC9B2 /* TaskFilter.swift in Sources */,
 				E2D41919243186E30075C3C1 /* UnderlinedTextField.swift in Sources */,
+				E26C3E5A243FFD8C00E6FC2B /* TagCellPropertyModel.swift in Sources */,
 				E2ECAB492414E99100A317AA /* TaskTableViewDataSource.swift in Sources */,
 				E2D41911242EB0B50075C3C1 /* NotificationName+Extension.swift in Sources */,
 				E2E5770C24071F4000AFC9B2 /* TaskTableViewCell.swift in Sources */,
+				E26C3E56243FE18500E6FC2B /* TableViewCellPropertyModel.swift in Sources */,
 				E20071E324257D37004F2E14 /* TestViewController.swift in Sources */,
 				E2E5773C24085CD800AFC9B2 /* Tag+CoreDataClass.swift in Sources */,
 				E2E577422408B95600AFC9B2 /* ViewPopUpAnimator.swift in Sources */,
 				E2D41913242FE03E0075C3C1 /* TaskDetailViewController.swift in Sources */,
+				E26C3E4D243FB9A700E6FC2B /* TableViewSelectionManager.swift in Sources */,
 				E2F50D0923C15AF800FA985B /* SceneDelegate.swift in Sources */,
 				E2F50D1123C15AF800FA985B /* ListIII.xcdatamodeld in Sources */,
 				E2E5770924071B1A00AFC9B2 /* TaskListViewController.swift in Sources */,
 				E2D41917243154A10075C3C1 /* SearchManager.swift in Sources */,
+				E26C3E58243FFD1400E6FC2B /* TagPickerCellViewModel.swift in Sources */,
 				E2EB8EA9241609D500EF20D5 /* Util.swift in Sources */,
 				E2E5773D24085CD800AFC9B2 /* Tag+CoreDataProperties.swift in Sources */,
 				E26C3E4B2435B5AD00E6FC2B /* TextFieldManager.swift in Sources */,
@@ -442,6 +469,7 @@
 				E2ECAB452414E61700A317AA /* TagPickerView.swift in Sources */,
 				E2E5773B24085CD800AFC9B2 /* Task+CoreDataProperties.swift in Sources */,
 				E20071E124256AB1004F2E14 /* SearchBar.swift in Sources */,
+				E26C3E54243FE17200E6FC2B /* TableViewCellViewModel.swift in Sources */,
 				E2E5773A24085CD800AFC9B2 /* Task+CoreDataClass.swift in Sources */,
 				E2E5770F2407241900AFC9B2 /* PersistanceManager.swift in Sources */,
 			);

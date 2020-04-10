@@ -38,7 +38,7 @@ class TaskDetailViewController: UIViewController {
         if taskid != nil {
             titleLable.text = ""
         }
-        
+            
         NotificationCenter.default.addObserver(self, selector: #selector(taskDidSave), name: .NSManagedObjectContextDidSave, object: nil)
     }
     
@@ -60,14 +60,15 @@ class TaskDetailViewController: UIViewController {
     
     private func loadData() {
         let tags = PersistanceManager.instance.fetchTags()
-        tagPickerManager = TagPickerManager(tags.map({$0.name!}))
+        tagPickerManager = TagPickerManager()
+        tagPickerManager.set(selectionItems: tags.map({$0.name!}))
     }
     
     private func setupAlertController() {
         newTagAlert = UIAlertController(title: "Enter answer", message: nil, preferredStyle: .alert)
         newTagAlert.addTextField()
 
-        let submitAction = UIAlertAction(title: "Submit", style: .default) { [unowned newTagAlert] _ in
+        let submitAction = UIAlertAction(title: "Submit", style: .default) { [unowned self, unowned newTagAlert] _ in
             let answer = newTagAlert!.textFields![0]
             if answer.text != nil && !answer.text!.isEmpty  {
                 self.tagPickerManager.set(selectedItems: self.tagPickerManager.selected + [answer.text!])
@@ -79,7 +80,6 @@ class TaskDetailViewController: UIViewController {
             newTagAlert!.textFields![0].text = ""
             
         }
-
         newTagAlert.addAction(submitAction)
         newTagAlert.addAction(cancelAction)
     }

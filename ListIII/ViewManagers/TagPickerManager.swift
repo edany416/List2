@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-protocol TagPickerManagerDelegate {
+protocol TagPickerManagerDelegate: class {
     func didSelectItem(_ tag: String)
     func didDeselectItem(_ tag: String)
 }
@@ -18,7 +18,7 @@ class TagPickerManager: NSObject, UITableViewDataSource, UITableViewDelegate {
     private var items: [String]
     private var selectedItems: [String]
     
-    var delegate: TagPickerManagerDelegate?
+    weak var delegate: TagPickerManagerDelegate?
     var availableItems: [String] {
         return items
     }
@@ -26,8 +26,8 @@ class TagPickerManager: NSObject, UITableViewDataSource, UITableViewDelegate {
         return selectedItems
     }
     
-    init(_ tagNames: [String]) {
-        items = tagNames.sorted(by: < )
+    override init() {
+        items = [String]()
         selectedItems = [String]()
     }
     

@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol UnderlinedTextFieldDelegate {
+protocol UnderlinedTextFieldDelegate: class {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool
 }
 
@@ -25,7 +25,7 @@ class UnderlinedTextField: UIView {
         return constraints
     }
     
-    var delegate: UnderlinedTextFieldDelegate?
+    weak var delegate: UnderlinedTextFieldDelegate?
     var text: String? {
         return textField.text
     }

@@ -24,7 +24,7 @@ extension Tag {
 }
 
 // MARK: Generated accessors for task
-extension Tag {
+extension Tag: Comparable {
 
     @objc(addTaskObject:)
     @NSManaged public func addToTasks(_ value: Task)
@@ -40,5 +40,9 @@ extension Tag {
 
     public static func == (lhs: Tag, rhs: Tag) -> Bool {
         return lhs.name!.caseInsensitiveCompare(rhs.name!) == .orderedSame
+    }
+    
+    public static func < (lhs: Tag, rhs: Tag) -> Bool {
+        return lhs.name! < rhs.name!
     }
 }

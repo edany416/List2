@@ -12,8 +12,8 @@ import UIKit
 class TaskTableViewDataSource: NSObject, UITableViewDataSource {
     private var tasks: [Task]
     
-    init(from tasks: [Task]) {
-        self.tasks = tasks
+    override init() {
+        self.tasks = [Task]()
     }
     
     func updateTaskList(_ tasks: [Task]) {

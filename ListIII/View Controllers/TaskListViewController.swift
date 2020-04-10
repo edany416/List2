@@ -11,11 +11,11 @@ import UIKit
 class TaskListViewController: UIViewController {
     
     @IBOutlet private weak var taskTableView: UITableView!
-    @IBOutlet private weak var tagFilterButton: UIButton!
     @IBOutlet weak var tagsTextView: TagsTextView!
-    
     private var taskTableViewDataSource: TaskTableViewDataSource!
-    private var tagPickerManager: TagPickerManager!
+    private var tagTableViewSelectionManager: TableViewSelectionManager<Tag>!
+    
+    
     private var taskFilter: TaskFilter!
     private var tagPickerView: TagPickerView!
     private var popupAnimator: ViewPopUpAnimator!
@@ -25,68 +25,61 @@ class TaskListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        initializations()
+        connectDelegateAndDataSources()
         loadData()
-        taskTableView.dataSource = taskTableViewDataSource
-        taskFilter = TaskFilter()
-        tagPickerManager.delegate = self
-        tagSearch = SearchManager(tagPickerManager.availableItems)
         setupTagPickerView()
-        popupViewHeight = self.view.bounds.height * 0.30
         TextFieldManager.manager.register(self)
-        tagsTextView.delegate = self
-        
         NotificationCenter.default.addObserver(self, selector: #selector(loadData), name: .NSManagedObjectContextDidSave, object: nil)
     }
     
-    private func setupTagPickerView() {
+    private func initializations() {
+        taskTableViewDataSource = TaskTableViewDataSource()
+        taskFilter = TaskFilter()
         tagPickerView = TagPickerView()
+        tagTableViewSelectionManager = TableViewSelectionManager<Tag>()
+    }
+    
+    private func connectDelegateAndDataSources() {
+        taskTableView.dataSource = taskTableViewDataSource
+        tagTableViewSelectionManager.delegate = self
+        tagsTextView.delegate = self
+        tagPickerView!.delegate = self
+    }
+    
+    private func setupTagPickerView() {
+        popupViewHeight = self.view.bounds.height * 0.30
         let width = view.bounds.width * 0.80
         let tagPickerHeight = width
         tagPickerView!.widthAnchor.constraint(equalToConstant: width).isActive = true
         tagPickerView!.heightAnchor.constraint(equalToConstant: tagPickerHeight).isActive = true
-        tagPickerView!.tableViewDelegate = tagPickerManager
-        tagPickerView?.tableViewDataSource = tagPickerManager
+        tagPickerView!.tableViewDelegate = tagTableViewSelectionManager
+        tagPickerView!.tableViewDataSource = tagTableViewSelectionManager
+        
         tagPickerView.topLeftButton.setTitle("Cancel", for: .normal)
         tagPickerView.topRightButton.setTitle("Clear", for: .normal)
-        tagPickerView!.delegate = self
     }
+    
     
     @objc private func loadData() {
         TestUtilities.setupDB(from: "tasks")
         let tasks = (PersistanceManager.instance.fetchTasks())
-        taskTableViewDataSource = TaskTableViewDataSource(from: tasks)
+        taskTableViewDataSource.updateTaskList(tasks)
+        taskTableView.reloadData()
         
         let tags = PersistanceManager.instance.fetchTags()
-        tagPickerManager = TagPickerManager(tags.map({$0.name!}))
-    }
-}
-
-extension TaskListViewController: TagPickerManagerDelegate {
-    func didSelectItem(_ tag: String) {
-        taskFilter.appendTag(withName: tag)
-        let pending = taskFilter.pendingTags!
-        let associatedTags = Util.associatedTags(for: pending)
-        tagSearch.resetSearchItem(from: associatedTags)
-        tagPickerManager.set(selectionItems: associatedTags)
-        tagPickerView.clearSearchBar()
-        tagPickerView!.reloadData()
-    }
-    
-    func didDeselectItem(_ tag: String) {
-        taskFilter.removeTag(withName: tag)
-        let pendingTags = taskFilter.pendingTags!
-        let associatedTags = Util.associatedTags(for: pendingTags)
-        tagSearch.resetSearchItem(from: associatedTags)
-        tagPickerManager.set(selectionItems: associatedTags)
-        tagPickerView.clearSearchBar()
-        tagPickerView!.reloadData()
+        tagTableViewSelectionManager.set(selectionItems: tags) {return $0 < $1}
+        tagSearch = SearchManager(tags.map({$0.name!}))
+        
     }
 }
 
 extension TaskListViewController: TagPickerViewDelegate {
     func didSearch(for query: String) {
         let searchResults = tagSearch.searchResults(forQuery: query)
-        tagPickerManager.set(selectionItems: searchResults)
+        var resultTags = [Tag]()
+        searchResults.forEach({resultTags.append(PersistanceManager.instance.fetchTag(named: $0)!)})
+        tagTableViewSelectionManager.set(selectionItems: resultTags) {return $0 < $1}
         tagPickerView!.reloadData()
     }
     
@@ -112,8 +105,8 @@ extension TaskListViewController: TagPickerViewDelegate {
         taskFilter.cancelFilter()
         let applied = taskFilter.appliedTags
         let associated = Util.associatedTags(for: applied)
-        tagPickerManager.set(selectedItems: applied.map({$0.name!}))
-        tagPickerManager.set(selectionItems: associated)
+        tagTableViewSelectionManager.set(selectedItems: applied)
+        tagTableViewSelectionManager.set(selectionItems: associated, sortOrder: {return $0 < $1})
         tagPickerView!.reloadData()
         
         popupAnimator.popdown()
@@ -125,8 +118,8 @@ extension TaskListViewController: TagPickerViewDelegate {
     func didTapTopRightButton() {
         taskFilter.reset()
         let allTags = PersistanceManager.instance.fetchTags()
-        tagPickerManager.set(selectionItems: allTags.map({$0.name!}))
-        tagPickerManager.set(selectedItems: [])
+        tagTableViewSelectionManager.set(selectionItems: allTags, sortOrder: { return $0 < $1 })
+        tagTableViewSelectionManager.set(selectedItems: [])
         tagPickerView!.reloadData()
         
         tagSearch.resetSearchItem(from: allTags.map({$0.name!}))
@@ -164,6 +157,50 @@ extension TaskListViewController: TextFieldManagerDelegate {
     }
 }
 
+extension TaskListViewController: TableViewSelectionManagerDelegate {
+    
+    func didSelect(item: Any) {
+        let tag = item as! Tag
+        taskFilter.appendTag(withName: tag.name!)
+        let pending = taskFilter.pendingTags!
+        let associatedTags = Util.associatedTags(for: pending)
+        //tagSearch.resetSearchItem(from: associatedTags)
+        tagTableViewSelectionManager.set(selectionItems: associatedTags) {return $0 < $1}
+        tagPickerView.clearSearchBar()
+        tagPickerView!.reloadData()
+    }
+    
+    func willDeselectItem(item: Any) {
+        let tag = item as! Tag
+        taskFilter.appendTag(withName: tag.name!)
+        let pending = taskFilter.pendingTags!
+        let associatedTags = Util.associatedTags(for: pending)
+        tagTableViewSelectionManager.set(selectionItems: associatedTags) {return $0 < $1}
+        tagPickerView!.reloadData()
+    }
+    
+    func didDeselectItem(item: Any) {
+        let tag = item as! Tag
+        taskFilter.removeTag(withName: tag.name!)
+        let pendingTags = taskFilter.pendingTags!
+        let associatedTags = Util.associatedTags(for: pendingTags)
+        //tagSearch.resetSearchItem(from: associatedTags)
+        tagTableViewSelectionManager.set(selectionItems: associatedTags) {
+            return $0 < $1
+        }
+        tagPickerView.clearSearchBar()
+        tagPickerView!.reloadData()
+    }
+    
+    func cellDetails(forItem item: Any) -> TableViewCellDetails {
+        let tag = item as! Tag
+        let identifier = "TagFilterCell"
+        let propertyModel = TagCellPropertyModel(tagName: tag.name!)
+        let details = TableViewCellDetails(identifier: identifier, propertyModel: propertyModel, viewModel: TagPickerCellViewModel())
+        return details
+    }
+}
+
 extension TaskListViewController: TagsTextViewDelegate {
     func didTapTextView() {
         if popupAnimator == nil {
@@ -172,7 +209,5 @@ extension TaskListViewController: TagsTextViewDelegate {
         keepPopupAfterKeyBoardRemoval = true
         popupAnimator!.popup(withHeight: popupViewHeight)
     }
-    
-    
 }
 

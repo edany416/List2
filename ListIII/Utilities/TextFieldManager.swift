@@ -36,9 +36,11 @@ class TextFieldManager: NSObject {
     func register(_ viewController: TextFieldManagerDelegate) {
         delegate = viewController
         viewControllerStack.append(viewController)
+        print("register - \(viewControllerStack.count)")
     }
     
     func unregister() {
+        print("unregister - \(viewControllerStack.count)")
         if viewControllerStack.count > 1 {
             viewControllerStack.removeLast()
             delegate = viewControllerStack.last!

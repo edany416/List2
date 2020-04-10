@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol TagPickerViewDelegate {
+protocol TagPickerViewDelegate: class {
     func didTapMainButton()
     func didTapTopLeftButton()
     func didTapTopRightButton()
@@ -24,7 +24,7 @@ class TagPickerView: UIView, SearchBarDelegate {
     @IBOutlet private weak var pickerTableView: UITableView!
     @IBOutlet private weak var searchBar: SearchBar!
     
-    var delegate: TagPickerViewDelegate?
+    weak var delegate: TagPickerViewDelegate?
     var tableViewDataSource: UITableViewDataSource? {
         didSet {
             pickerTableView.dataSource = self.tableViewDataSource
