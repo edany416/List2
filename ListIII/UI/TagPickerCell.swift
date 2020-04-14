@@ -13,8 +13,7 @@ enum TagPickerCellSelectionState {
     case notSelected
 }
 
-class TagPickerCell: UITableViewCell {
-
+class TagPickerCell: UITableViewCell, Selectable {
     @IBOutlet private(set) var tagName: UILabel!
     func setSelectionState(to state: TagPickerCellSelectionState) {
         switch state {
@@ -26,6 +25,17 @@ class TagPickerCell: UITableViewCell {
             self.tagName.textColor = .black
         }
     }
+    
+    func selected(_ isSelected: Bool) {
+        if isSelected {
+            self.backgroundColor = UIColor.systemGreen
+            self.tagName.textColor = .white
+        } else {
+            self.backgroundColor = .white
+            self.tagName.textColor = .black
+        }
+    }
+    
 }
 
 struct TagPickerCellModel {

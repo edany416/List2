@@ -1,81 +1,100 @@
-extension TaskListViewController: TagFilterViewDelegate {
-    func didSelectItem(with tagName: String) {
-        taskFilter.appendTag(withName: tagName)
-        tagFilterView?.applyButton.setTitle("Show Tasks (\(taskFilter.pendingIntersection!.count))", for: .normal)
-    }
-    
-    func didDeselectItem(with tagName: String) {
-        taskFilter.removeTag(withName: tagName)
-        var availableTasks = String()
-        if let count = taskFilter.pendingIntersection?.count, count > 0{
-            availableTasks = String(count)
-        } else {
-            availableTasks = "All"
+func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        var indexOfInsertion = IndexPath()
+        let item: Element
+        
+        if indexPath.section == 0 {
+            item = selectedItems.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .right)
+            self.delegate?.willInsertDeselectedItemIntoSelectionItems(item)
+            tableView.reloadData()
+            delegate?.willInsertDeselectedItemIntoSelectionItems(item)
+            tableView.reloadData()
+            let index = indexForDeselectedItemInSelectionItems(item)
+            selectionItems.insert(item, at: index)
+            indexOfInsertion = IndexPath(row: index, section: 1)
+            tableView.insertRows(at: [indexOfInsertion], with: .right)
+        } else if indexPath.section == 1 {
+            item = selectionItems.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .right)
+            
+            let seconds = 0.27
+            DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
+                self.delegate?.willInsertSelectionItemIntoSelectedItems(item)
+                tableView.reloadData()
+                DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
+                    self.selectedItems.append(item)
+                    indexOfInsertion = IndexPath(row: self.selectedItems.count-1, section: 0)
+                    tableView.insertRows(at: [indexOfInsertion], with: .right)
+                }
+            }
+            
+            
+            
+            
         }
-        tagFilterView!.applyButton.setTitle("Show Tasks (\(availableTasks))", for: .normal)
-    }
-    
-    func didTapApply() {
-        taskFilter.applyFilter()
-        if taskFilter.appliedTags.isEmpty {
-            tableViewDataSourceDelegateManager!.updateTasks(from: PersistanceManager.instance.fetchTasks())
-        } else {
-            tableViewDataSourceDelegateManager!.updateTasks(from: Array(taskFilter.appliedIntersection!))
-        }
-        taskTableView.reloadData()
-        tagSelectionTracker.keys.forEach { tagSelectionTracker[$0] = taskFilter.appliedTags.contains($0)}
-        tagsTextView.text = taskFilter.appliedTags.map({$0.name!}).joined(separator: " , ")
-        animatePopDown()
-    }
-    
-    func didTapCancelButton() {
-        taskFilter.cancelFilter()
-        animatePopDown()
-    }
-}
-
- func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        if indexPath.row >= selectedItems.count {
-//            let index = indexPath.row - selectedItems.count
-//            let selectedItem = nonSelectedItems.remove(at: index)
-//            selectedItems.append(selectedItem)
-//            tagsTableView.beginUpdates()
-//            tagsTableView.deleteRows(at: [indexPath], with: .right)
-//            tagsTableView.insertRows(at: [IndexPath(row: selectedItems.count - 1, section: 0)], with: .right)
-//            tagsTableView.endUpdates()
-//            delegate?.didSelectItem(with: selectedItem)
-//        } else {
-//            let deselectedItem = selectedItems.remove(at: indexPath.row)
-//            let indexOfInsertion: IndexPath!
-//            if let index = nonSelectedItems.firstIndex(where: {deselectedItem < $0}) {
-//                indexOfInsertion = IndexPath(row: selectedItems.count + index, section: 0)
-//                nonSelectedItems.insert(deselectedItem, at: index)
-//            } else if nonSelectedItems.count == 0 {
-//                indexOfInsertion = IndexPath(row: selectedItems.count, section: 0)
-//                nonSelectedItems.append(deselectedItem)
-//            } else {
-//                indexOfInsertion = IndexPath(row: tagsTableView.numberOfRows(inSection: 0) - 1, section: 0)
-//                nonSelectedItems.append(deselectedItem)
+        
+//        if indexPath.section == 0 {
+//            item = selectedItems.remove(at: indexPath.row)
+//            let index = indexForDeselectedItemInSelectionItems(item)
+//            selectionItems.insert(item, at: index)
+//            indexOfInsertion = IndexPath(row: index, section: 1)
+//            performSelectionUpdate(tableView, fromIndexPath: indexPath, toIndexPath: indexOfInsertion) { (finished) in
+//                usleep(150000)
+//                self.delegate?.didDeselectItem(item: item)
 //            }
-//            tagsTableView.beginUpdates()
-//            tagsTableView.deleteRows(at: [indexPath], with: .right)
-//            tagsTableView.insertRows(at: [indexOfInsertion], with: .right)
-//            tagsTableView.endUpdates()
-//            delegate?.didDeselectItem(with: deselectedItem)
+//
+//        } else if indexPath.section == 1 {
+//            item = selectionItems.remove(at: indexPath.row)
+//            selectedItems.append(item)
+//            indexOfInsertion = IndexPath(row: selectedItems.count-1, section: 0)
+//            performSelectionUpdate(tableView, fromIndexPath: indexPath, toIndexPath: indexOfInsertion, completion: { finished in
+//                usleep(150000)
+//                self.delegate?.didSelect(item: item)
+//            })
 //        }
-//    }
-//}
+        
+//        if indexPath.row < selectedItems.count { //Deselection case
+//            item = selectedItems.remove(at: indexPath.row)
+//            let (rowIndex, itemsIndex) = indexForDeselectedItem(item)
+//            selectionItems.insert(item, at: itemsIndex)
+//            indexOfInsertion = IndexPath(row: rowIndex, section: 0)
+//            performSelectionUpdate(tableView, fromIndexPath: indexPath, toIndexPath: indexOfInsertion, completion: { finished in
+//                self.delegate?.didDeselectItem(item: item)
+//            })
+//
+//        } else { //Selection Case
+//            item = selectionItems.remove(at: indexPath.row - selectedItems.count)
+//            selectedItems.append(item)
+//            indexOfInsertion = IndexPath(row: selectedItems.count - 1, section: 0)
+//            performSelectionUpdate(tableView, fromIndexPath: indexPath, toIndexPath: indexOfInsertion, completion: { finished in
+//                self.delegate?.didSelect(item: item)
+//            })
+//        }
+    }
+    
+    
+    func didSelect(item: Any) {
+        let tag = item as! Tag
+        taskFilter.appendTag(withName: tag.name!)
+        let pending = taskFilter.pendingTags!
+        let associatedTags = Util.associatedTags(for: pending)
+        //tagSearch.resetSearchItem(from: associatedTags)
+        tagTableViewSelectionManager.set(selectionItems: associatedTags) {return $0 < $1}
+        tagPickerView.clearSearchBar()
+        tagPickerView!.reloadData()
+    }
+    
 
-//    private var tagSelectionTracker: [Tag:Bool]!
-//    private var selectedTags: [String] {
-//        let tags = Array(tagSelectionTracker.filter({$0.value == true}).keys)
-//        return tags.map({$0.name!})
-//    }
-//    private var availableTags: [String] {
-//        let tags = Array(tagSelectionTracker.filter({$0.value == false}).keys)
-//        return tags.map({$0.name!})
-//    }
-
-//        tagSelectionTracker = [Tag:Bool]()
-//        tags.forEach({tagSelectionTracker[$0] = false})
-
+           
+    func didDeselectItem(item: Any) {
+        let tag = item as! Tag
+        taskFilter.removeTag(withName: tag.name!)
+        let pendingTags = taskFilter.pendingTags!
+        let associatedTags = Util.associatedTags(for: pendingTags)
+        //tagSearch.resetSearchItem(from: associatedTags)
+        tagTableViewSelectionManager.set(selectionItems: associatedTags) {
+            return $0 < $1
+        }
+        tagPickerView.clearSearchBar()
+        tagPickerView!.reloadData()
+    }

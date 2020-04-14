@@ -16,25 +16,28 @@ struct TableViewCellDetails {
 }
 
 protocol TableViewSelectionManagerDelegate: class {
-    func didSelect(item: Any)
-    func willDeselectItem(item: Any)
-    func didDeselectItem(item: Any)
-    func cellDetails(forItem item: Any) -> TableViewCellDetails
+    func updateSelectionItemsFor(item: AnyHashable, selected: Bool) -> [AnyHashable]?
+    func didSelect(item: AnyHashable)
+    func didDeselectItem(item: AnyHashable)
+    func cellDetails(forItem item: AnyHashable) -> TableViewCellDetails
 }
 
-class TableViewSelectionManager<Element: Comparable>: NSObject, UITableViewDataSource, UITableViewDelegate {
-    
-    private(set) var selectionItems: [Element]
-    private(set) var selectedItems: [Element]
+protocol Selectable {
+    func selected(_ isSelected: Bool)
+}
+
+class TableViewSelectionManager: NSObject, UITableViewDataSource, UITableViewDelegate {
+    private(set) var selectionItems: [AnyHashable]
+    private(set) var selectedItems: [AnyHashable]
     
     weak var delegate: TableViewSelectionManagerDelegate?
     
     override init() {
-        selectionItems = [Element]()
-        selectedItems = [Element]()
+        selectionItems = [AnyHashable]()
+        selectedItems = [AnyHashable]()
     }
     
-    func set(selectionItems: [Element], sortOrder: ((Element, Element) -> Bool)?) {
+    func set(selectionItems: [AnyHashable], sortOrder: ((AnyHashable, AnyHashable) -> Bool)?) {
         self.selectionItems = selectionItems
         
         if sortOrder != nil {
@@ -42,7 +45,7 @@ class TableViewSelectionManager<Element: Comparable>: NSObject, UITableViewDataS
         }
     }
     
-    func set(selectedItems: [Element]) {
+    func set(selectedItems: [AnyHashable]) {
         self.selectedItems = selectedItems
     }
     
@@ -51,93 +54,94 @@ class TableViewSelectionManager<Element: Comparable>: NSObject, UITableViewDataS
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        var numSections = Int()
+        var numRowsInSection = Int()
         switch section {
         case 0:
-            numSections = selectedItems.count
+            numRowsInSection = selectedItems.count
         case 1:
-            numSections = selectionItems.count
+            numRowsInSection = selectionItems.count
         default:
             return 0
         }
-        return numSections
+        return numRowsInSection
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell = UITableViewCell()
+        var selected = Bool()
         if delegate != nil {
             var cellDetails: TableViewCellDetails!
             if indexPath.section == 0 {
                 cellDetails = delegate!.cellDetails(forItem: selectedItems[indexPath.row])
+                selected = true
             } else if indexPath.section == 1 {
                 cellDetails = delegate!.cellDetails(forItem: selectionItems[indexPath.row])
+                selected = false
             }
             cell = tableView.dequeueReusableCell(withIdentifier: cellDetails.identifier, for: indexPath)
             cellDetails.viewModel.configure(cell, fromPropertyModel: cellDetails.propertyModel)
+            if cell is Selectable {
+                (cell as! Selectable).selected(selected)
+            }
         }
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let indexOfInsertion: IndexPath
-        let item: Element
-        
-        if indexPath.section == 0 {
-            item = selectedItems.remove(at: indexPath.row)
-            let index = indexForDeselectedItem(item)
-            selectionItems.insert(item, at: index)
-            indexOfInsertion = IndexPath(row: index, section: 1)
-            
-            performSelectionUpdate(tableView, fromIndexPath: indexPath, toIndexPath: indexOfInsertion) { (finished) in
-                self.delegate?.didDeselectItem(item: item)
-            }
-            
-        } else if indexPath.section == 1 {
+        var item: AnyHashable!
+        if indexPath.section == 1 { //Selection case
             item = selectionItems.remove(at: indexPath.row)
-            selectedItems.append(item)
-            indexOfInsertion = IndexPath(row: selectedItems.count-1, section: 0)
-            performSelectionUpdate(tableView, fromIndexPath: indexPath, toIndexPath: indexOfInsertion, completion: { finished in
-                self.delegate?.didSelect(item: item)
-            })
+            selectedItems.insert(item, at: selectedItems.count)
+            let indexOfInsertion = IndexPath(row: selectedItems.count-1, section: 0)
+            let indexOfDeletion = IndexPath(row: indexPath.row, section: 1)
+            performRowUpdates(tableView, insertionUpdates: [indexOfInsertion], deletionUpdates: [indexOfDeletion], deletionAnimation: .right, insertionAnimation: .right) { [unowned self] (finished) in
+                if let updatedList = self.delegate?.updateSelectionItemsFor(item: item, selected: true) {
+                    self.updateList(from: Set(updatedList), tableView)
+                }
+            }
+        } else {
+            item = selectedItems.remove(at: indexPath.row)
+            selectionItems.insert(item, at: selectionItems.count)
+            let indexOfInsertion = IndexPath(row: selectionItems.count-1, section: 1)
+            let indexOfDeletion = IndexPath(row: indexPath.row, section: 0)
+            performRowUpdates(tableView, insertionUpdates: [indexOfInsertion], deletionUpdates: [indexOfDeletion], deletionAnimation: .right, insertionAnimation: .right) { [unowned self] (finished) in
+                if let updatedList = self.delegate?.updateSelectionItemsFor(item: item, selected: false) {
+                    self.updateList(from: Set(updatedList), tableView)
+                }
+            }
         }
+    }
         
-//        if indexPath.row < selectedItems.count { //Deselection case
-//            item = selectedItems.remove(at: indexPath.row)
-//            let (rowIndex, itemsIndex) = indexForDeselectedItem(item)
-//            selectionItems.insert(item, at: itemsIndex)
-//            indexOfInsertion = IndexPath(row: rowIndex, section: 0)
-//            performSelectionUpdate(tableView, fromIndexPath: indexPath, toIndexPath: indexOfInsertion, completion: { finished in
-//                self.delegate?.didDeselectItem(item: item)
-//            })
-//
-//        } else { //Selection Case
-//            item = selectionItems.remove(at: indexPath.row - selectedItems.count)
-//            selectedItems.append(item)
-//            indexOfInsertion = IndexPath(row: selectedItems.count - 1, section: 0)
-//            performSelectionUpdate(tableView, fromIndexPath: indexPath, toIndexPath: indexOfInsertion, completion: { finished in
-//                self.delegate?.didSelect(item: item)
-//            })
-//        }
+    private func updateList(from list: Set<AnyHashable>, _ tableView: UITableView) {
+        var updatedSet = list
+        var deletionIndexPaths = [IndexPath]()
+        var newSelectionItems = [AnyHashable]()
+        for (index, item) in selectionItems.enumerated() {
+            if updatedSet.contains(item) {
+                updatedSet.remove(item)
+                newSelectionItems.append(item)
+            } else {
+                let rowToDelete = IndexPath(row: index, section: 1)
+                deletionIndexPaths.append(rowToDelete)
+            }
+        }
+        selectionItems = newSelectionItems + Array(updatedSet)
+        var insertionIndexPaths = [IndexPath]()
+        for (index, item) in selectionItems.enumerated() {
+            if updatedSet.contains(item) {
+                let rowToInsert = IndexPath(row: index, section: 1)
+                insertionIndexPaths.append(rowToInsert)
+            }
+        }
+        performRowUpdates(tableView, insertionUpdates: insertionIndexPaths, deletionUpdates: deletionIndexPaths, deletionAnimation: .fade, insertionAnimation: .fade, completion: nil)
     }
     
-    private func performSelectionUpdate(_ tableView: UITableView, fromIndexPath: IndexPath, toIndexPath: IndexPath, completion: @escaping (Bool) -> Void) {
+    private func performRowUpdates(_ tableView: UITableView, insertionUpdates insertionIndexPaths: [IndexPath], deletionUpdates deletionIndexPaths: [IndexPath], deletionAnimation: UITableView.RowAnimation, insertionAnimation: UITableView.RowAnimation, completion: ((Bool)->Void)?) {
         tableView.performBatchUpdates({
             tableView.beginUpdates()
-            tableView.deleteRows(at: [fromIndexPath], with: .right)
-            tableView.insertRows(at: [toIndexPath], with: .right)
+            tableView.deleteRows(at: deletionIndexPaths, with: deletionAnimation)
+            tableView.insertRows(at: insertionIndexPaths, with: insertionAnimation)
             tableView.endUpdates()
         }, completion: completion)
     }
-    
-    private func indexForDeselectedItem(_ item: Element) -> Int { //(RowIndex, ItemsIndex)
-        let index = selectionItems.firstIndex(where: {item < $0})
-        if index != nil {
-            return (index!)
-        } else if selectionItems.isEmpty {
-            return 0
-        } else {
-            return selectionItems.count
-        }
-    }
-
 }

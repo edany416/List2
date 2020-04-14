@@ -13,7 +13,7 @@ class TaskListViewController: UIViewController {
     @IBOutlet private weak var taskTableView: UITableView!
     @IBOutlet weak var tagsTextView: TagsTextView!
     private var taskTableViewDataSource: TaskTableViewDataSource!
-    private var tagTableViewSelectionManager: TableViewSelectionManager<Tag>!
+    private var tagTableViewSelectionManager: TableViewSelectionManager!
     
     
     private var taskFilter: TaskFilter!
@@ -37,7 +37,7 @@ class TaskListViewController: UIViewController {
         taskTableViewDataSource = TaskTableViewDataSource()
         taskFilter = TaskFilter()
         tagPickerView = TagPickerView()
-        tagTableViewSelectionManager = TableViewSelectionManager<Tag>()
+        tagTableViewSelectionManager = TableViewSelectionManager()
     }
     
     private func connectDelegateAndDataSources() {
@@ -68,7 +68,7 @@ class TaskListViewController: UIViewController {
         taskTableView.reloadData()
         
         let tags = PersistanceManager.instance.fetchTags()
-        tagTableViewSelectionManager.set(selectionItems: tags) {return $0 < $1}
+        tagTableViewSelectionManager.set(selectionItems: tags, sortOrder: nil)
         tagSearch = SearchManager(tags.map({$0.name!}))
         
     }
@@ -79,7 +79,7 @@ extension TaskListViewController: TagPickerViewDelegate {
         let searchResults = tagSearch.searchResults(forQuery: query)
         var resultTags = [Tag]()
         searchResults.forEach({resultTags.append(PersistanceManager.instance.fetchTag(named: $0)!)})
-        tagTableViewSelectionManager.set(selectionItems: resultTags) {return $0 < $1}
+        tagTableViewSelectionManager.set(selectionItems: resultTags, sortOrder: nil)
         tagPickerView!.reloadData()
     }
     
@@ -106,7 +106,7 @@ extension TaskListViewController: TagPickerViewDelegate {
         let applied = taskFilter.appliedTags
         let associated = Util.associatedTags(for: applied)
         tagTableViewSelectionManager.set(selectedItems: applied)
-        tagTableViewSelectionManager.set(selectionItems: associated, sortOrder: {return $0 < $1})
+        tagTableViewSelectionManager.set(selectionItems: associated, sortOrder: nil)
         tagPickerView!.reloadData()
         
         popupAnimator.popdown()
@@ -118,7 +118,7 @@ extension TaskListViewController: TagPickerViewDelegate {
     func didTapTopRightButton() {
         taskFilter.reset()
         let allTags = PersistanceManager.instance.fetchTags()
-        tagTableViewSelectionManager.set(selectionItems: allTags, sortOrder: { return $0 < $1 })
+        tagTableViewSelectionManager.set(selectionItems: allTags, sortOrder: nil)
         tagTableViewSelectionManager.set(selectedItems: [])
         tagPickerView!.reloadData()
         
@@ -128,7 +128,6 @@ extension TaskListViewController: TagPickerViewDelegate {
         taskTableViewDataSource.updateTaskList(tasks)
         taskTableView.reloadData()
         tagsTextView.tags = []
-        
         popupAnimator.popdown()
         keepPopupAfterKeyBoardRemoval = false
         TextFieldManager.manager.resignFirstResponder()
@@ -158,41 +157,39 @@ extension TaskListViewController: TextFieldManagerDelegate {
 }
 
 extension TaskListViewController: TableViewSelectionManagerDelegate {
-    
-    func didSelect(item: Any) {
-        let tag = item as! Tag
-        taskFilter.appendTag(withName: tag.name!)
-        let pending = taskFilter.pendingTags!
-        let associatedTags = Util.associatedTags(for: pending)
-        //tagSearch.resetSearchItem(from: associatedTags)
-        tagTableViewSelectionManager.set(selectionItems: associatedTags) {return $0 < $1}
-        tagPickerView.clearSearchBar()
-        tagPickerView!.reloadData()
-    }
-    
-    func willDeselectItem(item: Any) {
-        let tag = item as! Tag
-        taskFilter.appendTag(withName: tag.name!)
-        let pending = taskFilter.pendingTags!
-        let associatedTags = Util.associatedTags(for: pending)
-        tagTableViewSelectionManager.set(selectionItems: associatedTags) {return $0 < $1}
-        tagPickerView!.reloadData()
-    }
-    
-    func didDeselectItem(item: Any) {
+    func updateSelectionItemsFor(item: AnyHashable, selected: Bool) -> [AnyHashable]? {
+        if selected {
+            let tag = item as! Tag
+            taskFilter.appendTag(withName: tag.name!)
+            let pending = taskFilter.pendingTags!
+            let associatedTags = Util.associatedTags(for: pending)
+            //tagSearch.resetSearchItem(from: associatedTags)
+            tagPickerView.clearSearchBar()
+            return associatedTags
+        }
         let tag = item as! Tag
         taskFilter.removeTag(withName: tag.name!)
         let pendingTags = taskFilter.pendingTags!
         let associatedTags = Util.associatedTags(for: pendingTags)
         //tagSearch.resetSearchItem(from: associatedTags)
-        tagTableViewSelectionManager.set(selectionItems: associatedTags) {
-            return $0 < $1
-        }
         tagPickerView.clearSearchBar()
-        tagPickerView!.reloadData()
+        return associatedTags
     }
     
-    func cellDetails(forItem item: Any) -> TableViewCellDetails {
+
+    
+    func didSelect(item: AnyHashable) {
+        print("didSelect")
+    }
+    
+    func didDeselectItem(item: AnyHashable) {
+        print("didDeSelect")
+    }
+    
+    
+    
+    
+    func cellDetails(forItem item: AnyHashable) -> TableViewCellDetails {
         let tag = item as! Tag
         let identifier = "TagFilterCell"
         let propertyModel = TagCellPropertyModel(tagName: tag.name!)
