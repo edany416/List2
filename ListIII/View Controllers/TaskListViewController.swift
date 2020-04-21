@@ -13,7 +13,7 @@ class TaskListViewController: UIViewController {
     @IBOutlet private weak var taskTableView: UITableView!
     @IBOutlet weak var tagsTextView: TagsTextView!
     private var taskTableViewDataSource: TaskTableViewDataSource!
-    private var tagTableViewSelectionManager: TableViewSelectionManager!
+    private var tagTableViewSelectionManager: TableViewSelectionManager<Tag>!
     
     
     private var taskFilter: TaskFilter!
@@ -70,7 +70,6 @@ class TaskListViewController: UIViewController {
         let tags = PersistanceManager.instance.fetchTags()
         tagTableViewSelectionManager.set(selectionItems: tags, sortOrder: nil)
         tagSearch = SearchManager(tags.map({$0.name!}))
-        
     }
 }
 
@@ -97,8 +96,6 @@ extension TaskListViewController: TagPickerViewDelegate {
         popupAnimator.popdown()
         keepPopupAfterKeyBoardRemoval = false
         TextFieldManager.manager.resignFirstResponder()
-        
-       
     }
     
     func didTapTopLeftButton() {
@@ -157,39 +154,22 @@ extension TaskListViewController: TextFieldManagerDelegate {
 }
 
 extension TaskListViewController: TableViewSelectionManagerDelegate {
-    func updateSelectionItemsFor(item: AnyHashable, selected: Bool) -> [AnyHashable]? {
-        if selected {
-            let tag = item as! Tag
-            taskFilter.appendTag(withName: tag.name!)
-            let pending = taskFilter.pendingTags!
-            let associatedTags = Util.associatedTags(for: pending)
-            //tagSearch.resetSearchItem(from: associatedTags)
-            tagPickerView.clearSearchBar()
-            return associatedTags
-        }
+    func updateSelectionItemsFor<T>(item: T, selected: Bool) -> [T]? where T : Comparable, T : Hashable {
         let tag = item as! Tag
-        taskFilter.removeTag(withName: tag.name!)
+        if selected {
+            taskFilter.appendTag(withName: tag.name!)
+            
+        } else {
+            taskFilter.removeTag(withName: tag.name!)
+        }
         let pendingTags = taskFilter.pendingTags!
         let associatedTags = Util.associatedTags(for: pendingTags)
-        //tagSearch.resetSearchItem(from: associatedTags)
+        tagSearch.resetSearchItem(from: associatedTags.map({$0.name!}))
         tagPickerView.clearSearchBar()
-        return associatedTags
+        return associatedTags as? [T]
     }
     
-
-    
-    func didSelect(item: AnyHashable) {
-        print("didSelect")
-    }
-    
-    func didDeselectItem(item: AnyHashable) {
-        print("didDeSelect")
-    }
-    
-    
-    
-    
-    func cellDetails(forItem item: AnyHashable) -> TableViewCellDetails {
+    func cellDetails<T>(forItem item: T) -> TableViewCellDetails where T : Comparable, T : Hashable {
         let tag = item as! Tag
         let identifier = "TagFilterCell"
         let propertyModel = TagCellPropertyModel(tagName: tag.name!)

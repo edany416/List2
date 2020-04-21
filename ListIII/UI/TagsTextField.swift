@@ -18,7 +18,7 @@ class TagsTextView: UIView {
     var tags: [String] {
         set {
             _tags = newValue
-            let concatinatedTags = _tags.joined(separator: ", ")
+            let concatinatedTags = _tags.joined(separator: " \u{2022} ")
             textView.text = concatinatedTags
         }
         get {
