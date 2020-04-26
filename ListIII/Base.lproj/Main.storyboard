@@ -149,7 +149,7 @@
                                     <color key="titleColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="didTapSave:" destination="LnQ-Ij-yGG" eventType="touchUpInside" id="uca-aW-0wP"/>
+                                    <action selector="didTapSave:" destination="LnQ-Ij-yGG" eventType="touchUpInside" id="Vr1-Hs-WHw"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XJ3-cZ-aBg">
@@ -158,9 +158,6 @@
                                 <state key="normal" title="Cancel">
                                     <color key="titleColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
-                                <connections>
-                                    <action selector="didTapCancel:" destination="LnQ-Ij-yGG" eventType="touchUpInside" id="AMD-XG-5ht"/>
-                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tags" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LNR-t2-MbX">
                                 <rect key="frame" x="20" y="150" width="51.5" height="29"/>

@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 
+//BS class to delete
 protocol TagPickerManagerDelegate: class {
     func didSelectItem(_ tag: String)
     func didDeselectItem(_ tag: String)

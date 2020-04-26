@@ -110,8 +110,13 @@ class TableViewSelectionManager<T: Hashable & Comparable>: NSObject, UITableView
             tableView.deleteRows(at: [indexPath], with: .right)
             if let updatedList = self.delegate?.updateSelectionItemsFor(item: item, selected: false) {
                 self.updateList(from: Set(updatedList), tableView)
+                performRowUpdates(tableView, insertionUpdates: insertionIndexPaths, deletionUpdates: deletionIndexPaths, deletionAnimation: .fade, insertionAnimation: .fade, completion: nil)
+            } else {
+                let indexOfInsertion = insertionIndexForDeselectedItem(item)
+                selectionItems.insert(item, at: indexOfInsertion)
+                performRowUpdates(tableView, insertionUpdates: [IndexPath(row: indexOfInsertion, section: 1)], deletionUpdates: [], deletionAnimation: .fade, insertionAnimation: .fade, completion: nil)
             }
-            performRowUpdates(tableView, insertionUpdates: insertionIndexPaths, deletionUpdates: deletionIndexPaths, deletionAnimation: .fade, insertionAnimation: .fade, completion: nil)
+            
         }
     }
         

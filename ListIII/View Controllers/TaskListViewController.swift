@@ -15,7 +15,6 @@ class TaskListViewController: UIViewController {
     private var taskTableViewDataSource: TaskTableViewDataSource!
     private var tagTableViewSelectionManager: TableViewSelectionManager<Tag>!
     
-    
     private var taskFilter: TaskFilter!
     private var tagPickerView: TagPickerView!
     private var popupAnimator: ViewPopUpAnimator!
@@ -158,7 +157,6 @@ extension TaskListViewController: TableViewSelectionManagerDelegate {
         let tag = item as! Tag
         if selected {
             taskFilter.appendTag(withName: tag.name!)
-            
         } else {
             taskFilter.removeTag(withName: tag.name!)
         }
