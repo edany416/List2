@@ -10,9 +10,10 @@ import Foundation
 
 protocol TaskDetailViewControllerPresenterDelegate: class {
     func shouldConfigureForEditMode(_ editting: Bool, _ taskName: String, _ tags:[String])
-    func shouldUpdateTagsTextField(_ tags: [String])
     func showTagPickerView()
-    func dismissTagPickerView()
+    func performApplyActionForSelectedTags(_ tags: [String])
+    func performCancelAction()
+    func performClearAction()
     func saveDidSucceed()
     func saveDidFailWithMessage(_ message: String)
 }
@@ -23,6 +24,8 @@ class TaskDetailViewControllerPresenter {
     private var task: Task?
     private var isInEditMode: Bool!
     private(set) var selectionManager: TableViewSelectionManager<Tag>!
+    private var revertSelectedTags: [Tag]!
+    private var revertSelectionTags: [Tag]!
     
     private enum SaveErrors: String {
         case emptyTaskName = "Task name field is empty"
@@ -47,6 +50,8 @@ class TaskDetailViewControllerPresenter {
             self.delegate.shouldConfigureForEditMode(true, task!.taskName!, Array(taskTagsSet).map({$0.name!}))
         }
         selectionManager.delegate = self
+        revertSelectedTags = [Tag]()
+        revertSelectionTags = [Tag]()
     }
     
     func save(_ task: String, _ tags: [String]) {
@@ -69,21 +74,28 @@ class TaskDetailViewControllerPresenter {
 
 extension TaskDetailViewControllerPresenter: TagsTextViewDelegate {
     func didTapTextView() {
+        revertSelectedTags = selectionManager.selectedItems
+        revertSelectionTags = selectionManager.selectionItems
         delegate.showTagPickerView()
     }
 }
 
 extension TaskDetailViewControllerPresenter: TagPickerViewDelegate {
     func didTapMainButton() {
-        delegate.shouldUpdateTagsTextField(selectionManager.selectedItems.map({$0.name!}))
+        delegate.performApplyActionForSelectedTags(selectionManager.selectedItems.map({$0.name!}))
     }
     
     func didTapTopLeftButton() {
-        delegate.dismissTagPickerView()
+        selectionManager.set(selectedItems: revertSelectedTags)
+        selectionManager.set(selectionItems: revertSelectionTags, sortOrder: nil)
+        delegate.performCancelAction()
     }
     
     func didTapTopRightButton() {
-        print("TopRight")
+        let allTags = PersistanceManager.instance.fetchTags()
+        selectionManager.set(selectionItems: allTags, sortOrder: nil)
+        selectionManager.set(selectedItems: [])
+        delegate.performClearAction()
     }
     
     func didSearch(for query: String) {
