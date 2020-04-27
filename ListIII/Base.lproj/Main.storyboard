@@ -137,7 +137,7 @@
         <!--Task Detail View Controller-->
         <scene sceneID="5Ij-0B-hYp">
             <objects>
-                <viewController id="LnQ-Ij-yGG" customClass="TaskDetailViewController" customModule="ListIII" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TaskDetailVC" id="LnQ-Ij-yGG" customClass="TaskDetailViewController" customModule="ListIII" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="CAv-AU-BxG">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -158,6 +158,9 @@
                                 <state key="normal" title="Cancel">
                                     <color key="titleColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="didTapCancel:" destination="LnQ-Ij-yGG" eventType="touchUpInside" id="Qyu-56-1Ru"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tags" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LNR-t2-MbX">
                                 <rect key="frame" x="20" y="150" width="51.5" height="29"/>

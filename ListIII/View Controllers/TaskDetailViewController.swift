@@ -74,6 +74,7 @@ extension TaskDetailViewController: TaskDetailViewControllerPresenterDelegate {
     }
     
     func showTagPickerView() {
+        TextFieldManager.manager.resignFirstResponder()
         if popUpAnimator == nil {
             popUpAnimator = ViewPopUpAnimator(parentView: self.view, popupView: tagPickerView)
         }

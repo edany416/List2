@@ -22,6 +22,8 @@ class TaskListViewController: UIViewController {
     private var keepPopupAfterKeyBoardRemoval = true
     private var tagSearch: SearchManager!
     
+    private var tasks: [Task]!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         initializations()
@@ -41,6 +43,7 @@ class TaskListViewController: UIViewController {
     
     private func connectDelegateAndDataSources() {
         taskTableView.dataSource = taskTableViewDataSource
+        taskTableView.delegate = self
         tagTableViewSelectionManager.delegate = self
         tagsTextView.delegate = self
         tagPickerView!.delegate = self
@@ -62,13 +65,25 @@ class TaskListViewController: UIViewController {
     
     @objc private func loadData() {
         TestUtilities.setupDB(from: "tasks")
-        let tasks = (PersistanceManager.instance.fetchTasks())
+        tasks = (PersistanceManager.instance.fetchTasks())
         taskTableViewDataSource.updateTaskList(tasks)
         taskTableView.reloadData()
         
         let tags = PersistanceManager.instance.fetchTags()
         tagTableViewSelectionManager.set(selectionItems: tags, sortOrder: nil)
         tagSearch = SearchManager(tags.map({$0.name!}))
+    }
+}
+
+extension TaskListViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let task = tasks[indexPath.row]
+        if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TaskDetailVC") as? TaskDetailViewController
+        {
+            vc.task = task
+            present(vc, animated: true, completion: nil)
+        }
+        
     }
 }
 
