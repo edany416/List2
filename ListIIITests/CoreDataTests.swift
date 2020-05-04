@@ -72,6 +72,10 @@ class CoreDataTests: XCTestCase {
         testResult(expected: [], actual: tasks)
     }
     
+    func appendTagToTask() {
+        
+    }
+    
     func testResult(expected: [String], actual: [Task]) {
         var actualString: [String]? =  nil
         actualString = actual.map({$0.taskName!}).sorted(by: < )

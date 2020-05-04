@@ -10,10 +10,11 @@ import Foundation
 import UIKit
 
 class TaskTableViewDataSource: NSObject, UITableViewDataSource {
-    private var tasks: [Task]
+    private var tasks: [Task]!
     
-    override init() {
-        self.tasks = [Task]()
+    init(fromTasks tasks: [Task]) {
+        super.init()
+        self.tasks = tasks
     }
     
     func updateTaskList(_ tasks: [Task]) {

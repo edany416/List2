@@ -7,10 +7,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Task List View Controller-->
+        <!--Task List View Controller New-->
         <scene sceneID="jP9-yQ-WFE">
             <objects>
-                <viewController id="cxZ-1h-LR7" customClass="TaskListViewController" customModule="ListIII" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="cxZ-1h-LR7" customClass="TaskListViewControllerNew" customModule="ListIII" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="M23-Vx-4KA">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -25,9 +25,6 @@
                                 <state key="normal" title="New Todo">
                                     <color key="titleColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
-                                <connections>
-                                    <segue destination="LnQ-Ij-yGG" kind="show" id="tNK-nk-sNE"/>
-                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tags" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8yi-ok-Lcf">
                                 <rect key="frame" x="20" y="105" width="51.5" height="29"/>
@@ -111,8 +108,8 @@
                         <viewLayoutGuide key="safeArea" id="qVq-Tr-fTe"/>
                     </view>
                     <connections>
-                        <outlet property="tagsTextView" destination="cxy-qW-QmE" id="Jlk-3Q-cHN"/>
-                        <outlet property="taskTableView" destination="5OF-4U-Wxf" id="lsg-Qd-PEe"/>
+                        <outlet property="tagsTextView" destination="cxy-qW-QmE" id="u83-TH-scd"/>
+                        <outlet property="taskTableView" destination="5OF-4U-Wxf" id="6bc-aA-m8Z"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nuk-ZT-NuK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -139,11 +136,11 @@
             <objects>
                 <viewController storyboardIdentifier="TaskDetailVC" id="LnQ-Ij-yGG" customClass="TaskDetailViewController" customModule="ListIII" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="CAv-AU-BxG">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jAE-xV-WmU">
-                                <rect key="frame" x="358" y="8" width="36" height="30"/>
+                                <rect key="frame" x="358" y="52" width="36" height="30"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Save">
                                     <color key="titleColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -153,7 +150,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XJ3-cZ-aBg">
-                                <rect key="frame" x="20" y="8" width="47" height="30"/>
+                                <rect key="frame" x="20" y="52" width="47" height="30"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
                                 <state key="normal" title="Cancel">
                                     <color key="titleColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -163,26 +160,26 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tags" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LNR-t2-MbX">
-                                <rect key="frame" x="20" y="150" width="51.5" height="29"/>
+                                <rect key="frame" x="20" y="194" width="51.5" height="29"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Cq-H2-Ga6" customClass="TagsTextView" customModule="ListIII" customModuleProvider="target">
-                                <rect key="frame" x="20" y="187" width="374" height="150"/>
+                                <rect key="frame" x="20" y="231" width="374" height="150"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="150" id="ULi-4G-0xO"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="diS-jW-Iyw">
-                                <rect key="frame" x="207" y="23" width="0.0" height="0.0"/>
+                                <rect key="frame" x="207" y="67" width="0.0" height="0.0"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="A thing todo" textAlignment="natural" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iem-sO-Iag">
-                                <rect key="frame" x="20" y="66" width="374" height="48"/>
+                                <rect key="frame" x="20" y="110" width="374" height="48"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="40"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textField>

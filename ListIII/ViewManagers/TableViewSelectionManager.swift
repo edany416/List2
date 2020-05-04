@@ -18,6 +18,8 @@ struct TableViewCellDetails {
 protocol TableViewSelectionManagerDelegate: class {
     func updateSelectionItemsFor<T: Hashable & Comparable>(item: T, selected: Bool) -> [T]?
     func cellDetails<T: Hashable & Comparable>(forItem item: T) -> TableViewCellDetails
+    func didSelectItem<T: Hashable & Comparable>(_ item: T)
+    func didDeselectItem<T: Hashable & Comparable>(_ item: T)
 }
 
 protocol Selectable {
@@ -104,6 +106,7 @@ class TableViewSelectionManager<T: Hashable & Comparable>: NSObject, UITableView
                     self?.updateList(from: Set(updatedList), tableView)
                     self?.performRowUpdates(tableView, insertionUpdates: self!.insertionIndexPaths, deletionUpdates: self!.deletionIndexPaths, deletionAnimation: .fade, insertionAnimation: .fade, completion: nil)
                 }
+                self?.delegate?.didSelectItem(item)
             }
         } else {
             item = selectedItems.remove(at: indexPath.row)
@@ -116,6 +119,7 @@ class TableViewSelectionManager<T: Hashable & Comparable>: NSObject, UITableView
                 selectionItems.insert(item, at: indexOfInsertion)
                 performRowUpdates(tableView, insertionUpdates: [IndexPath(row: indexOfInsertion, section: 1)], deletionUpdates: [], deletionAnimation: .fade, insertionAnimation: .fade, completion: nil)
             }
+            self.delegate?.didDeselectItem(item)
             
         }
     }

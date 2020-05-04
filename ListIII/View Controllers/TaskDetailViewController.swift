@@ -18,6 +18,7 @@ class TaskDetailViewController: UIViewController {
     private var presenter: TaskDetailViewControllerPresenter!
     private var shouldKeepPopupAfterKeyboardRemoval: Bool!
     private var popupIsShowing: Bool!
+    private var addTagAlertController: UIAlertController!
     
     var task: Task?
     
@@ -29,7 +30,7 @@ class TaskDetailViewController: UIViewController {
         tagPickerView!.widthAnchor.constraint(equalToConstant: self.view.bounds.width*0.80).isActive = true
         tagPickerView!.heightAnchor.constraint(equalToConstant: self.view.bounds.height*0.30).isActive = true
         tagPickerView.topLeftButton.setTitle("Cancel", for: .normal)
-        tagPickerView.topRightButton.setTitle("Clear", for: .normal)
+        tagPickerView.topRightButton.setTitle("New Tag", for: .normal)
         tagPickerView.delegate = presenter
         tagPickerView.tableViewDelegate = presenter.selectionManager
         tagPickerView.tableViewDataSource = presenter.selectionManager
@@ -37,6 +38,20 @@ class TaskDetailViewController: UIViewController {
         taskNameTextfield.delegate = TextFieldManager.manager
         shouldKeepPopupAfterKeyboardRemoval = false
         popupIsShowing = false
+        configureAddTagAlertController()
+    }
+    
+    private func configureAddTagAlertController() {
+        addTagAlertController = UIAlertController(title: "Enter new tag", message: nil, preferredStyle: .alert)
+        addTagAlertController.addTextField(configurationHandler: nil)
+        let addAction = UIAlertAction(title: "Add", style: .default) { [unowned addTagAlertController] _ in
+            if let tag = addTagAlertController!.textFields![0].text {
+                self.presenter.addTag(tag, completion: {self.tagPickerView.reloadData()})
+            }
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .destructive, handler: nil)
+        addTagAlertController.addAction(addAction)
+        addTagAlertController.addAction(cancelAction)
     }
     
     @IBAction func didTapSave(_ sender: UIButton) {
@@ -57,6 +72,14 @@ class TaskDetailViewController: UIViewController {
 }
 
 extension TaskDetailViewController: TaskDetailViewControllerPresenterDelegate {
+    func presentNewTagForm() {
+        self.present(addTagAlertController, animated: true, completion: nil)
+    }
+    
+    func userPerformedTagSearch() {
+        tagPickerView.reloadData()
+    }
+    
     func performApplyActionForSelectedTags(_ tags: [String]) {
         tagsTextView.tags = tags
         dismissPopupActions()
@@ -64,12 +87,6 @@ extension TaskDetailViewController: TaskDetailViewControllerPresenterDelegate {
     
     func performCancelAction() {
         tagPickerView.reloadData()
-        dismissPopupActions()
-    }
-    
-    func performClearAction() {
-        tagPickerView.reloadData()
-        tagsTextView.tags = []
         dismissPopupActions()
     }
     

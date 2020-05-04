@@ -13,9 +13,10 @@ protocol TaskDetailViewControllerPresenterDelegate: class {
     func showTagPickerView()
     func performApplyActionForSelectedTags(_ tags: [String])
     func performCancelAction()
-    func performClearAction()
+    func presentNewTagForm()
     func saveDidSucceed()
     func saveDidFailWithMessage(_ message: String)
+    func userPerformedTagSearch()
 }
 
 class TaskDetailViewControllerPresenter {
@@ -26,6 +27,7 @@ class TaskDetailViewControllerPresenter {
     private(set) var selectionManager: TableViewSelectionManager<Tag>!
     private var revertSelectedTags: [Tag]!
     private var revertSelectionTags: [Tag]!
+    private var tagSearch: SearchManager!
     
     private enum SaveErrors: String {
         case emptyTaskName = "Task name field is empty"
@@ -38,6 +40,7 @@ class TaskDetailViewControllerPresenter {
         self.delegate = delegate
         isInEditMode = self.task != nil
         let allTags =  PersistanceManager.instance.fetchTags()
+        tagSearch = SearchManager(allTags.map({$0.name!}))
         selectionManager = TableViewSelectionManager()
         if self.task == nil {
             selectionManager.set(selectionItems: allTags, sortOrder: nil)
@@ -54,6 +57,16 @@ class TaskDetailViewControllerPresenter {
         revertSelectionTags = [Tag]()
     }
     
+    func addTag(_ tag: String, completion: (()->())?) {
+        let newTag = Tag(context: PersistanceManager.instance.context)
+        newTag.name = tag
+        var selectedTags = selectionManager.selectedItems
+        selectedTags.append(newTag)
+        selectionManager.set(selectedItems: selectedTags)
+        tagSearch.insertToSearchItems(tag)
+        completion?()
+    }
+    
     func save(_ task: String, _ tags: [String]) {
         if task.isEmpty && tags.isEmpty {
             delegate.saveDidFailWithMessage(SaveErrors.emptyForm.rawValue)
@@ -63,7 +76,7 @@ class TaskDetailViewControllerPresenter {
             delegate.saveDidFailWithMessage(SaveErrors.emptyTags.rawValue)
         } else {
             if isInEditMode {
-                //Code for updating a task
+                PersistanceManager.instance.updateTask(withId: self.task!.id!, task, associatedTags: tags)
             } else {
                 PersistanceManager.instance.createNewTask(task, associatedTags: tags)
             }
@@ -92,18 +105,28 @@ extension TaskDetailViewControllerPresenter: TagPickerViewDelegate {
     }
     
     func didTapTopRightButton() {
-        let allTags = PersistanceManager.instance.fetchTags()
-        selectionManager.set(selectionItems: allTags, sortOrder: nil)
-        selectionManager.set(selectedItems: [])
-        delegate.performClearAction()
+        delegate.presentNewTagForm()
     }
     
     func didSearch(for query: String) {
-        print("query")
+        let searchResults = tagSearch.searchResults(forQuery: query)
+        var resultTags = [Tag]()
+        searchResults.forEach({resultTags.append(PersistanceManager.instance.fetchTag(named: $0)!)})
+        selectionManager.set(selectionItems: resultTags, sortOrder: nil)
+        delegate.userPerformedTagSearch()
     }
 }
 
 extension TaskDetailViewControllerPresenter: TableViewSelectionManagerDelegate {
+    func didSelectItem<T>(_ item: T) where T : Comparable, T : Hashable {
+        let tag = item as! Tag
+        tagSearch.removeFromSearchItem(tag.name!)
+    }
+    
+    func didDeselectItem<T>(_ item: T) where T : Comparable, T : Hashable {
+        let tag = item as! Tag
+        tagSearch.insertToSearchItems(tag.name!)
+    }
     func updateSelectionItemsFor<T>(item: T, selected: Bool) -> [T]? where T : Comparable, T : Hashable {
         return nil
     }

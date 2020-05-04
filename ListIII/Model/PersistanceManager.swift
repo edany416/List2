@@ -61,13 +61,34 @@ class PersistanceManager {
         }
     }
     
+    func updateTask(withId taskId: String, _ name: String, associatedTags: [String]) {
+        let task = fetchTask(withId: taskId)
+        if task != nil {
+            task!.taskName = name
+            let currentAssociatedTags = task!.tags as! Set<Tag>
+            var newAssociatedTags = Set<Tag>()
+            for tagName in associatedTags {
+                let tag = PersistanceManager.instance.fetchTag(named: tagName)!
+                newAssociatedTags.insert(tag)
+            }
+            task!.tags = newAssociatedTags as NSSet
+            let removedTags = currentAssociatedTags.subtracting(newAssociatedTags)
+            removedTags.forEach({
+                if $0.tasks?.count == 0 {
+                    self.context.delete($0)
+                }
+            })
+            PersistanceManager.instance.saveContext()
+        }
+    }
+    
     func createNewTask(_ name: String, associatedTags: [String]) {
         let newTask = Task(context: PersistanceManager.instance.context)
         newTask.taskName = name
         newTask.id = UUID().uuidString
         
         for tagName in associatedTags {
-            PersistanceManager.instance.createTag(named: tagName)
+            let _ = PersistanceManager.instance.createTag(named: tagName)
             let tag = PersistanceManager.instance.fetchTag(named: tagName)!
             newTask.addToTags(tag)
         }

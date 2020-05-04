@@ -37,4 +37,8 @@ struct SearchManager {
     mutating func insertToSearchItems(_ item: String) {
         searchableItems.insert(item)
     }
+    
+    mutating func removeFromSearchItem(_ item: String) {
+        searchableItems.remove(item)
+    }
 }
