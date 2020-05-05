@@ -39,6 +39,7 @@ class FilterTagPickerPresenter {
     @objc private func modelDidUpdate() {
         loadData()
         tagPickerSelectionManager.set(selectionItems: tags, sortOrder: nil)
+        tagSearch = SearchManager(tags.map({$0.name!}))
     }
     
     func processSearchQuery(query: String, completion: (()->())?) {

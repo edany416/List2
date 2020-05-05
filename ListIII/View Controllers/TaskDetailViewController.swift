@@ -55,6 +55,7 @@ class TaskDetailViewController: UIViewController {
     }
     
     @IBAction func didTapSave(_ sender: UIButton) {
+        TextFieldManager.manager.unregister()
         presenter.save(taskNameTextfield.text!, tagsTextView.tags)
     }
     
