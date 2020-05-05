@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 class TaskTableViewDataSource: NSObject, UITableViewDataSource {
-    private var tasks: [Task]!
+    private(set) var tasks: [Task]!
     
     init(fromTasks tasks: [Task]) {
         super.init()

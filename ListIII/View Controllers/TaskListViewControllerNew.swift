@@ -16,14 +16,18 @@ class TaskListViewControllerNew: UIViewController {
     
     private var taskListPresenter: TaskListPresenter!
     private var filterTagPickerPresenter: FilterTagPickerPresenter!
+    private var tagsTextViewPresenter: TagsTextViewPresenter!
     
     private var popupAnimator: ViewPopUpAnimator!
+    private var keepPopupAfterKeyBoardRemoval = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         taskListPresenter = TaskListPresenter()
+        taskListPresenter.delegate = self
         taskTableView.dataSource = taskListPresenter.taskTableViewDataSource
+        taskTableView.delegate = self
         tagsTextView.delegate = self
                 
         tagPickerView = TagPickerView()
@@ -34,9 +38,15 @@ class TaskListViewControllerNew: UIViewController {
         tagPickerView.topRightButton.setTitle("Clear", for: .normal)
         
         filterTagPickerPresenter = FilterTagPickerPresenter()
+        filterTagPickerPresenter.delegate = self
         tagPickerView.tableViewDelegate = filterTagPickerPresenter.tagPickerSelectionManager
         tagPickerView.tableViewDataSource = filterTagPickerPresenter.tagPickerSelectionManager
         tagPickerView.reloadData()
+        
+        tagsTextViewPresenter = TagsTextViewPresenter()
+        tagsTextViewPresenter.delegate = self
+        
+        TextFieldManager.manager.register(self)
     }
 }
 
@@ -51,7 +61,9 @@ extension TaskListViewControllerNew: TagsTextViewDelegate {
         if popupAnimator == nil {
             popupAnimator = ViewPopUpAnimator(parentView: self.view, popupView: tagPickerView)
         }
+        keepPopupAfterKeyBoardRemoval = true
         popupAnimator.popup(withHeight: self.view.bounds.height * 0.30)
+        tagPickerView.reloadData()
     }
 }
 
@@ -59,30 +71,73 @@ extension TaskListViewControllerNew: TagPickerViewDelegate {
     func didTapMainButton() {
         filterTagPickerPresenter.applySelection(completion: {[weak self] in
             self?.popupAnimator.popdown()
+            self?.keepPopupAfterKeyBoardRemoval = false
+            TextFieldManager.manager.resignFirstResponder()
         })
     }
     
     func didTapTopLeftButton() {
         filterTagPickerPresenter.cancelPendingActions(completion: {[weak self] in
             self?.popupAnimator.popdown()
+            self?.keepPopupAfterKeyBoardRemoval = false
+            TextFieldManager.manager.resignFirstResponder()
         })
     }
     
     func didTapTopRightButton() {
-        filterTagPickerPresenter.clearTags(completion: nil)
+        filterTagPickerPresenter.clearTags(completion: {[weak self] in
+            self?.tagsTextView.tags = []
+            self?.popupAnimator.popdown()
+            self?.keepPopupAfterKeyBoardRemoval = false
+            TextFieldManager.manager.resignFirstResponder()
+        })
     }
     
     func didSearch(for query: String) {
-        filterTagPickerPresenter.processSearchQuery(query: query, completion: nil)
+        filterTagPickerPresenter.processSearchQuery(query: query, completion: {[weak self] in
+            self?.tagPickerView.reloadData()
+        })
     }
 }
 
 extension TaskListViewControllerNew: FilterTagPickerPresenterDelegate {
-    func tagPickerShouldUpdate() {
-        print("")
+    func selectionItemsDidUpdate() {
+        tagPickerView.clearSearchBar()
+    }
+}
+
+extension TaskListViewControllerNew: TagsTextViewPresenterDelegate {
+    func shouldUpdateTags(_ tags: [String]) {
+        tagsTextView.tags = tags
+    }
+}
+
+extension TaskListViewControllerNew: TextFieldManagerDelegate {
+    func keyboardWillShow(_ textField: UITextField, _ keyboardRect: CGRect) {
+        if self.view.bounds.height * 0.30 <= keyboardRect.height {
+            popupAnimator!.popup(withHeight: keyboardRect.height + 20)
+        }
     }
     
-    func selectionItemDidUpdate() {
-        tagPickerView.clearSearchBar()
+    func keyboardWillHide() {
+        if keepPopupAfterKeyBoardRemoval {
+            popupAnimator.popup(withHeight: self.view.bounds.height * 0.30)
+        } else {
+            //popupAnimator.popdown()
+        }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+}
+
+extension TaskListViewControllerNew: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let newTaskViewController = storyboard.instantiateViewController(identifier: "TaskDetailVC") as! TaskDetailViewController
+        newTaskViewController.task = taskListPresenter.task(at: indexPath.row)
+        self.present(newTaskViewController, animated: true, completion: nil)
     }
 }

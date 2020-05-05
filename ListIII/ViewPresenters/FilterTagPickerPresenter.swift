@@ -9,8 +9,7 @@
 import Foundation
 
 protocol FilterTagPickerPresenterDelegate: class {
-    func tagPickerShouldUpdate()
-    func selectionItemDidUpdate()
+    func selectionItemsDidUpdate()
 }
 
 class FilterTagPickerPresenter {
@@ -29,10 +28,17 @@ class FilterTagPickerPresenter {
         tagPickerSelectionManager.set(selectionItems: tags, sortOrder: nil)
         taskFilter = TaskFilter()
         tagSearch = SearchManager(tags.map({$0.name!}))
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(modelDidUpdate), name: .NSManagedObjectContextDidSave, object: nil)
     }
     
     @objc private func loadData() {
         tags = PersistanceManager.instance.fetchTags()
+    }
+    
+    @objc private func modelDidUpdate() {
+        loadData()
+        tagPickerSelectionManager.set(selectionItems: tags, sortOrder: nil)
     }
     
     func processSearchQuery(query: String, completion: (()->())?) {
@@ -45,11 +51,15 @@ class FilterTagPickerPresenter {
     
     func applySelection(completion: (()->())?) {
         taskFilter.applyFilter()
+        var tasks = [Task]()
+        let tags = tagPickerSelectionManager.selectedItems
         if let filteredTasks = taskFilter.appliedIntersection {
-            //Here we need to let task table view know that it needs to be updated
+            tasks = filteredTasks
         } else {
-            //Here we need to let task table view know it needs to be updated with all tasks
+            tasks = PersistanceManager.instance.fetchTasks()
         }
+        NotificationCenter.default.post(name: Notification.Name.TagsChagnedNotification, object: nil, userInfo: ["Tasks":tasks])
+        NotificationCenter.default.post(name: Notification.Name.SelectedTagsDidChangeNotification, object: nil, userInfo: ["Tags":tags])
         completion?()
     }
     
@@ -58,11 +68,9 @@ class FilterTagPickerPresenter {
         let allTags = PersistanceManager.instance.fetchTags()
         tagPickerSelectionManager.set(selectionItems: allTags, sortOrder: nil)
         tagPickerSelectionManager.set(selectedItems: [])
-        delegate?.tagPickerShouldUpdate()
         tagSearch.resetSearchItem(from: allTags.map({$0.name!}))
-        
-        //Need to notify task list to reset tasks
-        
+        let tasks = PersistanceManager.instance.fetchTasks()
+        NotificationCenter.default.post(name: Notification.Name.TagsChagnedNotification, object: nil, userInfo: ["Tasks":tasks])
         completion?()
     }
     
@@ -72,7 +80,6 @@ class FilterTagPickerPresenter {
         let associated = Util.associatedTags(for: applied)
         tagPickerSelectionManager.set(selectedItems: applied)
         tagPickerSelectionManager.set(selectionItems: associated, sortOrder: nil)
-        delegate?.tagPickerShouldUpdate()
         completion?()
     }
 }
@@ -88,7 +95,7 @@ extension FilterTagPickerPresenter: TableViewSelectionManagerDelegate {
         let pendingTags = taskFilter.pendingTags!
         let associatedTags = Util.associatedTags(for: pendingTags)
         tagSearch.resetSearchItem(from: associatedTags.map({$0.name!}))
-        
+        delegate?.selectionItemsDidUpdate()
         return associatedTags as? [T]
     }
     
@@ -101,10 +108,15 @@ extension FilterTagPickerPresenter: TableViewSelectionManagerDelegate {
     }
     
     func didSelectItem<T>(_ item: T) where T : Comparable, T : Hashable {
-        print("")
+        
     }
     
     func didDeselectItem<T>(_ item: T) where T : Comparable, T : Hashable {
-        print("")
+        
     }
+}
+
+extension Notification.Name {
+    static let TagsChagnedNotification = Notification.Name("tagsChangedNotification")
+    static let SelectedTagsDidChangeNotification = Notification.Name("selectedTagsDidChange")
 }

@@ -25,6 +25,11 @@ class TaskListPresenter {
     init() {
         loadData()
         NotificationCenter.default.addObserver(self, selector: #selector(modelUpdated), name: .NSManagedObjectContextDidSave, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(tagsChangedListener(_:)), name: .TagsChagnedNotification, object: nil)
+    }
+    
+    func task(at index: Int) -> Task {
+        return taskTableViewDataSource.tasks[index]
     }
     
     private func loadData() {
@@ -38,6 +43,14 @@ class TaskListPresenter {
         loadData()
         taskTableViewDataSource.updateTaskList(tasks)
         delegate?.updateTaskList(tasks.map({$0.taskName!}))
+    }
+    
+    @objc private func tagsChangedListener(_ notification: NSNotification) {
+        if let tasks = notification.userInfo?["Tasks"] as? [Task] {
+            self.tasks = tasks
+            taskTableViewDataSource.updateTaskList(tasks)
+            delegate?.updateTaskList(self.tasks.map({$0.taskName!}))
+        }
     }
 }
 
