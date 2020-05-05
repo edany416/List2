@@ -14,6 +14,7 @@
 		E242872B245FDBB1001F5C5C /* TaskListViewControllerNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = E242872A245FDBB1001F5C5C /* TaskListViewControllerNew.swift */; };
 		E242872D245FED5A001F5C5C /* FilterTagPickerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E242872C245FED5A001F5C5C /* FilterTagPickerPresenter.swift */; };
 		E242872F246091AC001F5C5C /* TagsTextViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E242872E246091AC001F5C5C /* TagsTextViewPresenter.swift */; };
+		E2428731246136D9001F5C5C /* AlertFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2428730246136D9001F5C5C /* AlertFactory.swift */; };
 		E256C78224159EB900E1D27F /* TagPickerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E256C78124159EB900E1D27F /* TagPickerManager.swift */; };
 		E26C3E292431BD3A00E6FC2B /* TagsTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26C3E282431BD3A00E6FC2B /* TagsTextField.swift */; };
 		E26C3E4B2435B5AD00E6FC2B /* TextFieldManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26C3E4A2435B5AD00E6FC2B /* TextFieldManager.swift */; };
@@ -84,6 +85,7 @@
 		E242872A245FDBB1001F5C5C /* TaskListViewControllerNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListViewControllerNew.swift; sourceTree = "<group>"; };
 		E242872C245FED5A001F5C5C /* FilterTagPickerPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterTagPickerPresenter.swift; sourceTree = "<group>"; };
 		E242872E246091AC001F5C5C /* TagsTextViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsTextViewPresenter.swift; sourceTree = "<group>"; };
+		E2428730246136D9001F5C5C /* AlertFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertFactory.swift; sourceTree = "<group>"; };
 		E256C78124159EB900E1D27F /* TagPickerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagPickerManager.swift; sourceTree = "<group>"; };
 		E26C3E282431BD3A00E6FC2B /* TagsTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsTextField.swift; sourceTree = "<group>"; };
 		E26C3E4A2435B5AD00E6FC2B /* TextFieldManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldManager.swift; sourceTree = "<group>"; };
@@ -231,6 +233,7 @@
 				E20071E024256AB1004F2E14 /* SearchBar.swift */,
 				E2D41918243186E30075C3C1 /* UnderlinedTextField.swift */,
 				E26C3E282431BD3A00E6FC2B /* TagsTextField.swift */,
+				E2428730246136D9001F5C5C /* AlertFactory.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -500,6 +503,7 @@
 				E2EB8EA9241609D500EF20D5 /* Util.swift in Sources */,
 				E2E5773D24085CD800AFC9B2 /* Tag+CoreDataProperties.swift in Sources */,
 				E26C3E4B2435B5AD00E6FC2B /* TextFieldManager.swift in Sources */,
+				E2428731246136D9001F5C5C /* AlertFactory.swift in Sources */,
 				E2ECAB322410914D00A317AA /* TagPickerCell.swift in Sources */,
 				E242872D245FED5A001F5C5C /* FilterTagPickerPresenter.swift in Sources */,
 				E2ECAB452414E61700A317AA /* TagPickerView.swift in Sources */,

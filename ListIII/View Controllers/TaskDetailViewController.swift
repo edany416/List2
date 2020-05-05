@@ -19,6 +19,15 @@ class TaskDetailViewController: UIViewController {
     private var shouldKeepPopupAfterKeyboardRemoval: Bool!
     private var popupIsShowing: Bool!
     private var addTagAlertController: UIAlertController!
+    private var popupviewHeight: CGFloat {
+        return UIScreen.main.bounds.height * 0.40
+    }
+    private var popupViewPopupHeight: CGFloat {
+        return UIScreen.main.bounds.height * 0.40
+    }
+    private var buttonTitle: String {
+        return "Select Tags (\(presenter.selectionManager.selectedItems.count))"
+    }
     
     var task: Task?
     
@@ -28,7 +37,7 @@ class TaskDetailViewController: UIViewController {
         tagsTextView.delegate = presenter
         tagPickerView = TagPickerView()
         tagPickerView!.widthAnchor.constraint(equalToConstant: self.view.bounds.width*0.80).isActive = true
-        tagPickerView!.heightAnchor.constraint(equalToConstant: self.view.bounds.height*0.30).isActive = true
+        tagPickerView!.heightAnchor.constraint(equalToConstant: popupviewHeight).isActive = true
         tagPickerView.topLeftButton.setTitle("Cancel", for: .normal)
         tagPickerView.topRightButton.setTitle("New Tag", for: .normal)
         tagPickerView.delegate = presenter
@@ -55,7 +64,6 @@ class TaskDetailViewController: UIViewController {
     }
     
     @IBAction func didTapSave(_ sender: UIButton) {
-        TextFieldManager.manager.unregister()
         presenter.save(taskNameTextfield.text!, tagsTextView.tags)
     }
     
@@ -73,6 +81,10 @@ class TaskDetailViewController: UIViewController {
 }
 
 extension TaskDetailViewController: TaskDetailViewControllerPresenterDelegate {
+    func selectedTagsDidChange() {
+        tagPickerView.mainButton.setTitle(buttonTitle, for: .normal)
+    }
+    
     func presentNewTagForm() {
         self.present(addTagAlertController, animated: true, completion: nil)
     }
@@ -96,17 +108,19 @@ extension TaskDetailViewController: TaskDetailViewControllerPresenterDelegate {
         if popUpAnimator == nil {
             popUpAnimator = ViewPopUpAnimator(parentView: self.view, popupView: tagPickerView)
         }
-        popUpAnimator.popup(withHeight: self.view.bounds.height * 0.30)
+        tagPickerView.mainButton.setTitle(buttonTitle, for: .normal)
+        popUpAnimator.popup(withHeight: popupViewPopupHeight)
         shouldKeepPopupAfterKeyboardRemoval = true
         popupIsShowing = true
     }
     
     func saveDidSucceed() {
+        TextFieldManager.manager.unregister()
         self.dismiss(animated: true, completion: nil)
     }
     
-    func saveDidFailWithMessage(_ message: String) {
-        print(message)
+    func saveDidFailWithMessage(_ error: ErrorType) {
+        self.present(AlertFactory.createAlert(ofType: error), animated: true, completion: nil)
     }
     
     func shouldConfigureForEditMode(_ editting: Bool, _ taskName: String, _ tags: [String]) {
@@ -122,7 +136,7 @@ extension TaskDetailViewController: TaskDetailViewControllerPresenterDelegate {
 
 extension TaskDetailViewController: TextFieldManagerDelegate {
     func keyboardWillShow(_ textField: UITextField, _ keyboardRect: CGRect) {
-        if popupIsShowing && self.view.bounds.height * 0.30 <= keyboardRect.height {
+        if popupIsShowing && popupViewPopupHeight - 50 <= keyboardRect.height {
             popUpAnimator!.popup(withHeight: keyboardRect.height + 20)
         }
     }
@@ -130,7 +144,7 @@ extension TaskDetailViewController: TextFieldManagerDelegate {
     func keyboardWillHide() {
         if popupIsShowing {
             if shouldKeepPopupAfterKeyboardRemoval {
-                popUpAnimator.popup(withHeight: self.view.bounds.height * 0.30)
+                popUpAnimator.popup(withHeight: popupViewPopupHeight)
             } else {
                 popUpAnimator.popdown()
             }

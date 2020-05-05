@@ -15,8 +15,9 @@ protocol TaskDetailViewControllerPresenterDelegate: class {
     func performCancelAction()
     func presentNewTagForm()
     func saveDidSucceed()
-    func saveDidFailWithMessage(_ message: String)
+    func saveDidFailWithMessage(_ error: ErrorType)
     func userPerformedTagSearch()
+    func selectedTagsDidChange()
 }
 
 class TaskDetailViewControllerPresenter {
@@ -29,11 +30,6 @@ class TaskDetailViewControllerPresenter {
     private var revertSelectionTags: [Tag]!
     private var tagSearch: SearchManager!
     
-    private enum SaveErrors: String {
-        case emptyTaskName = "Task name field is empty"
-        case emptyTags = "No tags have been selected"
-        case emptyForm = "Must add task name and tags"
-    }
     
     init(_ task: Task?, _ delegate: TaskDetailViewControllerPresenterDelegate) {
         self.task = task
@@ -69,11 +65,11 @@ class TaskDetailViewControllerPresenter {
     
     func save(_ task: String, _ tags: [String]) {
         if task.isEmpty && tags.isEmpty {
-            delegate.saveDidFailWithMessage(SaveErrors.emptyForm.rawValue)
+            delegate.saveDidFailWithMessage(.emptyForm)
         } else if task.isEmpty {
-            delegate.saveDidFailWithMessage(SaveErrors.emptyTaskName.rawValue)
+            delegate.saveDidFailWithMessage(.emptyTaskName)
         } else if tags.isEmpty {
-            delegate.saveDidFailWithMessage(SaveErrors.emptyTags.rawValue)
+            delegate.saveDidFailWithMessage(.emptyTags)
         } else {
             if isInEditMode {
                 PersistanceManager.instance.updateTask(withId: self.task!.id!, task, associatedTags: tags)
@@ -121,11 +117,13 @@ extension TaskDetailViewControllerPresenter: TableViewSelectionManagerDelegate {
     func didSelectItem<T>(_ item: T) where T : Comparable, T : Hashable {
         let tag = item as! Tag
         tagSearch.removeFromSearchItem(tag.name!)
+        delegate?.selectedTagsDidChange()
     }
     
     func didDeselectItem<T>(_ item: T) where T : Comparable, T : Hashable {
         let tag = item as! Tag
         tagSearch.insertToSearchItems(tag.name!)
+        delegate?.selectedTagsDidChange()
     }
     func updateSelectionItemsFor<T>(item: T, selected: Bool) -> [T]? where T : Comparable, T : Hashable {
         return nil

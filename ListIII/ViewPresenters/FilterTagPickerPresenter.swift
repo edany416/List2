@@ -10,6 +10,7 @@ import Foundation
 
 protocol FilterTagPickerPresenterDelegate: class {
     func selectionItemsDidUpdate()
+    func selectedItemsDidChange()
 }
 
 class FilterTagPickerPresenter {
@@ -109,11 +110,11 @@ extension FilterTagPickerPresenter: TableViewSelectionManagerDelegate {
     }
     
     func didSelectItem<T>(_ item: T) where T : Comparable, T : Hashable {
-        
+        delegate?.selectedItemsDidChange()
     }
     
     func didDeselectItem<T>(_ item: T) where T : Comparable, T : Hashable {
-        
+        delegate?.selectedItemsDidChange()
     }
 }
 
