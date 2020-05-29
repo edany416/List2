@@ -15,6 +15,9 @@ protocol TaskDetailBasePresenterDelegate: class {
     func updateTags(fromSelectedTags tags: [String])
     func populateTaskNameField(_ taskName: String)
     func reloadTagPickerView()
+    func selectedTagsDidChange(_ selected: [Tag])
+    func showAddTagForm()
+    func showDuplicateTagErrorAlert()
 }
 
 class TaskDetailBasePresenter {
@@ -24,6 +27,11 @@ class TaskDetailBasePresenter {
     private(set) var selectionTagPickerPresenter: SelectionTagPickerPresenter!
     
     var task: Task?
+    var newTag: String! {
+        willSet {
+            selectionTagPickerPresenter.addTag(withName: newValue)
+        }
+    }
     weak var delegate: TaskDetailBasePresenterDelegate? {
         didSet {
             if task != nil {
@@ -70,6 +78,18 @@ class TaskDetailBasePresenter {
 }
 
 extension TaskDetailBasePresenter: SelectionTagPickerPresenterDelegate {
+    func duplicateTagError() {
+        delegate?.showDuplicateTagErrorAlert()
+    }
+    
+    func performAddTagAction() {
+        delegate?.showAddTagForm()
+    }
+    
+    func selectedTagsDidChange(_ selected: [Tag]) {
+        delegate?.selectedTagsDidChange(selected)
+    }
+    
     func userDidSelectTags(_ tags: [Tag]) {
         delegate?.updateTags(fromSelectedTags: tags.map({$0.name!}))
         delegate?.dismissTagPickerView()

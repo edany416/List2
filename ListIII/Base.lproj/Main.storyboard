@@ -194,12 +194,6 @@
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="40"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B9F-rY-XlG">
-                                <rect key="frame" x="186" y="57" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -209,14 +203,11 @@
                             <constraint firstItem="XJ3-cZ-aBg" firstAttribute="top" secondItem="viY-OF-iu7" secondAttribute="top" constant="8" id="Or2-KF-3Vw"/>
                             <constraint firstItem="viY-OF-iu7" firstAttribute="trailing" secondItem="iem-sO-Iag" secondAttribute="trailing" constant="20" id="S4r-Rp-un8"/>
                             <constraint firstItem="XJ3-cZ-aBg" firstAttribute="leading" secondItem="viY-OF-iu7" secondAttribute="leading" constant="20" id="VEE-j5-D7R"/>
-                            <constraint firstItem="B9F-rY-XlG" firstAttribute="top" secondItem="viY-OF-iu7" secondAttribute="top" constant="13" id="Xgb-S5-r06"/>
                             <constraint firstItem="6Cq-H2-Ga6" firstAttribute="top" secondItem="LNR-t2-MbX" secondAttribute="bottom" constant="8" id="h2i-a6-sTy"/>
                             <constraint firstItem="6Cq-H2-Ga6" firstAttribute="leading" secondItem="viY-OF-iu7" secondAttribute="leading" constant="20" id="hbt-ui-UlD"/>
-                            <constraint firstItem="jAE-xV-WmU" firstAttribute="leading" secondItem="B9F-rY-XlG" secondAttribute="trailing" constant="130" id="k8F-ms-M5Q"/>
                             <constraint firstItem="jAE-xV-WmU" firstAttribute="top" secondItem="viY-OF-iu7" secondAttribute="top" constant="8" id="mUG-fl-Db4"/>
                             <constraint firstItem="iem-sO-Iag" firstAttribute="leading" secondItem="viY-OF-iu7" secondAttribute="leading" constant="20" id="p5O-Al-hUx"/>
                             <constraint firstItem="viY-OF-iu7" firstAttribute="trailing" secondItem="6Cq-H2-Ga6" secondAttribute="trailing" constant="20" id="sXi-vh-mq8"/>
-                            <constraint firstItem="B9F-rY-XlG" firstAttribute="leading" secondItem="XJ3-cZ-aBg" secondAttribute="trailing" constant="119" id="t0j-Sh-Jpp"/>
                             <constraint firstItem="viY-OF-iu7" firstAttribute="trailing" secondItem="jAE-xV-WmU" secondAttribute="trailing" constant="20" id="vYz-SZ-zCZ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="viY-OF-iu7"/>
@@ -225,7 +216,6 @@
                     <connections>
                         <outlet property="tagsTextView" destination="6Cq-H2-Ga6" id="1Se-hX-M4A"/>
                         <outlet property="taskNameTextField" destination="iem-sO-Iag" id="6ad-bY-2vc"/>
-                        <outlet property="titleLabel" destination="B9F-rY-XlG" id="wCF-mH-sfK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vwa-N2-c2t" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

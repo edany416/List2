@@ -12,21 +12,17 @@ class TaskDetailViewControllerNew: UIViewController {
 
     @IBOutlet private weak var taskNameTextField: UITextField!
     @IBOutlet private weak var tagsTextView: TagsTextView!
-    @IBOutlet private weak var titleLabel: UILabel!
     private var tagPickerView: TagPickerView!
     private var popupAnimator: ViewPopUpAnimator!
     private var presenter: TaskDetailBasePresenter!
     private var shouldKeepPopupAfterKeyboardRemoval: Bool!
     private var popupIsShowing: Bool!
+    private var addTagAlertController: UIAlertController!
     private var popupviewHeight: CGFloat {
         return UIScreen.main.bounds.height * 0.40
     }
     private var popupViewPopupHeight: CGFloat {
         return UIScreen.main.bounds.height * 0.40
-    }
-    private var buttonTitle: String {
-        //return "Select Tags (\(presenter.selectionManager.selectedItems.count))"
-        return "Button title"
     }
     
     var task: Task?
@@ -47,7 +43,24 @@ class TaskDetailViewControllerNew: UIViewController {
         tagPickerView.tableViewDataSource = presenter.selectionTagPickerPresenter.selectionManager
         shouldKeepPopupAfterKeyboardRemoval = false
         popupIsShowing = false
+        configureAddTagAlertController()
         TextFieldManager.manager.register(self)
+        taskNameTextField.delegate = TextFieldManager.manager
+    }
+    
+    private func configureAddTagAlertController() {
+        addTagAlertController = UIAlertController(title: "Enter new tag", message: nil, preferredStyle: .alert)
+        addTagAlertController.addTextField(configurationHandler: nil)
+        let addAction = UIAlertAction(title: "Add", style: .default) { [weak addTagAlertController, weak self] _ in
+            if let tagName = addTagAlertController!.textFields![0].text {
+                self!.presenter.newTag = tagName
+                addTagAlertController!.textFields![0].text = ""
+            }
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .destructive, handler: nil)
+        addTagAlertController.addAction(addAction)
+        addTagAlertController.addAction(cancelAction)
     }
     
     @IBAction func didTapCancel(_ sender: UIButton) {
@@ -73,6 +86,19 @@ class TaskDetailViewControllerNew: UIViewController {
 }
 
 extension TaskDetailViewControllerNew: TaskDetailBasePresenterDelegate {
+    func showDuplicateTagErrorAlert() {
+        present(AlertFactory.createAlert(ofType: .duplicateTagCreated), animated: true, completion: nil)
+    }
+    
+    func showAddTagForm() {
+        self.present(addTagAlertController, animated: true, completion: nil)
+    }
+    
+    func selectedTagsDidChange(_ selected: [Tag]) {
+        tagPickerView.mainButton.setTitle("Select Tags (\(selected.count))", for: .normal)
+        tagPickerView.reloadData()
+    }
+    
     func populateTaskNameField(_ taskName: String) {
         taskNameTextField.text = taskName
     }
@@ -91,7 +117,7 @@ extension TaskDetailViewControllerNew: TaskDetailBasePresenterDelegate {
     }
     
     func saveDidFailWithError(_ error: ErrorType) {
-        print(error)
+        self.present(AlertFactory.createAlert(ofType: error), animated: true, completion: nil)
     }
 
     func dismissTagPickerView() {
@@ -106,9 +132,10 @@ extension TaskDetailViewControllerNew: TagsTextViewDelegate {
         if popupAnimator == nil {
             popupAnimator = ViewPopUpAnimator(parentView: self.view, popupView: tagPickerView)
         }
-        tagPickerView.mainButton.setTitle(buttonTitle, for: .normal)
+        tagPickerView.mainButton.setTitle("Select Tags (\(presenter.selectionTagPickerPresenter.selectionManager.selectedItems.count))", for: .normal)
         popupAnimator.popup(withHeight: popupViewPopupHeight)
         shouldKeepPopupAfterKeyboardRemoval = true
+        popupIsShowing = true
         
     }
 }

@@ -12,6 +12,9 @@ protocol SelectionTagPickerPresenterDelegate: class {
     func userDidPerformTagSearch()
     func perfomCancelAction()
     func userDidSelectTags(_ tags: [Tag])
+    func selectedTagsDidChange(_ selected: [Tag])
+    func performAddTagAction()
+    func duplicateTagError()
 }
 
 class SelectionTagPickerPresenter {
@@ -42,6 +45,20 @@ class SelectionTagPickerPresenter {
         selectionManager.set(selectionItems: selectionTags, sortOrder: < )
         tagSearch = SearchManager(selectionTags.map({$0.name!}))
     }
+    
+    func addTag(withName tagName: String) {
+        if PersistanceServices.instance.tagExists(tagName) {
+            delegate?.duplicateTagError()
+        } else {
+            let newTag = Tag(context: PersistanceManager.instance.context)
+            newTag.name = tagName
+            var selected = selectionManager.selectedItems
+            selected.append(newTag)
+            selectionManager.set(selectedItems: selected)
+            addedTags.append(newTag)
+            delegate?.selectedTagsDidChange(selectionManager.selectedItems)
+        }
+    }
 }
 
 extension SelectionTagPickerPresenter: TableViewSelectionManagerDelegate {
@@ -60,11 +77,13 @@ extension SelectionTagPickerPresenter: TableViewSelectionManagerDelegate {
     func didSelectItem<T>(_ item: T) where T : Comparable, T : Hashable {
         let tag = item as! Tag
         tagSearch.removeFromSearchItem(tag.name!)
+        delegate?.selectedTagsDidChange(selectionManager.selectedItems)
     }
     
     func didDeselectItem<T>(_ item: T) where T : Comparable, T : Hashable {
         let tag = item as! Tag
         tagSearch.insertToSearchItems(tag.name!)
+        delegate?.selectedTagsDidChange(selectionManager.selectedItems)
     }
 }
 
@@ -84,7 +103,7 @@ extension SelectionTagPickerPresenter: TagPickerViewDelegate {
     }
     
     func didTapTopRightButton() {
-        print("Did tap top right")
+        delegate?.performAddTagAction()
     }
     
     func didSearch(for query: String) {
