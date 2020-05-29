@@ -17,7 +17,7 @@ class TaskDetailViewController: UIViewController {
     private var popUpAnimator: ViewPopUpAnimator!
     private var presenter: TaskDetailViewControllerPresenter!
     private var shouldKeepPopupAfterKeyboardRemoval: Bool!
-    private var popupIsShowing: Bool!
+    private var popupIsShowing: Bool! //Use the value of the property in the base presenter
     private var addTagAlertController: UIAlertController!
     private var popupviewHeight: CGFloat {
         return UIScreen.main.bounds.height * 0.40
@@ -81,6 +81,10 @@ class TaskDetailViewController: UIViewController {
 }
 
 extension TaskDetailViewController: TaskDetailViewControllerPresenterDelegate {
+    func duplicateTagAdded(_ tagName: String) {
+        self.present(AlertFactory.createAlert(ofType: .duplicateTagCreated), animated: true, completion: nil)
+    }
+    
     func selectedTagsDidChange() {
         tagPickerView.mainButton.setTitle(buttonTitle, for: .normal)
     }

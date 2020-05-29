@@ -1,0 +1,85 @@
+//
+//  TaskDetailBasePresenter.swift
+//  ListIII
+//
+//  Created by Edan on 5/28/20.
+//  Copyright © 2020 Edan. All rights reserved.
+//
+
+import Foundation
+
+protocol TaskDetailBasePresenterDelegate: class {
+    func saveDidSucceed()
+    func saveDidFailWithError(_ error: ErrorType)
+    func dismissTagPickerView()
+    func updateTags(fromSelectedTags tags: [String])
+    func populateTaskNameField(_ taskName: String)
+    func reloadTagPickerView()
+}
+
+class TaskDetailBasePresenter {
+    
+    private var tagPickerIsShowing: Bool!
+    private var tagsTextViewPresenter: TagsTextViewPresenter!
+    private(set) var selectionTagPickerPresenter: SelectionTagPickerPresenter!
+    
+    var task: Task?
+    weak var delegate: TaskDetailBasePresenterDelegate? {
+        didSet {
+            if task != nil {
+                let tagsList = (task?.tags!.allObjects as! [Tag]).map({$0.name!})
+                delegate?.populateTaskNameField(task!.taskName!)
+                delegate?.updateTags(fromSelectedTags: tagsList.sorted(by: <))
+            }
+        }
+    }
+    
+    init(_ task: Task?) {
+        tagPickerIsShowing = false
+        tagsTextViewPresenter = TagsTextViewPresenter()
+        self.task = task
+        if task == nil {
+            NotificationCenter.default.addObserver(self, selector: #selector(saveDidSucceed), name: .DidCreateNewTaskNotification, object: nil)
+        } else {
+            NotificationCenter.default.addObserver(self, selector: #selector(saveDidSucceed), name: .DidEditTaskNotification, object: nil)
+        }
+        selectionTagPickerPresenter = SelectionTagPickerPresenter(self.task)
+        selectionTagPickerPresenter.delegate = self
+    }
+    
+    func save(_ task: String, _ tags: [String]) {
+        if task.isEmpty && tags.isEmpty {
+            delegate?.saveDidFailWithError(.emptyForm)
+        } else if task.isEmpty {
+            delegate?.saveDidFailWithError(.emptyTaskName)
+        } else if tags.isEmpty {
+            delegate?.saveDidFailWithError(.emptyTags)
+        } else {
+            if self.task != nil {
+                PersistanceServices.instance.editTask(withId: self.task!.id!, taskName: task, associatedTags: tags)
+            } else {
+                PersistanceServices.instance.saveNewTask(task, tags)
+            }
+        }
+    }
+    
+    @objc private func saveDidSucceed() {
+        NotificationCenter.default.removeObserver(self)
+        delegate?.saveDidSucceed()
+    }
+}
+
+extension TaskDetailBasePresenter: SelectionTagPickerPresenterDelegate {
+    func userDidSelectTags(_ tags: [Tag]) {
+        delegate?.updateTags(fromSelectedTags: tags.map({$0.name!}))
+        delegate?.dismissTagPickerView()
+    }
+    
+    func perfomCancelAction() {
+        delegate?.dismissTagPickerView()
+    }
+    
+    func userDidPerformTagSearch() {
+        delegate?.reloadTagPickerView()
+    }
+}

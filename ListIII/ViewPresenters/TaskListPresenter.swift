@@ -10,10 +10,12 @@ import Foundation
 
 protocol TaskListPresenterDelegate: class {
     func updateTaskList(_ tasks: [String])
+    func removeTask(at index: Int)
 }
 
 class TaskListPresenter {
     private var tasks: [Task]!
+    private var indexOfCompletedTask: Int?
     var taskTableViewDataSource: TaskTableViewDataSource!
     
     weak var delegate: TaskListPresenterDelegate? {
@@ -24,12 +26,22 @@ class TaskListPresenter {
     
     init() {
         loadData()
-        NotificationCenter.default.addObserver(self, selector: #selector(modelUpdated), name: .NSManagedObjectContextDidSave, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(tagsChangedListener(_:)), name: .TagsChagnedNotification, object: nil)
+        //NotificationCenter.default.addObserver(self, selector: #selector(modelUpdated), name: .NSManagedObjectContextDidSave, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(modelUpdated), name: .DidCreateNewTaskNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(modelUpdated), name: .DidEditTaskNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleTaskCompletion), name: .DidDeleteTaskNotification, object: nil)
+        //NotificationCenter.default.addObserver(self, selector: #selector(tagsChangedListener(_:)), name: .TagsChagnedNotification, object: nil)
+        
     }
     
     func task(at index: Int) -> Task {
         return taskTableViewDataSource.tasks[index]
+    }
+    
+    func completeTask(at index: Int) {
+        indexOfCompletedTask = index
+        let task = tasks[indexOfCompletedTask!]
+        PersistanceServices.instance.deleteTask(taskId: task.id!)
     }
     
     private func loadData() {
@@ -45,6 +57,14 @@ class TaskListPresenter {
         delegate?.updateTaskList(tasks.map({$0.taskName!}))
     }
     
+    @objc private func handleTaskCompletion() {
+        loadData()
+        taskTableViewDataSource.updateTaskList(tasks)
+        delegate?.removeTask(at: indexOfCompletedTask!)
+        indexOfCompletedTask = nil
+    }
+    
+    //Update tasks based on selected tags
     @objc private func tagsChangedListener(_ notification: NSNotification) {
         if let tasks = notification.userInfo?["Tasks"] as? [Task] {
             self.tasks = tasks

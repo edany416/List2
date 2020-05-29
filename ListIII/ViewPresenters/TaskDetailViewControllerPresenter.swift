@@ -18,6 +18,7 @@ protocol TaskDetailViewControllerPresenterDelegate: class {
     func saveDidFailWithMessage(_ error: ErrorType)
     func userPerformedTagSearch()
     func selectedTagsDidChange()
+    func duplicateTagAdded(_ tagName: String)
 }
 
 class TaskDetailViewControllerPresenter {
@@ -29,24 +30,29 @@ class TaskDetailViewControllerPresenter {
     private var revertSelectedTags: [Tag]!
     private var revertSelectionTags: [Tag]!
     private var tagSearch: SearchManager!
-    
+    private var addedTags: Set<Tag>!
     
     init(_ task: Task?, _ delegate: TaskDetailViewControllerPresenterDelegate) {
         self.task = task
         self.delegate = delegate
         isInEditMode = self.task != nil
+        addedTags = Set<Tag>()
         let allTags =  PersistanceManager.instance.fetchTags()
-        tagSearch = SearchManager(allTags.map({$0.name!}))
+        
         selectionManager = TableViewSelectionManager()
         if self.task == nil {
             selectionManager.set(selectionItems: allTags, sortOrder: nil)
             self.delegate.shouldConfigureForEditMode(false, "", [])
+            tagSearch = SearchManager(allTags.map({$0.name!}))
+            NotificationCenter.default.addObserver(self, selector: #selector(saveDidSucceed), name: .DidCreateNewTaskNotification, object: nil)
         } else {
             let allTagsSet = Set(allTags)
             let taskTagsSet = task!.tags as! Set<Tag>
             selectionManager.set(selectionItems: Array(allTagsSet.subtracting(taskTagsSet)), sortOrder: nil)
             selectionManager.set(selectedItems: Array(taskTagsSet))
+            tagSearch = SearchManager(Array(allTagsSet.subtracting(taskTagsSet)).map({$0.name!}))
             self.delegate.shouldConfigureForEditMode(true, task!.taskName!, Array(taskTagsSet).map({$0.name!}))
+            NotificationCenter.default.addObserver(self, selector: #selector(saveDidSucceed), name: .DidEditTaskNotification, object: nil)
         }
         selectionManager.delegate = self
         revertSelectedTags = [Tag]()
@@ -54,13 +60,19 @@ class TaskDetailViewControllerPresenter {
     }
     
     func addTag(_ tag: String, completion: (()->())?) {
-        let newTag = Tag(context: PersistanceManager.instance.context)
-        newTag.name = tag
-        var selectedTags = selectionManager.selectedItems
-        selectedTags.append(newTag)
-        selectionManager.set(selectedItems: selectedTags)
-        tagSearch.insertToSearchItems(tag)
-        completion?()
+        if PersistanceServices.instance.tagExists(tag) {
+            delegate?.duplicateTagAdded(tag)
+        } else {
+            let newTag = Tag(context: PersistanceManager.instance.context)
+            newTag.name = tag
+            var selectedTags = selectionManager.selectedItems
+            selectedTags.append(newTag)
+            selectionManager.set(selectedItems: selectedTags)
+            tagSearch.insertToSearchItems(tag)
+            delegate.selectedTagsDidChange()
+            addedTags.insert(newTag)
+            completion?()
+        }
     }
     
     func save(_ task: String, _ tags: [String]) {
@@ -72,12 +84,20 @@ class TaskDetailViewControllerPresenter {
             delegate.saveDidFailWithMessage(.emptyTags)
         } else {
             if isInEditMode {
-                PersistanceManager.instance.updateTask(withId: self.task!.id!, task, associatedTags: tags)
+                PersistanceServices.instance.editTask(withId: self.task!.id!, taskName: task, associatedTags: tags)
             } else {
-                PersistanceManager.instance.createNewTask(task, associatedTags: tags)
+                PersistanceServices.instance.saveNewTask(task, tags)
             }
-            delegate.saveDidSucceed()
         }
+    }
+    
+    @objc private func saveDidSucceed() {
+        NotificationCenter.default.removeObserver(self)
+        delegate.saveDidSucceed()
+    }
+    
+    deinit {
+        print("deinit")
     }
 }
 
@@ -97,6 +117,8 @@ extension TaskDetailViewControllerPresenter: TagPickerViewDelegate {
     func didTapTopLeftButton() {
         selectionManager.set(selectedItems: revertSelectedTags)
         selectionManager.set(selectionItems: revertSelectionTags, sortOrder: nil)
+        tagSearch.resetSearchItem(from: revertSelectionTags.map({$0.name!}))
+        addedTags.forEach({PersistanceManager.instance.context.delete($0)})
         delegate.performCancelAction()
     }
     
@@ -113,6 +135,7 @@ extension TaskDetailViewControllerPresenter: TagPickerViewDelegate {
     }
 }
 
+//This goes into selection tag picker presenter
 extension TaskDetailViewControllerPresenter: TableViewSelectionManagerDelegate {
     func didSelectItem<T>(_ item: T) where T : Comparable, T : Hashable {
         let tag = item as! Tag

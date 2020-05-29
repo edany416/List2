@@ -61,7 +61,8 @@ class PersistanceManager {
         }
     }
     
-    func updateTask(withId taskId: String, _ name: String, associatedTags: [String]) {
+    func updateTask(withId taskId: String, _ name: String, associatedTags: [String]) { //Represent a tag with properties struct instead of a string
+        //Missing logic for updating tags
         let task = fetchTask(withId: taskId)
         if task != nil {
             task!.taskName = name
@@ -257,6 +258,17 @@ class PersistanceManager {
         
         return Array(tagSet)
         
+    }
+    
+    func deleteTask(_ task: Task) {
+        for tag in task.tags!.allObjects as! [Tag] {
+            if tag.tasks!.count == 1 {
+                self.context.delete(tag)
+            }
+        }
+        
+        context.delete(task)
+        self.saveContext()
     }
 }
 

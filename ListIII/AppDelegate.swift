@@ -14,7 +14,7 @@ import os
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        //TestUtilities.setupDB(from: "tasks")
+        TestUtilities.setupDB(from: "tasks")
         return true
     }
 

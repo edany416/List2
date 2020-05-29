@@ -30,7 +30,10 @@ class FilterTagPickerPresenter {
         taskFilter = TaskFilter()
         tagSearch = SearchManager(tags.map({$0.name!}))
         
-        NotificationCenter.default.addObserver(self, selector: #selector(modelDidUpdate), name: .NSManagedObjectContextDidSave, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(modelDidUpdate), name: .DidCreateNewTaskNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(modelDidUpdate), name: .DidEditTaskNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(modelDidUpdate), name: .DidDeleteTaskNotification, object: nil)
+        
     }
     
     @objc private func loadData() {
@@ -119,6 +122,7 @@ extension FilterTagPickerPresenter: TableViewSelectionManagerDelegate {
 }
 
 extension Notification.Name {
+    
     static let TagsChagnedNotification = Notification.Name("tagsChangedNotification")
     static let SelectedTagsDidChangeNotification = Notification.Name("selectedTagsDidChange")
 }

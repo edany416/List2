@@ -56,17 +56,30 @@ class TaskListViewControllerNew: UIViewController {
         tagsTextViewPresenter.delegate = self
         
         TextFieldManager.manager.register(self)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleCompleteTaskNotification(_:)), name: .didCompleteTaskNotification, object: nil)
     }
     
     @IBAction func didTapNewTaskButton(_ sender: UIButton) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let newTaskViewController = storyboard.instantiateViewController(identifier: "TaskDetailVC") as! TaskDetailViewController
+        let newTaskViewController = storyboard.instantiateViewController(identifier: "TaskDetailVC") as! TaskDetailViewControllerNew
         newTaskViewController.isModalInPresentation = true
         self.present(newTaskViewController, animated: true, completion: nil)
+    }
+    
+    @objc func handleCompleteTaskNotification(_ notification: NSNotification) {
+        if let cell = notification.userInfo?["Cell"] as? UITableViewCell {
+            let indexPath = taskTableView.indexPath(for: cell)!
+            taskListPresenter.completeTask(at: indexPath.row)
+        }
     }
 }
 
 extension TaskListViewControllerNew: TaskListPresenterDelegate {
+    func removeTask(at index: Int) {
+        taskTableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .fade)
+    }
+    
     func updateTaskList(_ tasks: [String]) {
         taskTableView.reloadData()
     }
@@ -157,7 +170,7 @@ extension TaskListViewControllerNew: TextFieldManagerDelegate {
 extension TaskListViewControllerNew: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let newTaskViewController = storyboard.instantiateViewController(identifier: "TaskDetailVC") as! TaskDetailViewController
+        let newTaskViewController = storyboard.instantiateViewController(identifier: "TaskDetailVC") as! TaskDetailViewControllerNew
         newTaskViewController.isModalInPresentation = true
         newTaskViewController.task = taskListPresenter.task(at: indexPath.row)
         self.present(newTaskViewController, animated: true, completion: nil)
