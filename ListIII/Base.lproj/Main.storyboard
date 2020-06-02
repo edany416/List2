@@ -63,7 +63,7 @@
                                                     <rect key="frame" x="0.0" y="1" width="374" height="60"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Task_Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YnS-f3-WI6">
-                                                            <rect key="frame" x="5" y="12" width="100" height="36"/>
+                                                            <rect key="frame" x="5" y="12" width="336" height="36"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -83,6 +83,7 @@
                                                     <color key="backgroundColor" red="0.90980392160000001" green="0.91372549020000005" blue="0.95294117649999999" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="trailing" secondItem="sOF-g3-lgG" secondAttribute="trailing" constant="5" id="Grp-Y9-o6s"/>
+                                                        <constraint firstItem="sOF-g3-lgG" firstAttribute="leading" secondItem="YnS-f3-WI6" secondAttribute="trailing" constant="8" id="K88-kQ-fyn"/>
                                                         <constraint firstItem="sOF-g3-lgG" firstAttribute="centerY" secondItem="zV2-fT-4hE" secondAttribute="centerY" id="SOv-cL-Qe0"/>
                                                         <constraint firstItem="YnS-f3-WI6" firstAttribute="top" secondItem="zV2-fT-4hE" secondAttribute="top" constant="12" id="hSh-DW-XLH"/>
                                                         <constraint firstAttribute="bottom" secondItem="YnS-f3-WI6" secondAttribute="bottom" constant="12" id="prN-aZ-8qS"/>

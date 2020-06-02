@@ -24,7 +24,8 @@ class SelectionTagPickerPresenter {
     private var tagSearch: SearchManager!
     private var selectedTags: [Tag]!
     private var selectionTags: [Tag]!
-    private var addedTags: [Tag]!
+    private var pendingNewTags: Set<Tag>!
+    private var appliedAddedTags: Set<Tag>!
     
     weak var delegate: SelectionTagPickerPresenterDelegate?
     
@@ -34,7 +35,8 @@ class SelectionTagPickerPresenter {
         selectionManager.delegate = self
         selectedTags = [Tag]()
         selectionTags = PersistanceServices.instance.tags
-        addedTags = [Tag]()
+        pendingNewTags = Set<Tag>()
+        appliedAddedTags = Set<Tag>()
         
         if task != nil {
             selectedTags = task!.tags!.allObjects as? [Tag]
@@ -55,7 +57,7 @@ class SelectionTagPickerPresenter {
             var selected = selectionManager.selectedItems
             selected.append(newTag)
             selectionManager.set(selectedItems: selected)
-            addedTags.append(newTag)
+            pendingNewTags.insert(newTag)
             delegate?.selectedTagsDidChange(selectionManager.selectedItems)
         }
     }
@@ -89,14 +91,41 @@ extension SelectionTagPickerPresenter: TableViewSelectionManagerDelegate {
 
 extension SelectionTagPickerPresenter: TagPickerViewDelegate {
     func didTapMainButton() {
+        guard selectionManager.selectedItems.count != 0 else {
+            print("no tags selected")
+            return
+        }
+        let selectedSet = Set(selectionManager.selectedItems)
+        var selectionSet = Set(selectionManager.selectionItems)
+        pendingNewTags.forEach({
+            if !selectedSet.contains($0) {
+                PersistanceManager.instance.context.delete($0)
+                selectionSet.remove($0)
+            } else {
+                appliedAddedTags.insert($0)
+            }
+        })
+        appliedAddedTags.forEach({
+            if !selectedSet.contains($0) {
+                PersistanceManager.instance.context.delete($0)
+                selectionSet.remove($0)
+            }
+        })
+        
+        //Set the new state here for selected and selection for when cancel is tapped again
         selectedTags = selectionManager.selectedItems
-        selectionTags = selectionManager.selectionItems
+        selectionTags = Array(selectionSet)
+        selectionManager.set(selectionItems: selectionTags, sortOrder: < )
+        pendingNewTags.removeAll()
         delegate?.userDidSelectTags(selectedTags)
     }
     
+    //Cancel shouldn't always remove all added tags
+    //Possible solution, make a list of applied new tags,
+    //then added tags is a list of pending tags
     func didTapTopLeftButton() {
-        addedTags.forEach({PersistanceManager.instance.context.delete($0)})
-        addedTags.removeAll()
+        pendingNewTags.forEach({PersistanceManager.instance.context.delete($0)})
+        pendingNewTags.removeAll()
         selectionManager.set(selectionItems: selectionTags, sortOrder: < )
         selectionManager.set(selectedItems: selectedTags)
         delegate?.perfomCancelAction()

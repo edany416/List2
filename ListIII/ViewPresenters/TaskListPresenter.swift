@@ -30,7 +30,7 @@ class TaskListPresenter {
         NotificationCenter.default.addObserver(self, selector: #selector(modelUpdated), name: .DidCreateNewTaskNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(modelUpdated), name: .DidEditTaskNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleTaskCompletion), name: .DidDeleteTaskNotification, object: nil)
-        //NotificationCenter.default.addObserver(self, selector: #selector(tagsChangedListener(_:)), name: .TagsChagnedNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(tagsChangedListener(_:)), name: .TagsChagnedNotification, object: nil)
         
     }
     
