@@ -8,19 +8,19 @@
 
 import Foundation
 
-protocol FilterTagPickerPresenterDelegate: class {
+protocol FilterTagPickerPresenterDelegateOld: class {
     func selectionItemsDidUpdate()
     func selectedItemsDidChange()
 }
 
-class FilterTagPickerPresenter {
+class FilterTagPickerPresenterOld {
     
     private(set) var tagPickerSelectionManager: TableViewSelectionManager<Tag>!
     private var taskFilter: TaskFilter!
     private var tagSearch: SearchManager!
     private var tags: [Tag]!
     
-    weak var delegate: FilterTagPickerPresenterDelegate?
+    weak var delegate: FilterTagPickerPresenterDelegateOld?
     
     init() {
         loadData()
@@ -89,7 +89,7 @@ class FilterTagPickerPresenter {
     }
 }
 
-extension FilterTagPickerPresenter: TableViewSelectionManagerDelegate {
+extension FilterTagPickerPresenterOld: TableViewSelectionManagerDelegate {
     func updateSelectionItemsFor<T>(item: T, selected: Bool) -> [T]? where T : Comparable, T : Hashable {
         let tag = item as! Tag
         if selected {

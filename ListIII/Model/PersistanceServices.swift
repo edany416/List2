@@ -25,6 +25,10 @@ class PersistanceServices {
         return PersistanceManager.instance.fetchTags()
     }
     
+    var tasks: [Task] {
+        return PersistanceManager.instance.fetchTasks()
+    }
+    
     private init(){
         NotificationCenter.default.addObserver(self, selector: #selector(contextDidSave), name: .NSManagedObjectContextDidSave, object: nil)
     }

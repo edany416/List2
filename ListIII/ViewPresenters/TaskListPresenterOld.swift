@@ -8,17 +8,17 @@
 
 import Foundation
 
-protocol TaskListPresenterDelegate: class {
+protocol TaskListPresenterDelegateOld: class {
     func updateTaskList(_ tasks: [String])
     func removeTask(at index: Int)
 }
 
-class TaskListPresenter {
+class TaskListPresenterOld {
     private var tasks: [Task]!
     private var indexOfCompletedTask: Int?
     var taskTableViewDataSource: TaskTableViewDataSource!
     
-    weak var delegate: TaskListPresenterDelegate? {
+    weak var delegate: TaskListPresenterDelegateOld? {
         didSet {
             delegate!.updateTaskList(tasks.map({$0.taskName!}))
         }

@@ -7,10 +7,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Task List View Controller New-->
+        <!--Task List Screen View Controller-->
         <scene sceneID="jP9-yQ-WFE">
             <objects>
-                <viewController id="cxZ-1h-LR7" customClass="TaskListViewControllerNew" customModule="ListIII" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="cxZ-1h-LR7" customClass="TaskListScreenViewController" customModule="ListIII" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="M23-Vx-4KA">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -25,9 +25,6 @@
                                 <state key="normal" title="New Todo">
                                     <color key="titleColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
-                                <connections>
-                                    <action selector="didTapNewTaskButton:" destination="cxZ-1h-LR7" eventType="touchUpInside" id="HmF-JT-ipb"/>
-                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tags" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8yi-ok-Lcf">
                                 <rect key="frame" x="20" y="105" width="51.5" height="29"/>
@@ -126,8 +123,8 @@
                         <viewLayoutGuide key="safeArea" id="qVq-Tr-fTe"/>
                     </view>
                     <connections>
-                        <outlet property="tagsTextView" destination="cxy-qW-QmE" id="u83-TH-scd"/>
-                        <outlet property="taskTableView" destination="5OF-4U-Wxf" id="6bc-aA-m8Z"/>
+                        <outlet property="tagTextView" destination="cxy-qW-QmE" id="fvg-Hp-Arb"/>
+                        <outlet property="taskListTableView" destination="5OF-4U-Wxf" id="bUc-Fo-yVr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nuk-ZT-NuK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -141,9 +138,36 @@
                     <view key="view" contentMode="scaleToFill" id="a58-00-DTY">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CZu-rw-ZgK" customClass="TagPickerView" customModule="ListIII" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="44" width="414" height="718"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ilV-xl-HwF">
+                                <rect key="frame" x="20" y="770" width="374" height="92"/>
+                                <color key="backgroundColor" red="0.40784313729999999" green="0.75294117650000003" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="button:" destination="uiS-nd-0nQ" eventType="touchUpInside" id="Kp3-T5-Caz"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="ilV-xl-HwF" firstAttribute="leading" secondItem="psj-cy-Kt2" secondAttribute="leading" constant="20" id="4Uz-wK-VJ3"/>
+                            <constraint firstItem="ilV-xl-HwF" firstAttribute="top" secondItem="CZu-rw-ZgK" secondAttribute="bottom" constant="8" id="NoO-nX-FeL"/>
+                            <constraint firstItem="psj-cy-Kt2" firstAttribute="bottom" secondItem="CZu-rw-ZgK" secondAttribute="bottom" constant="100" id="a6y-MI-WeU"/>
+                            <constraint firstItem="CZu-rw-ZgK" firstAttribute="leading" secondItem="psj-cy-Kt2" secondAttribute="leading" id="aig-aw-mbo"/>
+                            <constraint firstItem="psj-cy-Kt2" firstAttribute="trailing" secondItem="CZu-rw-ZgK" secondAttribute="trailing" id="dm8-WT-QJZ"/>
+                            <constraint firstItem="ilV-xl-HwF" firstAttribute="bottom" secondItem="psj-cy-Kt2" secondAttribute="bottom" id="drA-Jr-9UZ"/>
+                            <constraint firstItem="CZu-rw-ZgK" firstAttribute="top" secondItem="psj-cy-Kt2" secondAttribute="top" id="pyj-Cb-RYf"/>
+                            <constraint firstItem="psj-cy-Kt2" firstAttribute="trailing" secondItem="ilV-xl-HwF" secondAttribute="trailing" constant="20" id="qNa-p6-X8q"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="psj-cy-Kt2"/>
                     </view>
+                    <connections>
+                        <outlet property="tagFilter" destination="CZu-rw-ZgK" id="rLP-32-4xn"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qbJ-FI-LHV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

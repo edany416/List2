@@ -8,14 +8,14 @@
 
 import Foundation
 
-protocol TagsTextViewPresenterDelegate: class {
+protocol TagsTextViewPresenterDelegateOld: class {
     func shouldUpdateTags(_ tags: [String])
 }
 
-class TagsTextViewPresenter {
+class TagsTextViewPresenterOld {
     
     private var tags: [Tag]!
-    weak var delegate: TagsTextViewPresenterDelegate?
+    weak var delegate: TagsTextViewPresenterDelegateOld?
     
     init() {
         tags = [Tag]()

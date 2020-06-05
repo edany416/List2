@@ -14,9 +14,9 @@ class TaskListViewControllerNew: UIViewController {
     @IBOutlet private weak var tagsTextView: TagsTextView!
     private var tagPickerView: TagPickerView!
     
-    private var taskListPresenter: TaskListPresenter!
-    private var filterTagPickerPresenter: FilterTagPickerPresenter!
-    private var tagsTextViewPresenter: TagsTextViewPresenter!
+    private var taskListPresenter: TaskListPresenterOld!
+    private var filterTagPickerPresenter: FilterTagPickerPresenterOld!
+    private var tagsTextViewPresenter: TagsTextViewPresenterOld!
     
     private var popupAnimator: ViewPopUpAnimator!
     private var keepPopupAfterKeyBoardRemoval = false
@@ -33,7 +33,7 @@ class TaskListViewControllerNew: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        taskListPresenter = TaskListPresenter()
+        taskListPresenter = TaskListPresenterOld()
         taskListPresenter.delegate = self
         taskTableView.dataSource = taskListPresenter.taskTableViewDataSource
         taskTableView.delegate = self
@@ -46,13 +46,13 @@ class TaskListViewControllerNew: UIViewController {
         tagPickerView.topLeftButton.setTitle("Cancel", for: .normal)
         tagPickerView.topRightButton.setTitle("Clear", for: .normal)
         
-        filterTagPickerPresenter = FilterTagPickerPresenter()
+        filterTagPickerPresenter = FilterTagPickerPresenterOld()
         filterTagPickerPresenter.delegate = self
         tagPickerView.tableViewDelegate = filterTagPickerPresenter.tagPickerSelectionManager
         tagPickerView.tableViewDataSource = filterTagPickerPresenter.tagPickerSelectionManager
         tagPickerView.reloadData()
         
-        tagsTextViewPresenter = TagsTextViewPresenter()
+        tagsTextViewPresenter = TagsTextViewPresenterOld()
         tagsTextViewPresenter.delegate = self
         
         TextFieldManager.manager.register(self)
@@ -75,7 +75,7 @@ class TaskListViewControllerNew: UIViewController {
     }
 }
 
-extension TaskListViewControllerNew: TaskListPresenterDelegate {
+extension TaskListViewControllerNew: TaskListPresenterDelegateOld {
     func removeTask(at index: Int) {
         taskTableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .fade)
     }
@@ -130,7 +130,7 @@ extension TaskListViewControllerNew: TagPickerViewDelegate {
     }
 }
 
-extension TaskListViewControllerNew: FilterTagPickerPresenterDelegate {
+extension TaskListViewControllerNew: FilterTagPickerPresenterDelegateOld {
     func selectedItemsDidChange() {
         tagPickerView.mainButton.setTitle(buttonTitle, for: .normal)
     }
@@ -140,7 +140,7 @@ extension TaskListViewControllerNew: FilterTagPickerPresenterDelegate {
     }
 }
 
-extension TaskListViewControllerNew: TagsTextViewPresenterDelegate {
+extension TaskListViewControllerNew: TagsTextViewPresenterDelegateOld {
     func shouldUpdateTags(_ tags: [String]) {
         tagsTextView.tags = tags
     }

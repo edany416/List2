@@ -124,7 +124,6 @@ class TableViewSelectionManager<T: Hashable & Comparable>: NSObject, UITableView
         }
     }
         
-    
     private func updateList(from list: Set<T>, _ tableView: UITableView) {
         var updatedSet = list
         var newSelectionItems = [T]()
