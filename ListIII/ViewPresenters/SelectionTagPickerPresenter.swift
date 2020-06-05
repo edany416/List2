@@ -91,10 +91,6 @@ extension SelectionTagPickerPresenter: TableViewSelectionManagerDelegate {
 
 extension SelectionTagPickerPresenter: TagPickerViewDelegate {
     func didTapMainButton() {
-        guard selectionManager.selectedItems.count != 0 else {
-            print("no tags selected")
-            return
-        }
         let selectedSet = Set(selectionManager.selectedItems)
         var selectionSet = Set(selectionManager.selectionItems)
         pendingNewTags.forEach({
@@ -116,6 +112,7 @@ extension SelectionTagPickerPresenter: TagPickerViewDelegate {
         selectedTags = selectionManager.selectedItems
         selectionTags = Array(selectionSet)
         selectionManager.set(selectionItems: selectionTags, sortOrder: < )
+        tagSearch.resetSearchItem(from: selectionTags.map({$0.name!}))
         pendingNewTags.removeAll()
         delegate?.userDidSelectTags(selectedTags)
     }
@@ -128,6 +125,7 @@ extension SelectionTagPickerPresenter: TagPickerViewDelegate {
         pendingNewTags.removeAll()
         selectionManager.set(selectionItems: selectionTags, sortOrder: < )
         selectionManager.set(selectedItems: selectedTags)
+        tagSearch.resetSearchItem(from: selectionTags.map({$0.name!}))
         delegate?.perfomCancelAction()
     }
     

@@ -25,6 +25,9 @@
                                 <state key="normal" title="New Todo">
                                     <color key="titleColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="didTapNewTodoButton:" destination="cxZ-1h-LR7" eventType="touchUpInside" id="U30-P6-DCP"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tags" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8yi-ok-Lcf">
                                 <rect key="frame" x="20" y="105" width="51.5" height="29"/>

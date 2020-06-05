@@ -68,9 +68,7 @@ class TaskListScreenBasePresenter {
     
     @objc func modelChanged() {
         loadData()
-        filterTagPickerPresenter.delegate = nil
-        filterTagPickerPresenter = FilterTagPickerPresenter(fromSelectedTags: [], selectionTags: tags, allAvailableTags: tags)
-        filterTagPickerPresenter.delegate = self
+        filterTagPickerPresenter.set(selectedTags: [], selectionTags: tags, allAvailableTags: tags)
         taskListPresenter.update(tasks: tasks)
         delegate?.modelDidChange()
     }

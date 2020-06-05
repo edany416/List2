@@ -57,6 +57,13 @@ class TaskListScreenViewController: UIViewController {
         }
     }
     
+    @IBAction func didTapNewTodoButton(_ sender: Any) {
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let newTaskViewController = storyboard.instantiateViewController(identifier: "TaskDetailVC") as! TaskDetailViewControllerNew
+        newTaskViewController.isModalInPresentation = true
+        self.present(newTaskViewController, animated: true, completion: nil)
+    }
 }
 
 extension TaskListScreenViewController: TaskListScreenBasePresenterDelegate {
