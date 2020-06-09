@@ -130,7 +130,7 @@ extension TaskListScreenViewController: TaskListScreenBasePresenterDelegate {
         tagFilterView.mainButton.setTitle(presenter.buttonTitle, for: .normal)
         keepPopupAfterKeyBoardRemoval = true
         filterViewSlidingPresenter.slidingDistance = popupViewPopupHeight
-        filterViewSlidingPresenter.present()
+        filterViewSlidingPresenter.present(withOverlay: true)
         tagFilterView.reloadData()
     }
     
@@ -147,14 +147,14 @@ extension TaskListScreenViewController: TextFieldManagerDelegate {
     func keyboardWillShow(_ textField: UITextField, _ keyboardRect: CGRect) {
         if popupViewPopupHeight - 50 <= keyboardRect.height {
             filterViewSlidingPresenter.slidingDistance = keyboardRect.height + 20
-            filterViewSlidingPresenter.present()
+            filterViewSlidingPresenter.present(withOverlay: true)
         }
     }
     
     func keyboardWillHide() {
         if keepPopupAfterKeyBoardRemoval {
             filterViewSlidingPresenter.slidingDistance = popupViewPopupHeight
-            filterViewSlidingPresenter.present()
+            filterViewSlidingPresenter.present(withOverlay: true)
         } else {
             //popupAnimator.popdown()
         }

@@ -20,7 +20,11 @@ enum SlideInDirection {
     case fromBottom
 }
 
-struct SlidingViewPresenter {
+protocol SlidingViewPresenterDelegate: class {
+    func overlayTapped()
+}
+
+class SlidingViewPresenter {
     private var overlayView: UIView!
     private var baseView: UIView!
     private var slidingView: UIView!
@@ -30,6 +34,8 @@ struct SlidingViewPresenter {
     var slidingDistance: CGFloat!
     var overlayColor: UIColor!
     
+    weak var delegate: SlidingViewPresenterDelegate?
+    
     init(baseView: UIView, slidingView: UIView, fromDirection direction: SlideInDirection) {
         self.baseView = baseView
         self.slidingView = slidingView
@@ -37,12 +43,17 @@ struct SlidingViewPresenter {
         setup()
     }
     
-    mutating private func setup() {
+    private func setup() {
         slidingDistance = 0
         overlayColor = .clear
+        
         overlayView = UIView(frame: baseView.bounds)
         overlayView.backgroundColor = overlayColor
-        //baseView.addSubview(overlayView)
+        baseView.addSubview(overlayView)
+        overlayView.isUserInteractionEnabled = false
+        let tagGesture = UITapGestureRecognizer(target: self, action: #selector(overlayTapped))
+        overlayView.addGestureRecognizer(tagGesture)
+        
         slidingView.translatesAutoresizingMaskIntoConstraints = false
         baseView.addSubview(slidingView)
         setVariableContraint()
@@ -55,7 +66,7 @@ struct SlidingViewPresenter {
         
     }
     
-    mutating private func setVariableContraint() {
+    private func setVariableContraint() {
         switch slideInDirection {
         case .fromTop:
             variableConstraint = slidingView.bottomAnchor.constraint(equalTo: baseView.topAnchor, constant: -1*slidingView.bounds.height)
@@ -66,12 +77,16 @@ struct SlidingViewPresenter {
         }
     }
     
-    func present(){
+    func present(withOverlay showOverlay: Bool){
         variableConstraint.constant = adjustedSlidingDistance()
         UIView.animate(withDuration: Constants.ANIMATION_DURATION_TIME,
                         delay: 0,
                         options: .curveEaseOut,
                         animations: {
+                            if showOverlay {
+                                self.overlayView.backgroundColor = Constants.END_OVERLAY_COLOR
+                                self.overlayView.isUserInteractionEnabled = true
+                            }
                             self.baseView.layoutIfNeeded()
         }, completion: nil)
     }
@@ -82,8 +97,10 @@ struct SlidingViewPresenter {
                         delay: 0,
                         options: .curveEaseOut,
                         animations: {
+                            self.overlayView.backgroundColor = Constants.INITIAL_OVERLAY_COLOR
                             self.baseView.layoutIfNeeded()
         }, completion: nil)
+        self.overlayView.isUserInteractionEnabled = false
     }
     
     private func adjustedSlidingDistance() -> CGFloat {
@@ -102,5 +119,9 @@ struct SlidingViewPresenter {
         case .fromBottom:
             return slidingView.bounds.height
         }
+    }
+    
+    @objc private func overlayTapped() {
+        delegate?.overlayTapped()
     }
 }

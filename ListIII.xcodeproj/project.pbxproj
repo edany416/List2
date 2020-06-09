@@ -24,6 +24,7 @@
 		E26C3E58243FFD1400E6FC2B /* TagPickerCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26C3E57243FFD1400E6FC2B /* TagPickerCellViewModel.swift */; };
 		E26C3E5A243FFD8C00E6FC2B /* TagCellPropertyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26C3E59243FFD8C00E6FC2B /* TagCellPropertyModel.swift */; };
 		E27B8786246CEEA5005DF70A /* PersistanceServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27B8785246CEEA5005DF70A /* PersistanceServices.swift */; };
+		E2A9E15B248F33EE0066325A /* CompeletedTagBadge.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2A9E15A248F33EE0066325A /* CompeletedTagBadge.xib */; };
 		E2C4F1F824804CBC0008E587 /* TaskDetailBasePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C4F1F724804CBC0008E587 /* TaskDetailBasePresenter.swift */; };
 		E2C4F1FA24804EC10008E587 /* TaskDetailViewControllerNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C4F1F924804EC10008E587 /* TaskDetailViewControllerNew.swift */; };
 		E2C4F1FC248082AC0008E587 /* SelectionTagPickerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C4F1FB248082AC0008E587 /* SelectionTagPickerPresenter.swift */; };
@@ -104,6 +105,7 @@
 		E26C3E57243FFD1400E6FC2B /* TagPickerCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagPickerCellViewModel.swift; sourceTree = "<group>"; };
 		E26C3E59243FFD8C00E6FC2B /* TagCellPropertyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCellPropertyModel.swift; sourceTree = "<group>"; };
 		E27B8785246CEEA5005DF70A /* PersistanceServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistanceServices.swift; sourceTree = "<group>"; };
+		E2A9E15A248F33EE0066325A /* CompeletedTagBadge.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CompeletedTagBadge.xib; sourceTree = "<group>"; };
 		E2C4F1F724804CBC0008E587 /* TaskDetailBasePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailBasePresenter.swift; sourceTree = "<group>"; };
 		E2C4F1F924804EC10008E587 /* TaskDetailViewControllerNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailViewControllerNew.swift; sourceTree = "<group>"; };
 		E2C4F1FB248082AC0008E587 /* SelectionTagPickerPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionTagPickerPresenter.swift; sourceTree = "<group>"; };
@@ -278,6 +280,7 @@
 			children = (
 				E2ECAB312410914D00A317AA /* TagFilterCell.xib */,
 				E2E5771824073A2F00AFC9B2 /* TagFilterView.xib */,
+				E2A9E15A248F33EE0066325A /* CompeletedTagBadge.xib */,
 			);
 			path = "XIB Files";
 			sourceTree = "<group>";
@@ -482,6 +485,7 @@
 				E2ECAB472414E91000A317AA /* ScratchPad in Resources */,
 				E2ECAB332410914D00A317AA /* TagFilterCell.xib in Resources */,
 				E2ECAB392411DEBF00A317AA /* TestTasks.json in Resources */,
+				E2A9E15B248F33EE0066325A /* CompeletedTagBadge.xib in Resources */,
 				E2F50D1323C15B0000FA985B /* Assets.xcassets in Resources */,
 				E2E5772B240758E300AFC9B2 /* tags.json in Resources */,
 				E2F50D0E23C15AF800FA985B /* Main.storyboard in Resources */,

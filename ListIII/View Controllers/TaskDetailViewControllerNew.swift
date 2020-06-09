@@ -134,7 +134,7 @@ extension TaskDetailViewControllerNew: TagsTextViewDelegate {
         }
         tagPickerView.mainButton.setTitle("Select Tags (\(presenter.selectionTagPickerPresenter.selectionManager.selectedItems.count))", for: .normal)
         slidingTagSelectorPresenter.slidingDistance = popupViewPopupHeight
-        slidingTagSelectorPresenter.present()
+        slidingTagSelectorPresenter.present(withOverlay: true)
         shouldKeepPopupAfterKeyboardRemoval = true
         popupIsShowing = true
         
@@ -145,7 +145,7 @@ extension TaskDetailViewControllerNew: TextFieldManagerDelegate {
     func keyboardWillShow(_ textField: UITextField, _ keyboardRect: CGRect) {
         if popupIsShowing && popupViewPopupHeight - 50 <= keyboardRect.height {
             slidingTagSelectorPresenter.slidingDistance = keyboardRect.height + 20
-            slidingTagSelectorPresenter.present()
+            slidingTagSelectorPresenter.present(withOverlay: true)
         }
     }
     
@@ -153,7 +153,7 @@ extension TaskDetailViewControllerNew: TextFieldManagerDelegate {
         if popupIsShowing {
             if shouldKeepPopupAfterKeyboardRemoval {
                 slidingTagSelectorPresenter.slidingDistance = popupViewPopupHeight
-                slidingTagSelectorPresenter.present()
+                slidingTagSelectorPresenter.present(withOverlay: true)
             } else {
                 slidingTagSelectorPresenter.retract()
             }

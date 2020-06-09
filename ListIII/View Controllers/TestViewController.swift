@@ -9,24 +9,30 @@
 import UIKit
 
 class TestViewController: UIViewController {
-    
+   
     var presenter: SlidingViewPresenter!
     override func viewDidLoad() {
         super.viewDidLoad()
         let slidingView = UIView(frame: .zero)
-        slidingView.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(togglePopup))
+        slidingView.addGestureRecognizer(tapGesture)
+        slidingView.widthAnchor.constraint(equalToConstant: self.view.bounds.width * 0.80).isActive = true
         slidingView.heightAnchor.constraint(equalToConstant: 50).isActive = true
         slidingView.backgroundColor = .green
-        presenter = SlidingViewPresenter(baseView: self.view, slidingView: slidingView, fromDirection: .fromBottom)
-        presenter.slidingDistance = 100
+        presenter = SlidingViewPresenter(baseView: self.view, slidingView: slidingView, fromDirection: .fromTop)
+        presenter.slidingDistance = 50
     }
     
     var presented = false
     @IBAction func buttonTapped(_ sender: UIButton) {
+        togglePopup()
+    }
+    
+    @objc func togglePopup() {
         if presented {
             presenter.retract()
         } else {
-            presenter.present()
+            presenter.present(withOverlay: false)
         }
         
         presented = !presented
