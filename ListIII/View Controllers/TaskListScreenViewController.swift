@@ -13,10 +13,12 @@ class TaskListScreenViewController: UIViewController {
     @IBOutlet private weak var taskListTableView: UITableView!
     @IBOutlet private weak var tagTextView: TagsTextView!
     private var tagFilterView: TagPickerView!
+    //private var completedTagBadge: CompletedTagBadge!
     
     private var presenter: TaskListScreenBasePresenter!
 
     private var filterViewSlidingPresenter: SlidingViewPresenter!
+    //private var completedTagSlidingPresenter: SlidingViewPresenter!
     private var keepPopupAfterKeyBoardRemoval = false
     private var popupviewHeight: CGFloat {
         return UIScreen.main.bounds.height * 0.40
@@ -43,6 +45,8 @@ class TaskListScreenViewController: UIViewController {
         tagFilterView!.heightAnchor.constraint(equalToConstant: popupviewHeight).isActive = true
         tagFilterView.topLeftButton.setTitle("Cancel", for: .normal)
         tagFilterView.topRightButton.setTitle("Clear", for: .normal)
+        
+       
         
         TextFieldManager.manager.register(self)
         
@@ -83,7 +87,10 @@ extension TaskListScreenViewController: TaskListScreenBasePresenterDelegate {
         }, completion: nil)
     }
     
-   
+    func tagsCompleted() {
+        //completedTagBadge.tagsLabel.text = presenter.completedTagBadgePresenter.completedTags
+        //completedTagSlidingPresenter.present(withOverlay: false)
+    }
     
     func selectionTagsDidChange() {
         tagFilterView.reloadData()

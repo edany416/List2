@@ -24,7 +24,9 @@
 		E26C3E58243FFD1400E6FC2B /* TagPickerCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26C3E57243FFD1400E6FC2B /* TagPickerCellViewModel.swift */; };
 		E26C3E5A243FFD8C00E6FC2B /* TagCellPropertyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26C3E59243FFD8C00E6FC2B /* TagCellPropertyModel.swift */; };
 		E27B8786246CEEA5005DF70A /* PersistanceServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27B8785246CEEA5005DF70A /* PersistanceServices.swift */; };
-		E2A9E15B248F33EE0066325A /* CompeletedTagBadge.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2A9E15A248F33EE0066325A /* CompeletedTagBadge.xib */; };
+		E2A9E15F24900DA40066325A /* CompletedTagBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A9E15E24900DA40066325A /* CompletedTagBadge.swift */; };
+		E2A9E16124900E430066325A /* CompletedTagBadge.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2A9E16024900E430066325A /* CompletedTagBadge.xib */; };
+		E2A9E16324901CC70066325A /* CompletedTagBadgePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A9E16224901CC70066325A /* CompletedTagBadgePresenter.swift */; };
 		E2C4F1F824804CBC0008E587 /* TaskDetailBasePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C4F1F724804CBC0008E587 /* TaskDetailBasePresenter.swift */; };
 		E2C4F1FA24804EC10008E587 /* TaskDetailViewControllerNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C4F1F924804EC10008E587 /* TaskDetailViewControllerNew.swift */; };
 		E2C4F1FC248082AC0008E587 /* SelectionTagPickerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C4F1FB248082AC0008E587 /* SelectionTagPickerPresenter.swift */; };
@@ -105,7 +107,9 @@
 		E26C3E57243FFD1400E6FC2B /* TagPickerCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagPickerCellViewModel.swift; sourceTree = "<group>"; };
 		E26C3E59243FFD8C00E6FC2B /* TagCellPropertyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCellPropertyModel.swift; sourceTree = "<group>"; };
 		E27B8785246CEEA5005DF70A /* PersistanceServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistanceServices.swift; sourceTree = "<group>"; };
-		E2A9E15A248F33EE0066325A /* CompeletedTagBadge.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CompeletedTagBadge.xib; sourceTree = "<group>"; };
+		E2A9E15E24900DA40066325A /* CompletedTagBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedTagBadge.swift; sourceTree = "<group>"; };
+		E2A9E16024900E430066325A /* CompletedTagBadge.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CompletedTagBadge.xib; sourceTree = "<group>"; };
+		E2A9E16224901CC70066325A /* CompletedTagBadgePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedTagBadgePresenter.swift; sourceTree = "<group>"; };
 		E2C4F1F724804CBC0008E587 /* TaskDetailBasePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailBasePresenter.swift; sourceTree = "<group>"; };
 		E2C4F1F924804EC10008E587 /* TaskDetailViewControllerNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailViewControllerNew.swift; sourceTree = "<group>"; };
 		E2C4F1FB248082AC0008E587 /* SelectionTagPickerPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionTagPickerPresenter.swift; sourceTree = "<group>"; };
@@ -258,6 +262,7 @@
 				E2D41918243186E30075C3C1 /* UnderlinedTextField.swift */,
 				E26C3E282431BD3A00E6FC2B /* TagsTextField.swift */,
 				E2428730246136D9001F5C5C /* AlertFactory.swift */,
+				E2A9E15E24900DA40066325A /* CompletedTagBadge.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -280,7 +285,7 @@
 			children = (
 				E2ECAB312410914D00A317AA /* TagFilterCell.xib */,
 				E2E5771824073A2F00AFC9B2 /* TagFilterView.xib */,
-				E2A9E15A248F33EE0066325A /* CompeletedTagBadge.xib */,
+				E2A9E16024900E430066325A /* CompletedTagBadge.xib */,
 			);
 			path = "XIB Files";
 			sourceTree = "<group>";
@@ -370,6 +375,7 @@
 				E2F7438024872FB2007876D8 /* TaskListPresenter.swift */,
 				E2F7438224873417007876D8 /* FilterTagPickerPresenter.swift */,
 				E2F7438824886B53007876D8 /* TagsTextViewPresenter.swift */,
+				E2A9E16224901CC70066325A /* CompletedTagBadgePresenter.swift */,
 				E2F7438A24886C88007876D8 /* TaskListScreenBasePresenter.swift */,
 			);
 			path = "Main screen Presenters";
@@ -481,11 +487,11 @@
 			files = (
 				E2E5771924073A2F00AFC9B2 /* TagFilterView.xib in Resources */,
 				E2E5771724072FB000AFC9B2 /* tasks.json in Resources */,
+				E2A9E16124900E430066325A /* CompletedTagBadge.xib in Resources */,
 				E2F50D1623C15B0000FA985B /* LaunchScreen.storyboard in Resources */,
 				E2ECAB472414E91000A317AA /* ScratchPad in Resources */,
 				E2ECAB332410914D00A317AA /* TagFilterCell.xib in Resources */,
 				E2ECAB392411DEBF00A317AA /* TestTasks.json in Resources */,
-				E2A9E15B248F33EE0066325A /* CompeletedTagBadge.xib in Resources */,
 				E2F50D1323C15B0000FA985B /* Assets.xcassets in Resources */,
 				E2E5772B240758E300AFC9B2 /* tags.json in Resources */,
 				E2F50D0E23C15AF800FA985B /* Main.storyboard in Resources */,
@@ -527,6 +533,7 @@
 				E242871D245399AB001F5C5C /* TaskDetailViewControllerPresenter.swift in Sources */,
 				E242872B245FDBB1001F5C5C /* TaskListViewControllerNew.swift in Sources */,
 				E2ECAB492414E99100A317AA /* TaskTableViewDataSource.swift in Sources */,
+				E2A9E15F24900DA40066325A /* CompletedTagBadge.swift in Sources */,
 				E2F7438D24887335007876D8 /* TaskListScreenViewController.swift in Sources */,
 				E2D41911242EB0B50075C3C1 /* NotificationName+Extension.swift in Sources */,
 				E2C4F1FC248082AC0008E587 /* SelectionTagPickerPresenter.swift in Sources */,
@@ -544,6 +551,7 @@
 				E2428727245FC82B001F5C5C /* TaskListPresenterOld.swift in Sources */,
 				E2D41917243154A10075C3C1 /* SearchManager.swift in Sources */,
 				E26C3E58243FFD1400E6FC2B /* TagPickerCellViewModel.swift in Sources */,
+				E2A9E16324901CC70066325A /* CompletedTagBadgePresenter.swift in Sources */,
 				E2EB8EA9241609D500EF20D5 /* Util.swift in Sources */,
 				E2E5773D24085CD800AFC9B2 /* Tag+CoreDataProperties.swift in Sources */,
 				E2F7438124872FB2007876D8 /* TaskListPresenter.swift in Sources */,

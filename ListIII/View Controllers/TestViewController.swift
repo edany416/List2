@@ -13,14 +13,14 @@ class TestViewController: UIViewController {
     var presenter: SlidingViewPresenter!
     override func viewDidLoad() {
         super.viewDidLoad()
-        let slidingView = UIView(frame: .zero)
+        let slidingView = CompletedTagBadge(frame: .zero)
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(togglePopup))
         slidingView.addGestureRecognizer(tapGesture)
-        slidingView.widthAnchor.constraint(equalToConstant: self.view.bounds.width * 0.80).isActive = true
-        slidingView.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        slidingView.widthAnchor.constraint(equalToConstant: self.view.bounds.width * 0.60).isActive = true
+        //slidingView.heightAnchor.constraint(equalToConstant: 50).isActive = true
         slidingView.backgroundColor = .green
         presenter = SlidingViewPresenter(baseView: self.view, slidingView: slidingView, fromDirection: .fromTop)
-        presenter.slidingDistance = 50
+        presenter.slidingDistance = 200
     }
     
     var presented = false

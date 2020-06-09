@@ -19,6 +19,7 @@ protocol TaskListScreenBasePresenterDelegate: class {
     func selectedTagsDidChange() //Called before the changes are applied
     func selectionTagsDidChange()
     func performRowUpdatesForCompletedTask(_ deletingRow: Int, _ addingRows: [Int])
+    func tagsCompleted()
 }
 
 
@@ -26,6 +27,7 @@ class TaskListScreenBasePresenter {
     private(set) var filterTagPickerPresenter: FilterTagPickerPresenter!
     private(set) var taskListPresenter: TaskListPresenter!
     private(set) var tagsTextViewPresenter: TagsTextViewPresenter!
+    private(set) var completedTagBadgePresenter: CompletedTagBadgePresenter!
     
     weak var delegate: TaskListScreenBasePresenterDelegate?
     
@@ -56,6 +58,7 @@ class TaskListScreenBasePresenter {
         taskListPresenter.delegate = self
         tagsTextViewPresenter = TagsTextViewPresenter([])
         tagsTextViewPresenter.delegate = self
+        completedTagBadgePresenter = CompletedTagBadgePresenter()
         
         NotificationCenter.default.addObserver(self, selector: #selector(modelChanged), name: .DidCreateNewTaskNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(modelChanged), name: .DidEditTaskNotification, object: nil)
@@ -91,11 +94,14 @@ class TaskListScreenBasePresenter {
     private func updatesForCompletedTask() {
         let selectedTags = tagsTextViewPresenter.selectedTags
         var newSelectedTags = [Tag]()
+        var finishedTags = [String]()
         var tagsDidChange = false
+        
         selectedTags.forEach({
             if let tag = PersistanceManager.instance.fetchTag(named: $0) {
                 newSelectedTags.append(tag)
             } else {
+                finishedTags.append($0)
                 tagsDidChange = true
             }
         })
@@ -118,6 +124,8 @@ class TaskListScreenBasePresenter {
             
             let newSelectionTags = Util.associatedTags(for: newSelectedTags)
             filterTagPickerPresenter.set(selectedTags: newSelectedTags, selectionTags: newSelectionTags, allAvailableTags: tags)
+            completedTagBadgePresenter.setCompletedTags(finishedTags)
+            delegate?.tagsCompleted()
             delegate?.selectedTagsDidChange()
             
         } else {
