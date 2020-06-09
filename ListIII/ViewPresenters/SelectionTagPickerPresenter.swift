@@ -108,7 +108,6 @@ extension SelectionTagPickerPresenter: TagPickerViewDelegate {
             }
         })
         
-        //Set the new state here for selected and selection for when cancel is tapped again
         selectedTags = selectionManager.selectedItems
         selectionTags = Array(selectionSet)
         selectionManager.set(selectionItems: selectionTags, sortOrder: < )
@@ -117,9 +116,6 @@ extension SelectionTagPickerPresenter: TagPickerViewDelegate {
         delegate?.userDidSelectTags(selectedTags)
     }
     
-    //Cancel shouldn't always remove all added tags
-    //Possible solution, make a list of applied new tags,
-    //then added tags is a list of pending tags
     func didTapTopLeftButton() {
         pendingNewTags.forEach({PersistanceManager.instance.context.delete($0)})
         pendingNewTags.removeAll()

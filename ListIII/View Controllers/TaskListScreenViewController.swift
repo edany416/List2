@@ -15,8 +15,8 @@ class TaskListScreenViewController: UIViewController {
     private var tagFilterView: TagPickerView!
     
     private var presenter: TaskListScreenBasePresenter!
-    
-    private var popupAnimator: ViewPopUpAnimator!
+
+    private var filterViewSlidingPresenter: SlidingViewPresenter!
     private var keepPopupAfterKeyBoardRemoval = false
     private var popupviewHeight: CGFloat {
         return UIScreen.main.bounds.height * 0.40
@@ -98,13 +98,13 @@ extension TaskListScreenViewController: TaskListScreenBasePresenterDelegate {
         tagFilterView.reloadData()
         taskListTableView.reloadData()
         tagTextView.tags = presenter.tagsTextViewPresenter.selectedTags
-        popupAnimator.popdown()
+        filterViewSlidingPresenter.retract()
         keepPopupAfterKeyBoardRemoval = false
         TextFieldManager.manager.resignFirstResponder()
     }
     
     func userDidCancelTagSelection() {
-        popupAnimator.popdown()
+        filterViewSlidingPresenter.retract()
         keepPopupAfterKeyBoardRemoval = false
         TextFieldManager.manager.resignFirstResponder()
     }
@@ -112,7 +112,7 @@ extension TaskListScreenViewController: TaskListScreenBasePresenterDelegate {
     func userDidApplySelectedTags() {
         taskListTableView.reloadData()
         tagTextView.tags = presenter.tagsTextViewPresenter.selectedTags
-        popupAnimator.popdown()
+        filterViewSlidingPresenter.retract()
         keepPopupAfterKeyBoardRemoval = false
         TextFieldManager.manager.resignFirstResponder()
     }
@@ -123,13 +123,14 @@ extension TaskListScreenViewController: TaskListScreenBasePresenterDelegate {
     }
     
     func showTagFilterView() {
-        if popupAnimator == nil {
-            popupAnimator = ViewPopUpAnimator(parentView: self.view, popupView: tagFilterView)
+        if filterViewSlidingPresenter == nil {
+            filterViewSlidingPresenter = SlidingViewPresenter(baseView: self.view, slidingView: tagFilterView, fromDirection: .fromBottom)
         }
         tagFilterView.clearSearchBar()
         tagFilterView.mainButton.setTitle(presenter.buttonTitle, for: .normal)
         keepPopupAfterKeyBoardRemoval = true
-        popupAnimator.popup(withHeight: popupViewPopupHeight)
+        filterViewSlidingPresenter.slidingDistance = popupViewPopupHeight
+        filterViewSlidingPresenter.present()
         tagFilterView.reloadData()
     }
     
@@ -145,13 +146,15 @@ extension TaskListScreenViewController: TaskListScreenBasePresenterDelegate {
 extension TaskListScreenViewController: TextFieldManagerDelegate {
     func keyboardWillShow(_ textField: UITextField, _ keyboardRect: CGRect) {
         if popupViewPopupHeight - 50 <= keyboardRect.height {
-            popupAnimator!.popup(withHeight: keyboardRect.height + 20)
+            filterViewSlidingPresenter.slidingDistance = keyboardRect.height + 20
+            filterViewSlidingPresenter.present()
         }
     }
     
     func keyboardWillHide() {
         if keepPopupAfterKeyBoardRemoval {
-            popupAnimator.popup(withHeight: popupViewPopupHeight)
+            filterViewSlidingPresenter.slidingDistance = popupViewPopupHeight
+            filterViewSlidingPresenter.present()
         } else {
             //popupAnimator.popdown()
         }

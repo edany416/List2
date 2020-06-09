@@ -44,7 +44,6 @@
 		E2E5773C24085CD800AFC9B2 /* Tag+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E5773824085CD800AFC9B2 /* Tag+CoreDataClass.swift */; };
 		E2E5773D24085CD800AFC9B2 /* Tag+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E5773924085CD800AFC9B2 /* Tag+CoreDataProperties.swift */; };
 		E2E5773F2408634C00AFC9B2 /* TaskFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E5773E2408634C00AFC9B2 /* TaskFilter.swift */; };
-		E2E577422408B95600AFC9B2 /* ViewPopUpAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E577412408B95600AFC9B2 /* ViewPopUpAnimator.swift */; };
 		E2EB8EA9241609D500EF20D5 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2EB8EA8241609D500EF20D5 /* Util.swift */; };
 		E2EB8EAB24181DF800EF20D5 /* CoreDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2EB8EAA24181DF800EF20D5 /* CoreDataTests.swift */; };
 		E2ECAB322410914D00A317AA /* TagPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2ECAB302410914D00A317AA /* TagPickerCell.swift */; };
@@ -67,6 +66,7 @@
 		E2F7438924886B53007876D8 /* TagsTextViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F7438824886B53007876D8 /* TagsTextViewPresenter.swift */; };
 		E2F7438B24886C88007876D8 /* TaskListScreenBasePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F7438A24886C88007876D8 /* TaskListScreenBasePresenter.swift */; };
 		E2F7438D24887335007876D8 /* TaskListScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F7438C24887335007876D8 /* TaskListScreenViewController.swift */; };
+		E2F7438F248F0E89007876D8 /* SlidingViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F7438E248F0E89007876D8 /* SlidingViewPresenter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -124,7 +124,6 @@
 		E2E5773824085CD800AFC9B2 /* Tag+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Tag+CoreDataClass.swift"; sourceTree = "<group>"; };
 		E2E5773924085CD800AFC9B2 /* Tag+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Tag+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		E2E5773E2408634C00AFC9B2 /* TaskFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskFilter.swift; sourceTree = "<group>"; };
-		E2E577412408B95600AFC9B2 /* ViewPopUpAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewPopUpAnimator.swift; sourceTree = "<group>"; };
 		E2EB8EA8241609D500EF20D5 /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
 		E2EB8EAA24181DF800EF20D5 /* CoreDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataTests.swift; sourceTree = "<group>"; };
 		E2ECAB302410914D00A317AA /* TagPickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagPickerCell.swift; sourceTree = "<group>"; };
@@ -153,6 +152,7 @@
 		E2F7438824886B53007876D8 /* TagsTextViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsTextViewPresenter.swift; sourceTree = "<group>"; };
 		E2F7438A24886C88007876D8 /* TaskListScreenBasePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListScreenBasePresenter.swift; sourceTree = "<group>"; };
 		E2F7438C24887335007876D8 /* TaskListScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListScreenViewController.swift; sourceTree = "<group>"; };
+		E2F7438E248F0E89007876D8 /* SlidingViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlidingViewPresenter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -225,10 +225,10 @@
 				E2E577052406733200AFC9B2 /* GlobalConstants.swift */,
 				E2E5772C24075A6F00AFC9B2 /* TestUtilities.swift */,
 				E2E5773E2408634C00AFC9B2 /* TaskFilter.swift */,
-				E2E577412408B95600AFC9B2 /* ViewPopUpAnimator.swift */,
 				E2EB8EA8241609D500EF20D5 /* Util.swift */,
 				E2D41916243154A10075C3C1 /* SearchManager.swift */,
 				E26C3E4A2435B5AD00E6FC2B /* TextFieldManager.swift */,
+				E2F7438E248F0E89007876D8 /* SlidingViewPresenter.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -527,11 +527,11 @@
 				E2D41911242EB0B50075C3C1 /* NotificationName+Extension.swift in Sources */,
 				E2C4F1FC248082AC0008E587 /* SelectionTagPickerPresenter.swift in Sources */,
 				E2E5770C24071F4000AFC9B2 /* TaskTableViewCell.swift in Sources */,
+				E2F7438F248F0E89007876D8 /* SlidingViewPresenter.swift in Sources */,
 				E26C3E56243FE18500E6FC2B /* TableViewCellPropertyModel.swift in Sources */,
 				E20071E324257D37004F2E14 /* TestViewController.swift in Sources */,
 				E242872F246091AC001F5C5C /* TagsTextViewPresenterOld.swift in Sources */,
 				E2E5773C24085CD800AFC9B2 /* Tag+CoreDataClass.swift in Sources */,
-				E2E577422408B95600AFC9B2 /* ViewPopUpAnimator.swift in Sources */,
 				E2D41913242FE03E0075C3C1 /* TaskDetailViewController.swift in Sources */,
 				E26C3E4D243FB9A700E6FC2B /* TableViewSelectionManager.swift in Sources */,
 				E2F50D0923C15AF800FA985B /* SceneDelegate.swift in Sources */,

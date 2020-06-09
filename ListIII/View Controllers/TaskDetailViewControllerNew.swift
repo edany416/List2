@@ -13,7 +13,7 @@ class TaskDetailViewControllerNew: UIViewController {
     @IBOutlet private weak var taskNameTextField: UITextField!
     @IBOutlet private weak var tagsTextView: TagsTextView!
     private var tagPickerView: TagPickerView!
-    private var popupAnimator: ViewPopUpAnimator!
+    private var slidingTagSelectorPresenter: SlidingViewPresenter!
     private var presenter: TaskDetailBasePresenter!
     private var shouldKeepPopupAfterKeyboardRemoval: Bool!
     private var popupIsShowing: Bool!
@@ -74,7 +74,7 @@ class TaskDetailViewControllerNew: UIViewController {
     
     private func dismissPopupAction() {
         shouldKeepPopupAfterKeyboardRemoval = false
-        popupAnimator.popdown()
+        slidingTagSelectorPresenter.retract()
         popupIsShowing = false
         TextFieldManager.manager.resignFirstResponder()
     }
@@ -129,11 +129,12 @@ extension TaskDetailViewControllerNew: TaskDetailBasePresenterDelegate {
 extension TaskDetailViewControllerNew: TagsTextViewDelegate {
     func didTapTextView() {
         TextFieldManager.manager.resignFirstResponder()
-        if popupAnimator == nil {
-            popupAnimator = ViewPopUpAnimator(parentView: self.view, popupView: tagPickerView)
+        if slidingTagSelectorPresenter == nil {
+            slidingTagSelectorPresenter = SlidingViewPresenter(baseView: self.view, slidingView: tagPickerView, fromDirection: .fromBottom)
         }
         tagPickerView.mainButton.setTitle("Select Tags (\(presenter.selectionTagPickerPresenter.selectionManager.selectedItems.count))", for: .normal)
-        popupAnimator.popup(withHeight: popupViewPopupHeight)
+        slidingTagSelectorPresenter.slidingDistance = popupViewPopupHeight
+        slidingTagSelectorPresenter.present()
         shouldKeepPopupAfterKeyboardRemoval = true
         popupIsShowing = true
         
@@ -143,16 +144,18 @@ extension TaskDetailViewControllerNew: TagsTextViewDelegate {
 extension TaskDetailViewControllerNew: TextFieldManagerDelegate {
     func keyboardWillShow(_ textField: UITextField, _ keyboardRect: CGRect) {
         if popupIsShowing && popupViewPopupHeight - 50 <= keyboardRect.height {
-            popupAnimator!.popup(withHeight: keyboardRect.height + 20)
+            slidingTagSelectorPresenter.slidingDistance = keyboardRect.height + 20
+            slidingTagSelectorPresenter.present()
         }
     }
     
     func keyboardWillHide() {
         if popupIsShowing {
             if shouldKeepPopupAfterKeyboardRemoval {
-                popupAnimator.popup(withHeight: popupViewPopupHeight)
+                slidingTagSelectorPresenter.slidingDistance = popupViewPopupHeight
+                slidingTagSelectorPresenter.present()
             } else {
-                popupAnimator.popdown()
+                slidingTagSelectorPresenter.retract()
             }
         }
     }

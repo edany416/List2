@@ -20,53 +20,5 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "BB567057-2543-41FA-9598-D0D1267264BA"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ListIII/ViewPresenters/SelectionTagPickerPresenter.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "132"
-            endingLineNumber = "132"
-            landmarkName = "didTapTopLeftButton()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "BB567057-2543-41FA-9598-D0D1267264BA - 9ed3ffecff3e8a1e"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ListIII.SelectionTagPickerPresenter.didTapTopLeftButton() -&gt; ()"
-                  moduleName = "ListIII"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/edan/Documents/List3/ListIII/ListIII/ViewPresenters/SelectionTagPickerPresenter.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "131"
-                  endingLineNumber = "131"
-                  offsetFromSymbolStart = "1904">
-               </Location>
-               <Location
-                  uuid = "BB567057-2543-41FA-9598-D0D1267264BA - 689d9113b6932266"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #2 (ListIII.Tag) -&gt; Swift.String in ListIII.SelectionTagPickerPresenter.didTapTopLeftButton() -&gt; ()"
-                  moduleName = "ListIII"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/edan/Documents/List3/ListIII/ListIII/ViewPresenters/SelectionTagPickerPresenter.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "131"
-                  endingLineNumber = "131"
-                  offsetFromSymbolStart = "42">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
    </Breakpoints>
 </Bucket>
