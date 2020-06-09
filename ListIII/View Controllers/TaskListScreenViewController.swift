@@ -13,12 +13,12 @@ class TaskListScreenViewController: UIViewController {
     @IBOutlet private weak var taskListTableView: UITableView!
     @IBOutlet private weak var tagTextView: TagsTextView!
     private var tagFilterView: TagPickerView!
-    //private var completedTagBadge: CompletedTagBadge!
+    private var completedTagBadge: CompletedTagBadge!
     
     private var presenter: TaskListScreenBasePresenter!
 
     private var filterViewSlidingPresenter: SlidingViewPresenter!
-    //private var completedTagSlidingPresenter: SlidingViewPresenter!
+    private var completedTagSlidingPresenter: SlidingViewPresenter!
     private var keepPopupAfterKeyBoardRemoval = false
     private var popupviewHeight: CGFloat {
         return UIScreen.main.bounds.height * 0.40
@@ -46,7 +46,10 @@ class TaskListScreenViewController: UIViewController {
         tagFilterView.topLeftButton.setTitle("Cancel", for: .normal)
         tagFilterView.topRightButton.setTitle("Clear", for: .normal)
         
-       
+        completedTagBadge = CompletedTagBadge()
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(badgeTapped))
+        completedTagBadge.addGestureRecognizer(tapGesture)
+        completedTagBadge.widthAnchor.constraint(equalToConstant: self.view.bounds.width * 0.60).isActive = true
         
         TextFieldManager.manager.register(self)
         
@@ -59,6 +62,10 @@ class TaskListScreenViewController: UIViewController {
             indexOfCompletedTask = index!.row
             presenter.completeTask(atIndex: index!.row)
         }
+    }
+    
+    @objc private func badgeTapped() {
+        completedTagSlidingPresenter.retract()
     }
     
     @IBAction func didTapNewTodoButton(_ sender: Any) {
@@ -88,8 +95,12 @@ extension TaskListScreenViewController: TaskListScreenBasePresenterDelegate {
     }
     
     func tagsCompleted() {
-        //completedTagBadge.tagsLabel.text = presenter.completedTagBadgePresenter.completedTags
-        //completedTagSlidingPresenter.present(withOverlay: false)
+        if completedTagSlidingPresenter == nil {
+            completedTagSlidingPresenter = SlidingViewPresenter(baseView: self.view, slidingView: completedTagBadge, fromDirection: .fromTop)
+        }
+        completedTagBadge.tagsLabel.text = presenter.completedTagBadgePresenter.completedTags
+        completedTagSlidingPresenter.slidingDistance = 50.0
+        completedTagSlidingPresenter.present(withOverlay: false)
     }
     
     func selectionTagsDidChange() {
