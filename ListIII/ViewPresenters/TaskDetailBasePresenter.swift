@@ -23,7 +23,7 @@ protocol TaskDetailBasePresenterDelegate: class {
 class TaskDetailBasePresenter {
     
     private var tagPickerIsShowing: Bool!
-    private var tagsTextViewPresenter: TagsTextViewPresenterOld!
+    //private var tagsTextViewPresenter: TagsTextViewPresenterOld!
     private(set) var selectionTagPickerPresenter: SelectionTagPickerPresenter!
     
     var task: Task?
@@ -48,7 +48,7 @@ class TaskDetailBasePresenter {
     
     init(_ task: Task?) {
         tagPickerIsShowing = false
-        tagsTextViewPresenter = TagsTextViewPresenterOld()
+        //tagsTextViewPresenter = TagsTextViewPresenterOld()
         self.task = task
         if task == nil {
             NotificationCenter.default.addObserver(self, selector: #selector(saveDidSucceed), name: .DidCreateNewTaskNotification, object: nil)

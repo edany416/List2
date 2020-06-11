@@ -55,7 +55,7 @@ class TagPickerView: UIView, SearchBarDelegate {
         let nib = UINib(nibName: "TagFilterCell", bundle:nil)
         pickerTableView.register(nib, forCellReuseIdentifier: "TagFilterCell")
         
-        self.contentView.layer.cornerRadius = 15.0
+        self.contentView.layer.cornerRadius = 7
         self.contentView.layer.masksToBounds = true
         
         self.mainButton.layer.cornerRadius = 7.0

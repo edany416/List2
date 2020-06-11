@@ -36,15 +36,15 @@ class TaskListScreenBasePresenter {
     private var taskFilter = TaskFilter()
     private var indexOfCompletedTask: Int?
     
-    private var numSelectedTags = 0
+    //private var numSelectedTags = 0
     
 
     
     var buttonTitle: String {
-        if numSelectedTags == 0 {
+        let selectedTags = filterTagPickerPresenter.tableViewSelectionManager.selectedItems
+        if selectedTags.isEmpty {
             return "Show all tasks"
         } else {
-            let selectedTags = filterTagPickerPresenter.tableViewSelectionManager.selectedItems
             let relatedTasks = PersistanceManager.instance.fetchTasks(for: selectedTags)
             return "Show tasks (\(relatedTasks.count))"
         }
@@ -106,6 +106,14 @@ class TaskListScreenBasePresenter {
             }
         })
         
+        let selectionTags = filterTagPickerPresenter.tableViewSelectionManager.selectionItems
+        selectionTags.forEach({
+            if PersistanceManager.instance.fetchTag(named: $0.name!) == nil {
+                finishedTags.append($0.name!)
+                tagsDidChange = true
+            }
+        })
+        
         if tagsDidChange {
             tagsTextViewPresenter.setTags(fromNewTags: newSelectedTags)
             let oldTaskSet = Set(taskListPresenter.tasks)
@@ -131,6 +139,7 @@ class TaskListScreenBasePresenter {
         } else {
             taskListPresenter.removeTask(atIndex: indexOfCompletedTask!)
         }
+        
         delegate?.performRowUpdatesForCompletedTask(indexOfCompletedTask!, indeciesOfInsertion)
         indexOfCompletedTask = nil
         indeciesOfInsertion.removeAll()
@@ -152,11 +161,11 @@ extension TaskListScreenBasePresenter: FilterTagPickerPresenterDelegate {
     }
     
     func didSelectTag(_ tag: Tag) {
-        numSelectedTags += 1
+        //numSelectedTags += 1
     }
     
     func didDeselectTag(_ tag: Tag) {
-        numSelectedTags -= 1
+        //numSelectedTags -= 1
     }
     
     func selectedTagsDidChange() {
@@ -175,7 +184,7 @@ extension TaskListScreenBasePresenter: FilterTagPickerPresenterDelegate {
     func didClearAllSelectedTags() {
         tagsTextViewPresenter.setTags(fromNewTags: [])
         taskListPresenter.update(tasks: tasks)
-        numSelectedTags = 0
+        //numSelectedTags = 0
         delegate?.userDidClearSelectedTags()
     }
 }

@@ -38,6 +38,7 @@ class TaskDetailViewControllerNew: UIViewController {
         tagPickerView!.heightAnchor.constraint(equalToConstant: popupviewHeight).isActive = true
         tagPickerView.topLeftButton.setTitle("Cancel", for: .normal)
         tagPickerView.topRightButton.setTitle("New Tag", for: .normal)
+        tagPickerView.topRightButton.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .bold)
         tagPickerView.delegate = presenter.selectionTagPickerPresenter
         tagPickerView.tableViewDelegate = presenter.selectionTagPickerPresenter.selectionManager
         tagPickerView.tableViewDataSource = presenter.selectionTagPickerPresenter.selectionManager

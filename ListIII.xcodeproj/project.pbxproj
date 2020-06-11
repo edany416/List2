@@ -11,7 +11,6 @@
 		E20071E324257D37004F2E14 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20071E224257D37004F2E14 /* TestViewController.swift */; };
 		E242871D245399AB001F5C5C /* TaskDetailViewControllerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E242871C245399AB001F5C5C /* TaskDetailViewControllerPresenter.swift */; };
 		E2428727245FC82B001F5C5C /* TaskListPresenterOld.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2428726245FC82B001F5C5C /* TaskListPresenterOld.swift */; };
-		E242872B245FDBB1001F5C5C /* TaskListViewControllerNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = E242872A245FDBB1001F5C5C /* TaskListViewControllerNew.swift */; };
 		E242872D245FED5A001F5C5C /* FilterTagPickerPresenterOld.swift in Sources */ = {isa = PBXBuildFile; fileRef = E242872C245FED5A001F5C5C /* FilterTagPickerPresenterOld.swift */; };
 		E242872F246091AC001F5C5C /* TagsTextViewPresenterOld.swift in Sources */ = {isa = PBXBuildFile; fileRef = E242872E246091AC001F5C5C /* TagsTextViewPresenterOld.swift */; };
 		E2428731246136D9001F5C5C /* AlertFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2428730246136D9001F5C5C /* AlertFactory.swift */; };
@@ -27,15 +26,14 @@
 		E2A9E15F24900DA40066325A /* CompletedTagBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A9E15E24900DA40066325A /* CompletedTagBadge.swift */; };
 		E2A9E16124900E430066325A /* CompletedTagBadge.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2A9E16024900E430066325A /* CompletedTagBadge.xib */; };
 		E2A9E16324901CC70066325A /* CompletedTagBadgePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A9E16224901CC70066325A /* CompletedTagBadgePresenter.swift */; };
+		E2A9E1652491B8BA0066325A /* CountDownTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A9E1642491B8BA0066325A /* CountDownTimer.swift */; };
 		E2C4F1F824804CBC0008E587 /* TaskDetailBasePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C4F1F724804CBC0008E587 /* TaskDetailBasePresenter.swift */; };
 		E2C4F1FA24804EC10008E587 /* TaskDetailViewControllerNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C4F1F924804EC10008E587 /* TaskDetailViewControllerNew.swift */; };
 		E2C4F1FC248082AC0008E587 /* SelectionTagPickerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C4F1FB248082AC0008E587 /* SelectionTagPickerPresenter.swift */; };
 		E2D41911242EB0B50075C3C1 /* NotificationName+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D41910242EB0B50075C3C1 /* NotificationName+Extension.swift */; };
-		E2D41913242FE03E0075C3C1 /* TaskDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D41912242FE03E0075C3C1 /* TaskDetailViewController.swift */; };
 		E2D41917243154A10075C3C1 /* SearchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D41916243154A10075C3C1 /* SearchManager.swift */; };
 		E2D41919243186E30075C3C1 /* UnderlinedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D41918243186E30075C3C1 /* UnderlinedTextField.swift */; };
 		E2E577062406733200AFC9B2 /* GlobalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E577052406733200AFC9B2 /* GlobalConstants.swift */; };
-		E2E5770924071B1A00AFC9B2 /* TaskListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E5770824071B1A00AFC9B2 /* TaskListViewController.swift */; };
 		E2E5770C24071F4000AFC9B2 /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E5770B24071F4000AFC9B2 /* TaskTableViewCell.swift */; };
 		E2E5770F2407241900AFC9B2 /* PersistanceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E5770E2407241900AFC9B2 /* PersistanceManager.swift */; };
 		E2E5771724072FB000AFC9B2 /* tasks.json in Resources */ = {isa = PBXBuildFile; fileRef = E2E5771624072FB000AFC9B2 /* tasks.json */; };
@@ -94,7 +92,6 @@
 		E20071E224257D37004F2E14 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		E242871C245399AB001F5C5C /* TaskDetailViewControllerPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailViewControllerPresenter.swift; sourceTree = "<group>"; };
 		E2428726245FC82B001F5C5C /* TaskListPresenterOld.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListPresenterOld.swift; sourceTree = "<group>"; };
-		E242872A245FDBB1001F5C5C /* TaskListViewControllerNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListViewControllerNew.swift; sourceTree = "<group>"; };
 		E242872C245FED5A001F5C5C /* FilterTagPickerPresenterOld.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterTagPickerPresenterOld.swift; sourceTree = "<group>"; };
 		E242872E246091AC001F5C5C /* TagsTextViewPresenterOld.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsTextViewPresenterOld.swift; sourceTree = "<group>"; };
 		E2428730246136D9001F5C5C /* AlertFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertFactory.swift; sourceTree = "<group>"; };
@@ -110,15 +107,14 @@
 		E2A9E15E24900DA40066325A /* CompletedTagBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedTagBadge.swift; sourceTree = "<group>"; };
 		E2A9E16024900E430066325A /* CompletedTagBadge.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CompletedTagBadge.xib; sourceTree = "<group>"; };
 		E2A9E16224901CC70066325A /* CompletedTagBadgePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedTagBadgePresenter.swift; sourceTree = "<group>"; };
+		E2A9E1642491B8BA0066325A /* CountDownTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountDownTimer.swift; sourceTree = "<group>"; };
 		E2C4F1F724804CBC0008E587 /* TaskDetailBasePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailBasePresenter.swift; sourceTree = "<group>"; };
 		E2C4F1F924804EC10008E587 /* TaskDetailViewControllerNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailViewControllerNew.swift; sourceTree = "<group>"; };
 		E2C4F1FB248082AC0008E587 /* SelectionTagPickerPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionTagPickerPresenter.swift; sourceTree = "<group>"; };
 		E2D41910242EB0B50075C3C1 /* NotificationName+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationName+Extension.swift"; sourceTree = "<group>"; };
-		E2D41912242FE03E0075C3C1 /* TaskDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailViewController.swift; sourceTree = "<group>"; };
 		E2D41916243154A10075C3C1 /* SearchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchManager.swift; sourceTree = "<group>"; };
 		E2D41918243186E30075C3C1 /* UnderlinedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnderlinedTextField.swift; sourceTree = "<group>"; };
 		E2E577052406733200AFC9B2 /* GlobalConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalConstants.swift; sourceTree = "<group>"; };
-		E2E5770824071B1A00AFC9B2 /* TaskListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListViewController.swift; sourceTree = "<group>"; };
 		E2E5770B24071F4000AFC9B2 /* TaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableViewCell.swift; sourceTree = "<group>"; };
 		E2E5770E2407241900AFC9B2 /* PersistanceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistanceManager.swift; sourceTree = "<group>"; };
 		E2E5771624072FB000AFC9B2 /* tasks.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = tasks.json; sourceTree = "<group>"; };
@@ -235,6 +231,7 @@
 				E2D41916243154A10075C3C1 /* SearchManager.swift */,
 				E26C3E4A2435B5AD00E6FC2B /* TextFieldManager.swift */,
 				E2F7438E248F0E89007876D8 /* SlidingViewPresenter.swift */,
+				E2A9E1642491B8BA0066325A /* CountDownTimer.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -242,10 +239,7 @@
 		E2E5770724071AE000AFC9B2 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				E2E5770824071B1A00AFC9B2 /* TaskListViewController.swift */,
 				E20071E224257D37004F2E14 /* TestViewController.swift */,
-				E2D41912242FE03E0075C3C1 /* TaskDetailViewController.swift */,
-				E242872A245FDBB1001F5C5C /* TaskListViewControllerNew.swift */,
 				E2C4F1F924804EC10008E587 /* TaskDetailViewControllerNew.swift */,
 				E2F7438C24887335007876D8 /* TaskListScreenViewController.swift */,
 			);
@@ -531,10 +525,10 @@
 				E2D41919243186E30075C3C1 /* UnderlinedTextField.swift in Sources */,
 				E26C3E5A243FFD8C00E6FC2B /* TagCellPropertyModel.swift in Sources */,
 				E242871D245399AB001F5C5C /* TaskDetailViewControllerPresenter.swift in Sources */,
-				E242872B245FDBB1001F5C5C /* TaskListViewControllerNew.swift in Sources */,
 				E2ECAB492414E99100A317AA /* TaskTableViewDataSource.swift in Sources */,
 				E2A9E15F24900DA40066325A /* CompletedTagBadge.swift in Sources */,
 				E2F7438D24887335007876D8 /* TaskListScreenViewController.swift in Sources */,
+				E2A9E1652491B8BA0066325A /* CountDownTimer.swift in Sources */,
 				E2D41911242EB0B50075C3C1 /* NotificationName+Extension.swift in Sources */,
 				E2C4F1FC248082AC0008E587 /* SelectionTagPickerPresenter.swift in Sources */,
 				E2E5770C24071F4000AFC9B2 /* TaskTableViewCell.swift in Sources */,
@@ -543,11 +537,9 @@
 				E20071E324257D37004F2E14 /* TestViewController.swift in Sources */,
 				E242872F246091AC001F5C5C /* TagsTextViewPresenterOld.swift in Sources */,
 				E2E5773C24085CD800AFC9B2 /* Tag+CoreDataClass.swift in Sources */,
-				E2D41913242FE03E0075C3C1 /* TaskDetailViewController.swift in Sources */,
 				E26C3E4D243FB9A700E6FC2B /* TableViewSelectionManager.swift in Sources */,
 				E2F50D0923C15AF800FA985B /* SceneDelegate.swift in Sources */,
 				E2F50D1123C15AF800FA985B /* ListIII.xcdatamodeld in Sources */,
-				E2E5770924071B1A00AFC9B2 /* TaskListViewController.swift in Sources */,
 				E2428727245FC82B001F5C5C /* TaskListPresenterOld.swift in Sources */,
 				E2D41917243154A10075C3C1 /* SearchManager.swift in Sources */,
 				E26C3E58243FFD1400E6FC2B /* TagPickerCellViewModel.swift in Sources */,

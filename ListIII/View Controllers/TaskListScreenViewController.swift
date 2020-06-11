@@ -20,6 +20,7 @@ class TaskListScreenViewController: UIViewController {
     private var filterViewSlidingPresenter: SlidingViewPresenter!
     private var completedTagSlidingPresenter: SlidingViewPresenter!
     private var keepPopupAfterKeyBoardRemoval = false
+    private var timer: CountDownTimer!
     private var popupviewHeight: CGFloat {
         return UIScreen.main.bounds.height * 0.40
     }
@@ -51,6 +52,9 @@ class TaskListScreenViewController: UIViewController {
         completedTagBadge.addGestureRecognizer(tapGesture)
         completedTagBadge.widthAnchor.constraint(equalToConstant: self.view.bounds.width * 0.60).isActive = true
         
+        timer = CountDownTimer(countingDownFrom: 3)
+        timer.delegate = self
+        
         TextFieldManager.manager.register(self)
         
         NotificationCenter.default.addObserver(self, selector: #selector(taskCompleted(_:)), name: .didCompleteTaskNotification, object: nil)
@@ -65,6 +69,7 @@ class TaskListScreenViewController: UIViewController {
     }
     
     @objc private func badgeTapped() {
+        timer.stop()
         completedTagSlidingPresenter.retract()
     }
     
@@ -101,6 +106,7 @@ extension TaskListScreenViewController: TaskListScreenBasePresenterDelegate {
         completedTagBadge.tagsLabel.text = presenter.completedTagBadgePresenter.completedTags
         completedTagSlidingPresenter.slidingDistance = self.view.safeAreaInsets.top + 10.0
         completedTagSlidingPresenter.present(withOverlay: false)
+        timer.start()
     }
     
     func selectionTagsDidChange() {
@@ -181,6 +187,12 @@ extension TaskListScreenViewController: TextFieldManagerDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+}
+
+extension TaskListScreenViewController: CountDownTimerDelegate {
+    func countDownDidFinish() {
+        completedTagSlidingPresenter.retract()
     }
 }
 
