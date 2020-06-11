@@ -50,7 +50,9 @@ class TaskDetailViewControllerNew: UIViewController {
     
     private func configureAddTagAlertController() {
         addTagAlertController = UIAlertController(title: "Enter new tag", message: nil, preferredStyle: .alert)
-        addTagAlertController.addTextField(configurationHandler: nil)
+        addTagAlertController.addTextField { (textField) in
+            textField.autocapitalizationType = .words
+        }
         let addAction = UIAlertAction(title: "Add", style: .default) { [weak addTagAlertController, weak self] _ in
             if let tagName = addTagAlertController!.textFields![0].text {
                 self!.presenter.newTag = tagName

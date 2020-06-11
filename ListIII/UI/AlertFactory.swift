@@ -14,6 +14,7 @@ enum ErrorType {
     case emptyTags
     case emptyForm
     case duplicateTagCreated
+    case invalidInput
 }
 private struct AlertDetails {
     let title: String
@@ -24,7 +25,8 @@ struct AlertFactory {
         ErrorType.emptyTaskName : AlertDetails(title: "Missing task name", message: "Task must have a name"),
         ErrorType.emptyTags : AlertDetails(title: "Missing tags", message: "Task must include tags"),
         ErrorType.emptyForm : AlertDetails(title: "Missing info", message: "Task name and tags field cannot be empty"),
-        ErrorType.duplicateTagCreated : AlertDetails(title: "Duplicate Tag", message: "Created tag already exists")
+        ErrorType.duplicateTagCreated : AlertDetails(title: "Duplicate Tag", message: "Created tag already exists"),
+        ErrorType.invalidInput : AlertDetails(title: "Invalid Input", message: "Entered text is invalid")
     ]
     
     static func createAlert(ofType alertType: ErrorType) -> UIAlertController {

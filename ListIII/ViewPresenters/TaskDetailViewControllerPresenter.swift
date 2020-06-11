@@ -8,6 +8,13 @@
 
 import Foundation
 
+//
+//
+//This file is not used anymore
+//
+//
+//
+
 protocol TaskDetailViewControllerPresenterDelegate: class {
     func shouldConfigureForEditMode(_ editting: Bool, _ taskName: String, _ tags:[String])
     func showTagPickerView()
@@ -15,7 +22,7 @@ protocol TaskDetailViewControllerPresenterDelegate: class {
     func performCancelAction()
     func presentNewTagForm()
     func saveDidSucceed()
-    func saveDidFailWithMessage(_ error: ErrorType)
+    func saveDidFailWithError(_ error: ErrorType)
     func userPerformedTagSearch()
     func selectedTagsDidChange()
     func duplicateTagAdded(_ tagName: String)
@@ -77,11 +84,13 @@ class TaskDetailViewControllerPresenter {
     
     func save(_ task: String, _ tags: [String]) {
         if task.isEmpty && tags.isEmpty {
-            delegate.saveDidFailWithMessage(.emptyForm)
+            delegate.saveDidFailWithError(.emptyForm)
         } else if task.isEmpty {
-            delegate.saveDidFailWithMessage(.emptyTaskName)
+            delegate.saveDidFailWithError(.emptyTaskName)
+        } else if task.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            delegate.saveDidFailWithError(.invalidInput)
         } else if tags.isEmpty {
-            delegate.saveDidFailWithMessage(.emptyTags)
+            delegate.saveDidFailWithError(.emptyTags)
         } else {
             if isInEditMode {
                 PersistanceServices.instance.editTask(withId: self.task!.id!, taskName: task, associatedTags: tags)

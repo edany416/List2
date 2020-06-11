@@ -29,6 +29,10 @@ class TaskDetailBasePresenter {
     var task: Task?
     var newTag: String! {
         willSet {
+            guard !newValue.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+                delegate?.saveDidFailWithError(.invalidInput)
+                return
+            }
             selectionTagPickerPresenter.addTag(withName: newValue)
         }
     }
@@ -60,6 +64,8 @@ class TaskDetailBasePresenter {
             delegate?.saveDidFailWithError(.emptyForm)
         } else if task.isEmpty {
             delegate?.saveDidFailWithError(.emptyTaskName)
+        } else if task.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            delegate?.saveDidFailWithError(.invalidInput)
         } else if tags.isEmpty {
             delegate?.saveDidFailWithError(.emptyTags)
         } else {

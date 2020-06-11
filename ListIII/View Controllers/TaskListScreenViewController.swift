@@ -99,7 +99,7 @@ extension TaskListScreenViewController: TaskListScreenBasePresenterDelegate {
             completedTagSlidingPresenter = SlidingViewPresenter(baseView: self.view, slidingView: completedTagBadge, fromDirection: .fromTop)
         }
         completedTagBadge.tagsLabel.text = presenter.completedTagBadgePresenter.completedTags
-        completedTagSlidingPresenter.slidingDistance = 50.0
+        completedTagSlidingPresenter.slidingDistance = self.view.safeAreaInsets.top + 10.0
         completedTagSlidingPresenter.present(withOverlay: false)
     }
     
