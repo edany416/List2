@@ -15,6 +15,8 @@
 		E242872F246091AC001F5C5C /* TagsTextViewPresenterOld.swift in Sources */ = {isa = PBXBuildFile; fileRef = E242872E246091AC001F5C5C /* TagsTextViewPresenterOld.swift */; };
 		E2428731246136D9001F5C5C /* AlertFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2428730246136D9001F5C5C /* AlertFactory.swift */; };
 		E256C78224159EB900E1D27F /* TagPickerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E256C78124159EB900E1D27F /* TagPickerManager.swift */; };
+		E25BBBA524931AA600324643 /* TagTextViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E25BBBA424931AA600324643 /* TagTextViewPresenter.swift */; };
+		E25BBBA724931C3400324643 /* TagTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E25BBBA624931C3400324643 /* TagTextView.swift */; };
 		E26C3E292431BD3A00E6FC2B /* TagsTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26C3E282431BD3A00E6FC2B /* TagsTextField.swift */; };
 		E26C3E4B2435B5AD00E6FC2B /* TextFieldManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26C3E4A2435B5AD00E6FC2B /* TextFieldManager.swift */; };
 		E26C3E4D243FB9A700E6FC2B /* TableViewSelectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26C3E4C243FB9A600E6FC2B /* TableViewSelectionManager.swift */; };
@@ -96,6 +98,8 @@
 		E242872E246091AC001F5C5C /* TagsTextViewPresenterOld.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsTextViewPresenterOld.swift; sourceTree = "<group>"; };
 		E2428730246136D9001F5C5C /* AlertFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertFactory.swift; sourceTree = "<group>"; };
 		E256C78124159EB900E1D27F /* TagPickerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagPickerManager.swift; sourceTree = "<group>"; };
+		E25BBBA424931AA600324643 /* TagTextViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagTextViewPresenter.swift; sourceTree = "<group>"; };
+		E25BBBA624931C3400324643 /* TagTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagTextView.swift; sourceTree = "<group>"; };
 		E26C3E282431BD3A00E6FC2B /* TagsTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsTextField.swift; sourceTree = "<group>"; };
 		E26C3E4A2435B5AD00E6FC2B /* TextFieldManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldManager.swift; sourceTree = "<group>"; };
 		E26C3E4C243FB9A600E6FC2B /* TableViewSelectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewSelectionManager.swift; sourceTree = "<group>"; };
@@ -206,11 +210,12 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
-		E26C3E5D24419B0A00E6FC2B /* New Group */ = {
+		E26C3E5D24419B0A00E6FC2B /* General Presenters */ = {
 			isa = PBXGroup;
 			children = (
+				E25BBBA424931AA600324643 /* TagTextViewPresenter.swift */,
 			);
-			path = "New Group";
+			path = "General Presenters";
 			sourceTree = "<group>";
 		};
 		E2D4190F242EB0920075C3C1 /* Extensions */ = {
@@ -257,6 +262,7 @@
 				E26C3E282431BD3A00E6FC2B /* TagsTextField.swift */,
 				E2428730246136D9001F5C5C /* AlertFactory.swift */,
 				E2A9E15E24900DA40066325A /* CompletedTagBadge.swift */,
+				E25BBBA624931C3400324643 /* TagTextView.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -319,7 +325,7 @@
 			children = (
 				E2F7437F24872EEF007876D8 /* Main screen Presenters */,
 				E242871B2453998D001F5C5C /* ViewPresenters */,
-				E26C3E5D24419B0A00E6FC2B /* New Group */,
+				E26C3E5D24419B0A00E6FC2B /* General Presenters */,
 				E26C3E50243FDEDB00E6FC2B /* ViewModel */,
 				E2D4190F242EB0920075C3C1 /* Extensions */,
 				E2ECAB3B2412E59200A317AA /* ViewManagers */,
@@ -538,9 +544,11 @@
 				E242872F246091AC001F5C5C /* TagsTextViewPresenterOld.swift in Sources */,
 				E2E5773C24085CD800AFC9B2 /* Tag+CoreDataClass.swift in Sources */,
 				E26C3E4D243FB9A700E6FC2B /* TableViewSelectionManager.swift in Sources */,
+				E25BBBA524931AA600324643 /* TagTextViewPresenter.swift in Sources */,
 				E2F50D0923C15AF800FA985B /* SceneDelegate.swift in Sources */,
 				E2F50D1123C15AF800FA985B /* ListIII.xcdatamodeld in Sources */,
 				E2428727245FC82B001F5C5C /* TaskListPresenterOld.swift in Sources */,
+				E25BBBA724931C3400324643 /* TagTextView.swift in Sources */,
 				E2D41917243154A10075C3C1 /* SearchManager.swift in Sources */,
 				E26C3E58243FFD1400E6FC2B /* TagPickerCellViewModel.swift in Sources */,
 				E2A9E16324901CC70066325A /* CompletedTagBadgePresenter.swift in Sources */,

@@ -1,34 +1,44 @@
 //
-//  TagsTextField.swift
+//  TagTextView.swift
 //  ListIII
 //
-//  Created by Edan on 3/29/20.
+//  Created by Edan on 6/11/20.
 //  Copyright © 2020 Edan. All rights reserved.
 //
 
 import UIKit
 
-protocol TagsTextViewDelegate: class {
+protocol TagTextViewDelegate: class {
     func didTapTextView()
 }
 
-class TagsTextView: UIView {
-    
-    private var _tags: [String] = [String]()
-    var tags: [String] {
-        set {
-            _tags = newValue
-            let concatinatedTags = _tags.joined(separator: " \u{2022} ")
-            textView.text = concatinatedTags
+class TagTextView: UIView {
+
+    private var textView: UITextView!
+    var text: String = "" {
+        willSet {
+            textView.text = newValue
         }
-        get {
-            return _tags
+    }
+    var placeholderText: String = "" {
+        willSet {
+            textView.text = newValue
         }
     }
     
-    weak var delegate: TagsTextViewDelegate?
-
-    private var textView: UITextView!
+    var font: UIFont = UIFont.systemFont(ofSize: 20, weight: .semibold) {
+        willSet {
+            textView.font = newValue
+        }
+    }
+    
+    var textColor: UIColor = .black {
+        willSet {
+            textView.textColor = newValue
+        }
+    }
+    
+    weak var delegate: TagTextViewDelegate?
     
     private var textViewConstraints: [NSLayoutConstraint] {
         let constraints = [
@@ -55,13 +65,11 @@ class TagsTextView: UIView {
         textView = UITextView()
         textView.backgroundColor = .clear
         textView.isUserInteractionEnabled = false
-        textView.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
+        textView.font = font
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.isEditable = false
         self.addSubview(textView)
         NSLayoutConstraint.activate(textViewConstraints)
-        
-        tags = [String]()
     }
     
     private func setupView() {
@@ -77,4 +85,5 @@ class TagsTextView: UIView {
     @objc private func didTapView() {
         delegate?.didTapTextView()
     }
+
 }

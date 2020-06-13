@@ -92,7 +92,7 @@ class TaskListScreenBasePresenter {
     
     private var indeciesOfInsertion = [Int]()
     private func updatesForCompletedTask() {
-        let selectedTags = tagsTextViewPresenter.selectedTags
+        let selectedTags = filterTagPickerPresenter.tableViewSelectionManager.selectedItems.map({$0.name!})
         var newSelectedTags = [Tag]()
         var finishedTags = [String]()
         var tagsDidChange = false
