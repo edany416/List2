@@ -33,7 +33,6 @@ class TaskDetailViewControllerNew: UIViewController {
         presenter = TaskDetailBasePresenter(task)
         presenter.delegate = self
         tagsTextView.delegate = self
-        tagPickerView = TagPickerView()
         tagPickerView!.widthAnchor.constraint(equalToConstant: self.view.bounds.width*0.80).isActive = true
         tagPickerView!.heightAnchor.constraint(equalToConstant: popupviewHeight).isActive = true
         tagPickerView.topLeftButton.setTitle("Cancel", for: .normal)
@@ -167,4 +166,7 @@ extension TaskDetailViewControllerNew: TextFieldManagerDelegate {
         textField.resignFirstResponder()
         return true
     }
+}
+
+extension TaskDetailViewControllerNew: TagTextViewDelegate {
 }
